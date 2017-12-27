@@ -1,9 +1,9 @@
-exports.run = function (client, message,args, Discord, connection){
-//Tails or the heads of your enemies?
-if(args.length === 1){
-    message.channel.send("Usage: //ht heads or tails")
+exports.run = function(client, message, args, Discord, connection) {
+    //Tails or the heads of your enemies?
+    if (args.length === 1) {
+        message.channel.send("Usage: //ht heads or tails")
     } else {
-        client.checkUser(message.author.id, message.author.username, message.author.avatarURL, function() {
+        client.checkUser(message.author.id, message.author.avatarURL, function() {
             connection.query("SELECT Credits FROM User WHERE User_ID='" + message.author.id + "'", function(error, results, fields) {
                 if (results[0].Credits == 0) {
                     message.channel.send("You don't have enough credits for this.")
@@ -38,7 +38,6 @@ if(args.length === 1){
 
 exports.conf = {
     name: "ht",
-    category: "Miscelaneous",
     description: "Def tails",
     usage: "ht",
     aliases: []
