@@ -19,11 +19,11 @@ module.exports = (client, connection) => {
     }
 
     //Check to see if the user is in the database.
-    client.checkUser = (userID,UserName,UserAvatar,callback) => {
+    client.checkUser = (userID,UserAvatar,callback) => {
 
       connection.query("SELECT COUNT(*) AS `count`, `UserAvatar` FROM `User` WHERE `User_ID`='"+userID+"'", function(error, results, fields) {
               if(results[0].count === 0) {
-                  connection.query("INSERT INTO `User`(`User_ID`, `UserName`) VALUES ('"+userID+"', '"+UserName+"')",function(error, results, fields){
+                  connection.query("INSERT INTO `User`(`User_ID`) VALUES ('"+userID+"')",function(error, results, fields){
                       callback()
                   })
               }else{
@@ -63,8 +63,8 @@ client.checkServer = (serverID, serverName, serverIcon, callback) => {
 
 //Trust me you're gonna wanna add this.
 
-client.setBackground = (id, username, avatar, background, amount, msg) => {
-    client.checkUser(id, username, avatar, function() {
+client.setBackground = (id, avatar, background, amount, msg) => {
+    client.checkUser(id, avatar, function() {
             connection.query("SELECT COUNT(*) AS hasB FROM `userB` WHERE `User_ID` = " + id + " AND `name` = '" + background + "'", function(err1, res1, fields1) {
                 if (res1[0].hasB == 0) {
                     connection.query("SELECT *  FROM `User` WHERE `User_ID` = " + id + "", function(err, res, fields) {
@@ -79,7 +79,7 @@ client.setBackground = (id, username, avatar, background, amount, msg) => {
 
                 } else {
                     connection.query("UPDATE `User` SET `background` = '" + background + "' WHERE `User_ID` = " + id + "")
-                   msg.channel.send("Successfully update your profile.")
+                   msg.channel.send("Successfully updated your profile.")
                 }
             })
         
@@ -89,8 +89,8 @@ client.setBackground = (id, username, avatar, background, amount, msg) => {
 };
 
 //This is the thing that makes you set the emblems and the stuff. Trust me you're gonna want this too
-client.setEmblem = (id, username, avatar, emblem, amount, msg) => {
-    client.checkUser(id, username, avatar, function() {
+client.setEmblem = (id, avatar, emblem, amount, msg) => {
+    client.checkUser(id, avatar, function() {
             connection.query("SELECT COUNT(*) AS hasB FROM `userE` WHERE `userID` = " + id + " AND `emblem` = '" + emblem + "'", function(err1, res1, fields1) {
                 if (res1[0].hasB == 0) {
                     connection.query("SELECT *  FROM `User` WHERE `User_ID` = " + id + "", function(err, res, fields) {
@@ -105,7 +105,7 @@ client.setEmblem = (id, username, avatar, emblem, amount, msg) => {
 
                 } else {
                     connection.query("UPDATE `User` SET `emblem` = '" + emblem + "' WHERE `User_ID` = " + id + "")
-                   msg.channel.send("Successfully update your profile.")
+                   msg.channel.send("Successfully updated your profile.")
                 }
             })
         
