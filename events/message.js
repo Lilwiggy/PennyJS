@@ -1,13 +1,12 @@
 exports.run = (client, message, Discord, connection) => {
   //Now this is the fun bit right here
 
-    const fs = require('fs');
-    const pm2 = require('pm2');
+  const fs = require('fs');
     const msg = message.content.toLowerCase();
     const adminP = "p@"; //This is mine ignore it.
     //Custom prefix things
     client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, function() {})
-    client.checkUser(message.author.id, message.author.username, message.author.displayAvatarURL, function () {})
+    client.checkUser(message.author.id, message.author.displayAvatarURL, function () {})
     connection.query("SELECT * FROM `User` WHERE `User_ID` = "+message.author.id+"", function (err, res, fields){
         try{
             //This is for seeing if the user is blacklisted or not. Some people man smh.
@@ -17,7 +16,7 @@ exports.run = (client, message, Discord, connection) => {
             console.log("Hi"); //Somehow this works trust me.
         }
     
-    connection.query("SELECT `Prefix` FROM `Servers` WHERE `ServerID` = '" + message.guild.id + "'", function(error, prefix, fields) {
+    connection.query("SELECT * FROM `Servers` WHERE `ServerID` = '" + message.guild.id + "'", function(error, prefix, fields) {
         client.prefix = prefix[0].Prefix; //set that prefix boi
 
          //Gotta eay at argsbys *funny right?* Seriosuly tho, eat Arby's the food is fantastic and they make good memes on twitter
@@ -27,12 +26,13 @@ exports.run = (client, message, Discord, connection) => {
     if(message.author.bot) return;
 
     //This gonna be an xp type thingy.
-    client.checkUser(message.author.id, message.author.username, message.author.displayAvatarURL, function() {
+    client.checkUser(message.author.id, message.author.displayAvatarURL, function() {
+        if(prefix[0].levels === 1){  
       connection.query("SELECT * FROM `User` WHERE `User_ID` = '" + message.author.id + "'", function(err, res, fields) {
           connection.query("SELECT *,NOW()-INTERVAL 2 MINUTE > `xp_cool` AS xpAdd FROM `User` WHERE `User_ID` = '" + message.author.id + "'", function(err1, res1, fields1) {
               if (res1[0].xpAdd === 1) {
                  
-                  var xp = [Math.floor(Math.random() * 50)] //50 xp max at random. Just to make levelling up hard as balls
+                  var xp = [Math.floor(Math.random() * 50)] //50 xp max at random. Just to make leveling up hard as balls
 
                   connection.query("UPDATE `User` SET `xp_cool`=NOW(), `XP`=`XP` + '" + xp + "' WHERE `User_ID` = '" + message.author.id + "'")
                   if (res[0].XP > res[0].Next) {
@@ -43,6 +43,7 @@ exports.run = (client, message, Discord, connection) => {
           })
 
       })
+    }
   })
 
   //OWO
@@ -295,6 +296,22 @@ if(msg.startsWith(adminP + "eval") && message.author.id === "232614905533038593"
         
          
     }
+}
+
+//Add users to be blacklisted.
+if(msg.startsWith(adminP + "blackist") && message.author.id === "232614905533038593"){
+        if(args[1]){
+            connection.query("SELECT * FROM `User` WHERE `User_ID` = "+connection.escape(args[1])+"", function(err, res, fields){
+                if(res[0].Blicklisted === 1){
+                    message.channel.send("This user is already blacklisted.")
+                } else {
+                    connection.query("UPDATE `User` SET `Blacklisted` = 1 WHERE `User_ID` = "+connection.escape(args[1])+"")
+                    message.channel.send(`${res[0].UserName} has been blacklisted.`)
+                }
+            })
+        } else {
+            message.channel.send("Who would you like to blacklist?")
+        } 
 }
 
 
