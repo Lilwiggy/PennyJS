@@ -2,9 +2,9 @@ exports.pro = function profile(client, id, username, avatar, message, connection
     //So uh, this is the guts of the profile command, it's very, uh, messy, best to ignore it.
     const Jimp = require("../node_modules/jimp")
     const config = require("./config.json")
-    client.checkUser(id, username, avatar, function() {
+    client.checkUser(id, avatar, function() {
         connection.query("SELECT * FROM `User` WHERE `User_ID` = '" + id + "'", function(err, results, fields) {
-            var xp = results[0].XP;
+            var xp = results[0].XP; //Why is this here again?
             message.channel.startTyping()
             Jimp.read(`./backgrounds/temp.png`, function(error, res) {
                 res.resize(632, 600)
@@ -17,7 +17,6 @@ exports.pro = function profile(client, id, username, avatar, message, connection
                                 res.composite(img1, 1, 1)
                             })
                         }
-
                         Jimp.read(`./emblems/patron.png`, function(e, img3) {
                             Jimp.read(`./emblems/ban.png`, function(error, ham) {
                                 Jimp.read(`./emblems/dev.png`, function(error, dev) {
@@ -27,19 +26,13 @@ exports.pro = function profile(client, id, username, avatar, message, connection
                                             res.composite(em, 500, 450)
                                         })
                                     }
-
-
-
                                     img.resize(180, 180)
                                     img2.resize(210, 210)
                                         .quality(100)
                                     img3.resize(100, 100)
                                     ham.resize(100, 100)
                                     dev.resize(100, 100)
-
                                     ham.flip(true, false)
-
-
                                     res.composite(img2, 25, 24)
                                     res.composite(img, 42, 39)
                                     if (results[0].patron === 1) {
@@ -51,7 +44,6 @@ exports.pro = function profile(client, id, username, avatar, message, connection
                                     if (id === "232614905533038593") {
                                         res.composite(dev, 400, 345)
                                     }
-
                                     Jimp.loadFont("./fonts/hi.fnt").then(function(font) {
                                         res.print(font, 50, 520, `XP: ${xp} / ${results[0].Next}`)
                                         res.print(font, 50, 470, `Level: ${results[0].Level}`)
@@ -66,22 +58,13 @@ exports.pro = function profile(client, id, username, avatar, message, connection
                                                 file: pro
                                             }).then(message.channel.stopTyping())
                                         })
-
                                     })
-
-
-
                                 })
                             })
                         })
-
                     })
-
                 })
             })
-
-
-
         })
     })
 }
