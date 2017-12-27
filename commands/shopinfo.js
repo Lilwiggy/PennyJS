@@ -10,7 +10,7 @@ exports.run = function (client, message,args, Discord, connection){
         message.channel.send({embed})
     } else if(args[1].toLowerCase() === "backgrounds" || args[1].toLowerCase() === "background"){
         var embed = new Discord.RichEmbed()
-        .addField(`Shop items for backgrounds. Use //shopinfo [item] for more info.`, `**earth chan | adam02 | glynda02 | mercury02 | midna | ironwood | ren02 | raven\nruby02 | weiss02 | yang02 | blake02 | jaune02 \ncinder02 | emerald02 | kyoko | hina | velvet02\npyrrha02 | roman02 | yatsu | neo | penny02 | zwei02 | qrow02\nnora02 | ozpin02 | junko | monokuma | patreon**`)
+        .addField(`Shop items for backgrounds. Use //shopinfo [item] for more info.`, `**earth chan | adam02 | glynda02 | mercury02 | midna | ironwood | ren02 | raven\nruby02 | weiss02 | yang02 | blake02 | jaune02 \ncinder02 | emerald02 | kyoko | hina | velvet02\npyrrha02 | roman02 | yatsu | neo | penny02 | zwei02 | qrow02\nnora02 | ozpin02 | junko | monokuma | patreon\ngundham | sonia | kokichi | toko | leon | sakura | sayaka | chihiro | hajime | celeste**`)
         .setColor("#89ff89")
         message.channel.send({embed})
     } else if(data[`${args[1]}`]){
