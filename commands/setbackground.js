@@ -1,9 +1,7 @@
 exports.run = function (client, message,args, Discord, connection){
 //Background thingies! (needs more)
-
-
 if(args.length === 1){
-    message.channel.send("Usage: //setbackground [background]\nBackground options are here: https://pennybot.tk/backgrounds")
+    message.channel.send("Usage: //setbackground [background]\nBackground options are here: https://pennybot.tk/backgrounds or by doing //shopinfo backgrounds")
 } else {
       if(args[1].toLowerCase() === 'adam'){
         client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "adam", 500, message) 
@@ -71,19 +69,45 @@ if(args.length === 1){
     } else if(args[1].toLowerCase() === 'ibuki'){
         client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "ibuki", 4000, message) 
     } else if(args[1].toLowerCase() === 'chiaki'){
-        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "chiaki", 5000, message) 
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "chiaki", 5000, message) //LOVE ME NANAMI!!!!!!!!!!!!!!
     } else if(args[1].toLowerCase() === 'junko'){
-        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "junko", 4000, message) 
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "junko", 4000, message) //"Cover photos and junk" - Junko.     Ha, ironic.
     } else if(args[1].toLowerCase() === 'earthchan'){
         client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "earthchan", 5, message) 
+    } else if(args[1].toLowerCase() === "celeste"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "celeste", 3000, message)
+    } else if(args[1].toLowerCase() === "chihiro"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "chihiro", 4000, message) //Inspiration much?????????????
+    } else if(args[1].toLowerCase() === "gundham"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "gundham", 5000, message) //This too must be the will of causality...
+    } else if(args[1].toLowerCase() === "hajime"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "hajime", 5000, message)
+    } else if(args[1].toLowerCase() === "kokich"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "kokichi", 5000, message) //I have no words for you....
+    } else if(args[1].toLowerCase() === "leon"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "leon", 3000, message)
+    } else if(args[1].toLowerCase() === "sayaka"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "sayaka", 7000, message) //<33333333333333333
+    } else if(args[1].toLowerCase() === "makoto"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "maktoto", 6000, message)
+    } else if(args[1].toLowerCase() === "nagito"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "nagito", 5000, message) //No. Just. No. GTFO KOMAEDA!
+    } else if(args[1].toLowerCase() === "sakura"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "sakura", 8000, message) //You may not like it but this is the ideal female body type.
+    } else if(args[1].toLowerCase() === "sonia"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "sonia", 6000, message)
+    } else if(args[1].toLowerCase() === "taka"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "taka", 6000, message) //THIS WALLPAPER IS WELCOME IN MY PANT'S ENVIRONMENT
+    } else if(args[1].toLowerCase() === "toko"){
+        client.setBackground(message.author.id, message.author.username, message.author.avatarURL, "toko", 6000, message) //B-BAKA!
     } else {
-        message.channel.send("Background options can be found here: http://pennybot.tk/backgrounds")
+        message.channel.send("Background options can be found here: https://pennybot.tk/backgrounds or by doing //shopinfo backgrounds")
     }
 }
 }
+
 exports.conf = {
     name: "setbackground",
-    category: "Miscelaneous",
     description: "Set this to be kids with the hip",
     usage: "setbackground",
     aliases: []
