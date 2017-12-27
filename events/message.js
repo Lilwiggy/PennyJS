@@ -299,7 +299,7 @@ if(msg.startsWith(adminP + "eval") && message.author.id === "232614905533038593"
 }
 
 //Add users to be blacklisted.
-if(msg.startsWith(adminP + "blackist") && message.author.id === "232614905533038593"){
+if(msg.startsWith(adminP + "blacklist") && message.author.id === "232614905533038593"){
         if(args[1]){
             connection.query("SELECT * FROM `User` WHERE `User_ID` = "+connection.escape(args[1])+"", function(err, res, fields){
                 if(res[0].Blicklisted === 1){
