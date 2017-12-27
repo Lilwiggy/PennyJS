@@ -54,7 +54,7 @@ exports.run = (client, message, Discord, connection) => {
 //Too lazy to put in a file tbh
 
 //Set the welcome message
-if(msg.startsWith(client.prefix + "set welcome channel")){
+if(msg.startsWith(client.prefix + "set welcome message")){
     if (message.member.hasPermission('ADMINISTRATOR')) {
         if (args.length == 3) {
             message.channel.send("Usage: //set welcome message [your message]")
