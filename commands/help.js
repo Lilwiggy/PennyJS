@@ -29,7 +29,6 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//gamble", "Wanna gamble your money go ahead but don't come to me complaining when...")
             .addField("//define", "Searches Urban Dictionary for a word.")
             .addField("//osu", "Some OSU stats.")
-            .addField("//mir", "Makes it rain. :sunglasses:")
         message.channel.send({
             embed
         })
@@ -48,6 +47,8 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//set leave message", "Sets custom leave message.")
             .addField("//set welcome message", "Sets custom welcome message.")
             .addField("//set prefix", "Sets custom prefix for the server.")
+            .addField("//enable", "Enable levels.")
+            .addField("//disable", "Disable levels.")
         message.channel.send({
             embed
         })
@@ -62,8 +63,7 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//setbackground", "Sets custom background.")
             .addField("//backgrounds", "Links your profile online to view which backgrounds you own.")
             .addField("//credits", "Shows your credit amount.")
-            .addField("//setemblem", "Sets an emblem for your profile.")
-            .addField("//shopinfo", "You wanna blow your money on stuff? Then use this!")
+
         message.channel.send({
             embed
         })
