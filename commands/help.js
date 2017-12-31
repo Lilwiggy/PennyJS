@@ -29,6 +29,7 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//gamble", "Wanna gamble your money go ahead but don't come to me complaining when...")
             .addField("//define", "Searches Urban Dictionary for a word.")
             .addField("//osu", "Some OSU stats.")
+            .addField("//complain", "Comaplin about Penny. We appreciate the feedback.")
         message.channel.send({
             embed
         })
