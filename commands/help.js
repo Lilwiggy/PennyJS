@@ -30,6 +30,7 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//define", "Searches Urban Dictionary for a word.")
             .addField("//osu", "Some OSU stats.")
             .addField("//complain", "Comaplin about Penny. We appreciate the feedback.")
+            .addField("//inspire", "Be inspired by these amazing quotes.")
         message.channel.send({
             embed
         })
@@ -48,8 +49,8 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//set leave message", "Sets custom leave message.")
             .addField("//set welcome message", "Sets custom welcome message.")
             .addField("//set prefix", "Sets custom prefix for the server.")
-            .addField("//enable", "Enable levels.")
-            .addField("//disable", "Disable levels.")
+            .addField("//enable levels", "Enable levels.")
+            .addField("//disable levels", "Disable levels.")
         message.channel.send({
             embed
         })
@@ -62,6 +63,7 @@ exports.run = function (client, message,args, Discord, connection){
             .setFooter('PennyBot © Lilwiggy 2017')
             .addField("//profile", "Shows the user's profile.")
             .addField("//setbackground", "Sets custom background.")
+            .addField("//setemblem", "Sets custom emblem.")
             .addField("//backgrounds", "Links your profile online to view which backgrounds you own.")
             .addField("//credits", "Shows your credit amount.")
 
@@ -78,6 +80,7 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//daily", "Gives you your daily 500 credits.")
             .addField("//cookie", "Gives a cookie to the first user mentioned.")
             .addField("//emblem", "RWBY emblems!")
+            .addField("//serverinfo", "Displays information about the server.")
         message.channel.send({
             embed
         })
@@ -93,8 +96,6 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//stats", "Shows the Penny's stats.")
             .addField("//ht", "Test your luck with a little heads or tails.")
             .addField("//translate", "Translates stuff. Usage: //translate spanish | Hello World")
-            .addField("//serverinfo", "Displays information about the server.")
-            .addField("//inspire", "Be inspired by these amazing quotes.")
         message.channel.send({
             embed
         })
@@ -104,7 +105,6 @@ exports.run = function (client, message,args, Discord, connection){
 
 exports.conf = {
     name: "help",
-    category: "Miscelaneous",
     description: "Who you gonna call?",
     usage: "help",
     aliases: []

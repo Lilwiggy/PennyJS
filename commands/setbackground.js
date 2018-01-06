@@ -100,6 +100,12 @@ if(args.length === 1){
         client.setBackground(message.author.id, message.author.avatarURL, "taka", 6000, message) //THIS WALLPAPER IS WELCOME IN MY PANT'S ENVIRONMENT
     } else if(args[1].toLowerCase() === "toko"){
         client.setBackground(message.author.id, message.author.avatarURL, "toko", 6000, message) //B-BAKA!
+    } else if(args[1].toLowerCase() === "aang"){
+        client.setBackground(message.author.id, message.author.avatarURL, "aang", 5000, message) //#Throwback
+    } else if (args[1].toLowerCase() === "dude"){
+        client.setBackground(message.author.id, message.author.avatarURL, "dude", 10000, message)
+    } else if (args[1].toLowerCase() === "appa"){
+        client.setBackground(message.author.id, message.author.avatarURL, "appa", 10000, message)
     } else {
         message.channel.send("Background options can be found here: https://pennybot.tk/backgrounds or by doing //shopinfo backgrounds")
     }
