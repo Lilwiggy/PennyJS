@@ -19,7 +19,7 @@
         },
         "blake02": {
             "image": "https://pennybot.tk/assets/blake.png",
-            "price": "500",
+            "price": "2000",
             "name": "blake",
             "type": "background"
         }, 
@@ -357,6 +357,102 @@
             "image": "http://pennybot.tk/assets/patreon.png",
             "price": "0",
             "name": "patreon",
+            "type": "background"
+        },
+        "celeste": {
+            "image": "http://pennybot.tk/assets/celeste.png",
+            "price": "3000",
+            "name": "celeste",
+            "type": "background"
+        },
+        "chihiro": {
+            "image": "http://pennybot.tk/assets/chihiro.png",
+            "price": "4000",
+            "name": "chihiro",
+            "type": "background"
+        },
+        "gundham": {
+            "image": "http://pennybot.tk/assets/gundham.png",
+            "price": "5000",
+            "name": "gundham",
+            "type": "background"
+        },
+        "hajime": {
+            "image": "http://pennybot.tk/assets/hajime.png",
+            "price": "5000",
+            "name": "hajime",
+            "type": "background"
+        },
+        "kokichi": {
+            "image": "http://pennybot.tk/assets/kokichi.png",
+            "price": "5000",
+            "name": "kokichi",
+            "type": "background"
+        },
+        "leon": {
+            "image": "http://pennybot.tk/assets/leon.png",
+            "price": "3000",
+            "name": "leon",
+            "type": "background"
+        },
+        "sayaka": {
+            "image": "http://pennybot.tk/assets/sayaka.png",
+            "price": "7000",
+            "name": "sayaka",
+            "type": "background"
+        },
+        "makoto": {
+            "image": "http://pennybot.tk/assets/makoto.png",
+            "price": "6000",
+            "name": "makoto",
+            "type": "background"
+        },
+        "nagito": {
+            "image": "http://pennybot.tk/assets/nagito.png",
+            "price": "5000",
+            "name": "nagito",
+            "type": "background"
+        },
+        "sakura": {
+            "image": "http://pennybot.tk/assets/sakura.png",
+            "price": "8000",
+            "name": "sakura",
+            "type": "background"
+        },
+        "sonia": {
+            "image": "http://pennybot.tk/assets/sonia.png",
+            "price": "6000",
+            "name": "sonia",
+            "type": "background"
+        },
+        "taka": {
+            "image": "http://pennybot.tk/assets/taka.png",
+            "price": "6000",
+            "name": "taka",
+            "type": "background"
+        },
+        "toko": {
+            "image": "http://pennybot.tk/assets/toko.png",
+            "price": "6000",
+            "name": "toko",
+            "type": "background"
+        },
+        "aang": {
+            "image": "http://pennybot.tk/assets/aang.png",
+            "price": "5000",
+            "name": "aang",
+            "type": "background"
+        },
+        "dude": {
+            "image": "http://pennybot.tk/assets/dude.png",
+            "price": "10000",
+            "name": "dude",
+            "type": "background"
+        },
+        "appa": {
+            "image": "http://pennybot.tk/assets/appa.png",
+            "price": "10000",
+            "name": "appa",
             "type": "background"
         }
 }
