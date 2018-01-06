@@ -31,6 +31,7 @@ exports.run = function (client, message,args, Discord, connection){
             .addField("//osu", "Some OSU stats.")
             .addField("//complain", "Comaplin about Penny. We appreciate the feedback.")
             .addField("//inspire", "Be inspired by these amazing quotes.")
+            .addField("//random avatar", "I like ~~stalking people~~ finding random avatars. You do too, now.")
         message.channel.send({
             embed
         })
