@@ -1,7 +1,7 @@
 //Credit:
 //Command by Uninvited - Uninvited#1307 on Discord
 exports.run = function(client, message, args, Discord, connection) {
-
+//This command is for the guild of the bot for patrons to add a custom hex as a patreon perk.
     //function to check if user is patreon and assign color
     function setcolor() {
         if (message.guild.id === "309531752014151690") {
