@@ -1,3 +1,6 @@
+//Credit:
+//Command by Uninvited - Uninvited#1307 on Discord
+
 exports.run = function (client, message,args, Discord, connection){
 
 //function to check if user is patreon and assign color
