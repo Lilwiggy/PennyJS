@@ -41,5 +41,5 @@ exports.conf = {
     name: "color",
     description: "Color",
     usage: "color (hex)",
-    aliases: []
+    aliases: ["colour"] //Some British asshole told me to add this.
 }
