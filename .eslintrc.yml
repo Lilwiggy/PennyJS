@@ -1,0 +1,29 @@
+extends: standard
+plugins:
+  - standard
+  - promise
+rules:
+  comma-dangle:
+    - warn
+    - arrays: always-multiline
+      objects: always-multiline
+      imports: always-multiline
+      exports: always-multiline
+      functions: always-multiline
+  comma-spacing:
+    - warn
+    - before: false
+      after: true
+  indent: [4, warn]
+  new-parens: 0
+  semi:
+    - warn
+    - always
+  semi-style:
+    - warn
+    - last
+  space-before-function-paren:
+    - warn
+    - anonymous: always
+      asyncArrow: always
+      named: never
