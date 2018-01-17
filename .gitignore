@@ -1,0 +1,11 @@
+# IDE directories and folder
+.idea/
+.vscode/
+
+# Vendor directories
+node_modules/
+
+# Lockfiles
+package-lock.json
+yarn.lock
+yarn-error.log

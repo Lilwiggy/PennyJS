@@ -1,19 +1,17 @@
-exports.run = (client, member, Discord,  connection) => {
-    //Should I stay or should I g- oh they left already...
+// Should I stay or should I g- oh they left already...
+exports.run = (client, member, Discord, connection) => {
     let guild = member.guild;
-    client.checkServer(guild.id, guild.name, guild.iconURL, function() {
-
-        connection.query("SELECT * FROM `Servers` WHERE `ServerID` = '" + guild.id + "'", function(error, results, fields) {
-            if (results[0].Welcome == 0) {
-                return;
-            } else {
-                const channel = member.guild.channels.get(results[0].wc)
-                if(!channel){
-                    return;
-                } else
-
-                   channel.send(`**${member.user.username}** just left **${guild.name}**. ${results[0].LMessage}`)
+    client.checkServer(guild.id, guild.name, guild.iconURL, () => {
+        connection.query("SELECT * FROM `Servers` WHERE `ServerID` = '" + guild.id + "'", (error, results, fields) => {
+            if (error) {
+                throw new Error(error);
             }
-        })
-    })
-   }
+            if (results[0].Welcome !== 0) {
+                const channel = member.guild.channels.get(results[0].wc);
+                if (channel) {
+                    channel.send(`**${member.user.username}** just left **${guild.name}**. ${results[0].LMessage}`);
+                }
+            }
+        });
+    });
+};
