@@ -59,92 +59,78 @@ exports.run = (client, message, Discord, connection) => {
             });
 
             // OWO
-            if (message.content === '<@309531399789215744> OwO') {
-                message.channel.send("What's this?");
-            }
+                  if (message.mentions.users.first() === client.user && msg.startsWith('OwO'))
+        message.channel.send("What's this?");
 
-            // Too lazy to put in a file tbh
 
-            // Set the welcome message
-            if (msg.startsWith(client.prefix + 'set welcome message')) {
-                if (message.member.hasPermission('ADMINISTRATOR')) {
-                    if (args.length === 3) {
-                        message.channel.send('Usage: //set welcome message [your message]');
-                    } else {
-                        client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, function () {
-                            if (message.content.includes('@everyone')) {
-                                message.channel.send("I'm sorry but I can't add an everyone mention.");
-                            } else
-                            if (message.content.includes('@here')) {
-                                message.channel.send("I'm sorry but I can't add an everyone mention.");
-                            } else {
-                                connection.query('UPDATE `Servers` SET `WMessage` = ' + connection.escape(args.join(' ').substring(client.prefix.length + 19)) + " WHERE `ServerID` = '" + message.guild.id + "'", (error, results, fields) => {
-                                    if (error) {
-                                        throw new Error(error);
-                                    }
+      // Too lazy to put in a file tbh
 
-                                    message.channel.send(`Successfully made the welcome message: ${args.join(' ').substring(client.prefix.length + 19)}\nNow please select the channel you would like to see these in by doing //set welcome channel.`);
-                                });
-                            }
-                        });
-                    };
-                } else {
-                    message.channel.send('This command is restricted to server admins.');
-                }
-            }
-
+      // Set the welcome message
+      if (msg.startsWith(`${client.prefix}set welcome message`)) {
+        if (message.member.hasPermission('ADMINISTRATOR')) {
+          if (args.length === 3) {
+            message.channel.send('Usage: //set welcome message [your message]');
+          } else {
+            client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
+              if (message.content.includes('@everyone')) {
+                message.channel.send("I'm sorry but I can't add an everyone mention.");
+              } else
+              if (message.content.includes('@here')) {
+                message.channel.send("I'm sorry but I can't add an everyone mention.");
+              } else {
+                connection.query(`UPDATE \`Servers\` SET \`WMessage\` = ${connection.escape(args.join(' ').substring(client.prefix.length + 19))} WHERE \`ServerID\` = '${message.guild.id}'`, (error, results) => {
+                  message.channel.send(`Successfully made the welcome message: ${args.join(' ').substring(client.prefix.length + 19)}\nNow please select the channel you would like to see these in by doing //set welcome channel.`);
+                });
+              }
+            });
+          }
+        } else {
+          message.channel.send('This command is restricted to server admins.');
+        }
+      }
             // This is for setting a leave message
-            if (msg.startsWith(client.prefix + 'set leave message')) {
-                if (message.member.hasPermission('ADMINISTRATOR')) {
-                    if (args.length === 3) {
-                        message.channel.send('You did it wrong. Usage: //set leave message [your message]');
-                    } else {
-                        client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
-                            if (message.content.includes('@everyone')) {
-                                message.channel.send("I'm sorry but I can't add an everyone mention.");
-                            } else
-                            if (message.content.includes('@here')) {
-                                message.channel.send("I'm sorry but I can't add an everyone mention.");
-                            } else {
-                                connection.query('UPDATE `Servers` SET `LMessage` = ' + connection.escape(args.join(' ').substring(client.prefix.length + 17)) + " WHERE `ServerID` = '" + message.guild.id + "'", (error, results, fields) => {
-                                    if (error) {
-                                        throw new Error(error);
-                                    }
-                                    message.channel.send(`Successfully made the leave message: ${args.join(' ').substring(client.prefix.length + 17)}`);
-                                });
-                            }
-                        });
-                    };
-                } else {
-                    message.channel.send('This command is restricted to server admins.');
-                }
-            }
+      if (msg.startsWith(`${client.prefix}set leave message`)) {
+        if (message.member.hasPermission('ADMINISTRATOR')) {
+          if (args.length === 3) {
+            message.channel.send('You did it wrong. Usage: //set leave message [your message]');
+          } else {
+            client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
+              if (message.content.includes('@everyone')) {
+                message.channel.send("I'm sorry but I can't add an everyone mention.");
+              } else
+              if (message.content.includes('@here')) {
+                message.channel.send("I'm sorry but I can't add an everyone mention.");
+              } else {
+                connection.query(`UPDATE \`Servers\` SET \`LMessage\` = ${connection.escape(args.join(' ').substring(client.prefix.length + 16))} WHERE \`ServerID\` = '${message.guild.id}'`, (error, results, fields) => {
+                  message.channel.send(`Successfully made the leave message: ${args.join(' ').substring(client.prefix.length + 16)}`);
+                });
+              }
+            })
+            ;
+          }
+        } else {
+          message.channel.send('This command is restricted to server admins.');
+        }
+      }
 
             // And this is for setting a welcome channel. Again I was too lazy to put these in files.
-
-            if (msg.startsWith(client.prefix + 'set welcome channel')) {
-                if (message.member.hasPermission('ADMINISTRATOR')) {
-                    if (args.length === 3) {
-                        message.channel.send('Usage: //set welcome channel #channel');
-                    } else {
-                        let sl = args[3].substring(2);
-                        let last = sl.slice(0, sl.length - 1);
-                        let i = message.guild.channels.find('id', last);
-
-                        if (!i) {
-                            message.channel.send('Please mention a valid chat.');
-                        } else {
-                            client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
-                                connection.query('UPDATE `Servers` SET `wc` = ' + connection.escape(last) + ' WHERE `ServerID` = ' + message.guild.id + '');
-
-                                message.channel.send(`Successfully made ${args[3]} the welcome channel.`);
-                            });
-                        }
-                    }
-                } else {
-                    message.channel.send('This command is restricted to server admins.');
-                }
-            }
+      if (msg.startsWith(`${client.prefix}set welcome channel`)) {
+        if (message.member.hasPermission('ADMINISTRATOR')) {
+          if (args.length === 3) {
+            message.channel.send('Usage: //set welcome channel #channel');
+          } else
+          if (!message.mentions.channels.first()) {
+            message.channel.send('Please mention a valid chat.');
+          } else {
+            client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
+              connection.query(`UPDATE \`Servers\` SET \`wc\` = ${connection.escape(message.mentions.channels.first().id)} WHERE \`ServerID\` = ${message.guild.id}`);
+              message.channel.send(`Successfully made ${args[3]} the welcome channel.`);
+            });
+          }
+        } else {
+          message.channel.send('This command is restricted to server admins.');
+        }
+      }
 
             // This is how you set a new prefix
             if (msg.startsWith(client.prefix + 'set prefix')) {
@@ -322,9 +308,8 @@ exports.run = (client, message, Discord, connection) => {
             }
 
             // What's yo prefix yo dawg home boy slice dude?
-            if (msg.startsWith('<@309531399789215744> prefix') || msg.startsWith("<@309531399789215744> what's your prefix") || msg.startsWith('<@309531399789215744> whats your prefix')) {
-                message.channel.send(`My prefix for the server is: ${client.prefix}`);
-            }
+      if (message.mentions.users.first() === client.user && (args[1] === 'prefix' || args[1] === 'help'))
+        message.channel.send(`My prefix for the server is: ${client.prefix}`);
 
             // This uh, uhm, yeah it does that one thing where it ignores things with some other bits.
             if (message.content.indexOf(client.prefix) !== 0) return;
