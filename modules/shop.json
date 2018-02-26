@@ -2,13 +2,13 @@
         "adam01":{
             "image":"http://pennybot.tk/assets/emblems/adam.png",
             "price": "1000",
-            "name": "adam",
+            "name": "adam01",
             "type": "emblem"
         },
         "adam02":{
             "image": "http://pennybot.tk/assets/adam.png",
             "price": "500",
-            "name": "adam",
+            "name": "adam02",
             "type": "background"
         },
         "atlas": {
@@ -20,25 +20,25 @@
         "blake02": {
             "image": "https://pennybot.tk/assets/blake.png",
             "price": "2000",
-            "name": "blake",
+            "name": "blake02",
             "type": "background"
         }, 
         "blake01": {
             "image": "http://pennybot.tk/assets/emblems/blake.png",
             "price": "3000",
-            "name": "blake",
+            "name": "blake01",
             "type": "emblem"
         }, 
         "cinder01": {
             "image": "http://pennybot.tk/assets/emblems/blake.png",
             "price": "2000",
-            "name": "cinder",
+            "name": "cinder01",
             "type": "emblem"
         }, 
         "cinder02": {
             "image": "https://pennybot.tk/assets/cinder.png",
             "price": "2000",
-            "name": "cinder",
+            "name": "cinder02",
             "type": "background"
         }, 
         "coco": {
@@ -50,49 +50,49 @@
         "emerald01": {
             "image": "http://pennybot.tk/assets/emblems/emerald.png",
             "price": "2000",
-            "name": "emerald",
+            "name": "emerald01",
             "type": "emblem"
         }, 
         "emerald02": {
             "image": "http://pennybot.tk/assets/emerald.png",
             "price": "2000",
-            "name": "emerald",
+            "name": "emerald02",
             "type": "background"
         }, 
         "glynda01": {
             "image": "http://pennybot.tk/assets/emblems/glynda.png",
             "price": "2000",
-            "name": "glynda",
+            "name": "glynda01",
             "type": "emblem"
         }, 
         "glynda02": {
             "image": "http://pennybot.tk/assets/glynda.png",
             "price": "1000",
-            "name": "glynda",
+            "name": "glynda02",
             "type": "background"
         }, 
         "jaune01": {
             "image": "http://pennybot.tk/assets/emblems/jaune.png",
             "price": "3000",
-            "name": "jaune",
+            "name": "jaune01",
             "type": "emblem"
         }, 
         "jaune02": {
             "image": "http://pennybot.tk/assets/jaune.png",
             "price": "2000",
-            "name": "jaune",
+            "name": "jaune02",
             "type": "background"
         }, 
         "mercury01": {
             "image": "http://pennybot.tk/assets/emblems/mercury.png",
             "price": "2000",
-            "name": "mercury",
+            "name": "mercury01",
             "type": "emblem"
         },
         "mercury02": {
             "image": "http://pennybot.tk/assets/mercury.png",
             "price": "1000",
-            "name": "mercury",
+            "name": "mercury02",
             "type": "background"
         }, 
         "mistral": {
@@ -110,85 +110,85 @@
         "nora01": {
             "image": "http://pennybot.tk/assets/emblems/nora.png",
             "price": "4000",
-            "name": "nora",
+            "name": "nora01",
             "type": "emblem"
         },
         "nora02": {
             "image": "http://pennybot.tk/assets/nora.png",
             "price": "4000",
-            "name": "nora",
+            "name": "nora02",
             "type": "background"
         },
         "ozpin01": {
             "image": "http://pennybot.tk/assets/emblems/ozpin.png",
             "price": "4000",
-            "name": "ozpin",
+            "name": "ozpin01",
             "type": "emblem"
         },
         "ozpin02":{
             "image": "http://pennybot.tk/assets/ozpin.png",
             "price": "4000",
-            "name": "ozpin",
+            "name": "ozpin02",
             "type": "background"
         },
         "penny01":{
             "image": "http://pennybot.tk/assets/emblems/penny.png",
             "price": "4000",
-            "name": "penny",
+            "name": "penny01",
             "type": "emblem"
         },
         "penny02": {
             "image": "https://pennybot.tk/assets/pennyB.png",
             "price": "3000",
-            "name": "penny",
+            "name": "penny02",
             "type": "background"
         },
         "pyrrah01": {
             "image": "http://pennybot.tk/assets/emblems/pyrrha.png",
             "price": "3000",
-            "name": "pyrrha",
+            "name": "pyrrha01",
             "type": "emblem"
         },
         "pyrrha02": {
             "image": "http://pennybot.tk/assets/pyrrha.png",
             "price": "2000",
-            "name": "pyrrha",
+            "name": "pyrrha02",
             "type": "background"
         },
         "qrow01": {
             "image": "http://pennybot.tk/assets/emblems/qrow.png",
             "price": "4000",
-            "name": "qrow",
+            "name": "qrow01",
             "type": "emblem"
         },
         "qrow02": {
             "image": "http://pennybot.tk/assets/qrow.png",
             "price": "4000",
-            "name": "qrow",
+            "name": "qrow02",
             "type": "background"
         },
         "roman01": {
             "image": "http://pennybot.tk/assets/emblems/roman.png",
             "price": "2000",
-            "name": "roman",
+            "name": "roman01",
             "type": "emblem"
         },
         "roman02": {
             "image": "http://pennybot.tk/assets/roman.png",
             "price": "2000",
-            "name": "roman",
+            "name": "roman02",
             "type": "background"
         },
         "ruby01": {
             "image": "http://pennybot.tk/assets/emblems/ruby.png",
             "price": "4000",
-            "name": "ruby",
+            "name": "ruby01",
             "type": "emblem"
         },
         "ruby02": {
             "image": "http://pennybot.tk/assets/ruby.png",
             "price": "2000",
-            "name": "ruby",
+            "name": "ruby02",
             "type": "background"
         },
         "salem": {
@@ -224,25 +224,25 @@
         "velvet01": {
             "image": "http://pennybot.tk/assets/emblems/velvet.png",
             "price": "2000",
-            "name": "velvet",
+            "name": "velvet01",
             "type": "emblem"
         },
         "velvet02": {
             "image": "http://pennybot.tk/assets/emblems/velvet.png",
             "price": "2000",
-            "name": "velvet",
+            "name": "velvet02",
             "type": "background"
         },
         "weiss01": {
             "image": "http://pennybot.tk/assets/emblems/weiss.png",
             "price": "4000",
-            "name": "weiss",
+            "name": "weiss01",
             "type": "emblem"
         },
         "weiss02": {
             "image": "http://pennybot.tk/assets/weiss.png",
             "price": "2000",
-            "name": "weiss",
+            "name": "weiss02",
             "type": "background"
         },
         "whitefang": {
@@ -254,25 +254,25 @@
         "yang01": {
             "image": "http://pennybot.tk/assets/emblems/yang.png",
             "price": "4000",
-            "name": "yang",
+            "name": "yang01",
             "type": "emblem"
         }, 
         "yang02": {
             "image": "http://pennybot.tk/assets/emblems/yang.png",
             "price": "2000",
-            "name": "yang",
+            "name": "yang02",
             "type": "background"
         },
         "zwei01": {
             "image": "http://pennybot.tk/assets/emblems/zwei.png",
             "price": "5000",
-            "name": "zwei",
+            "name": "zwei01",
             "type": "emblem"
         }, 
         "zwei02": {
             "image": "http://pennybot.tk/assets/zwei.png",
             "price": "3000",
-            "name": "zwei",
+            "name": "zwei02",
             "type": "background"
         },
         "earthchan": {
@@ -296,13 +296,13 @@
         "ren01": {
             "image": "http://pennybot.tk/assets/ren.png",
             "price": "5000",
-            "name": "ren",
+            "name": "ren01",
             "type": "emblem"
         },
         "ren02": {
             "image": "http://pennybot.tk/assets/ren.png",
             "price": "2000",
-            "name": "ren",
+            "name": "ren02",
             "type": "background"
         },
         "raven": {
@@ -453,6 +453,102 @@
             "image": "http://pennybot.tk/assets/appa.png",
             "price": "10000",
             "name": "appa",
+            "type": "background"
+        },
+        "mei": {
+            "image": "http://pennybot.tk/assets/mei.png",
+            "price": "6000",
+            "name": "mei",
+            "type": "background"
+        },
+        "jiro": {
+            "image": "http://pennybot.tk/assets/jiro.png",
+            "price": "5000",
+            "name": "jiro",
+            "type": "background"
+        },
+        "momo_yao": {
+            "image": "http://pennybot.tk/assets/momo_yao.png",
+            "price": "8000",
+            "name": "momo_yao",
+            "type": "background"
+        },
+        "deku01": {
+            "image": "http://pennybot.tk/assets/deku01.png",
+            "price": "10000",
+            "name": "deku01",
+            "type": "background"
+        },
+        "deku02": {
+            "image": "http://pennybot.tk/assets/deku02.png",
+            "price": "6000",
+            "name": "deku02",
+            "type": "background"
+        },
+        "deku03": {
+            "image": "http://pennybot.tk/assets/deku03.png",
+            "price": "7000",
+            "name": "deku03",
+            "type": "background"
+        },
+        "deku04": {
+            "image": "http://pennybot.tk/assets/deku04.png",
+            "price": "10000",
+            "name": "deku04",
+            "type": "background"
+        },
+        "shoto": {
+            "image": "http://pennybot.tk/assets/shoto.png",
+            "price": "8000",
+            "name": "shoto",
+            "type": "background"
+        },
+        "class_1a": {
+            "image": "http://pennybot.tk/assets/class_1a.png",
+            "price": "15000",
+            "name": "class_1a",
+            "type": "background"
+        },
+        "space": {
+            "image": "http://pennybot.tk/assets/space.png",
+            "price": "5000",
+            "name": "space",
+            "type": "background"
+        },
+        "shiozaki": {
+            "image": "http://pennybot.tk/assets/shiozaki.png",
+            "price": "6000",
+            "name": "shiozaki",
+            "type": "background"
+        },
+        "uninvited_home": {
+            "image": "http://pennybot.tk/assets/uninvited_home.png",
+            "price": "10000",
+            "name": "uninvited_home",
+            "type": "background"
+        },
+        "ochako": {
+            "image": "http://pennybot.tk/assets/ochako.png",
+            "price": "8000",
+            "name": "ochako",
+            "type": "background"
+        },
+        "tokoyami": {
+            "image": "http://pennybot.tk/assets/tokoyami.png",
+            "price": "8000",
+            "name": "tokoyami",
+            "type": "background"
+        },
+        "mount_lady": {
+            "image": "http://pennybot.tk/assets/mount_lady.png",
+            "price": "6000",
+            "name": "mount_lady",
+            "type": "background"
+        },
+        "kacchan_deku": {
+            "image": "http://pennybot.tk/assets/kacchan_deku.png",
+            "price": "12000",
+            "name": "kacchan_deku",
             "type": "background"
         }
 }
