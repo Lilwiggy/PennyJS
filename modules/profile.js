@@ -1,109 +1,100 @@
 // So uh, this is the guts of the profile command, it's very, uh, messy, best to ignore it.
 const Jimp = require('jimp');
 const config = require('./config.json');
-
 exports.pro = (client, id, username, avatar, message, connection, Discord, discriminator) => {
-    client.checkUser(id, avatar, () => {
-        connection.query("SELECT * FROM `User` WHERE `User_ID` = '" + id + "'", (err, results, fields) => {
-            if (err) {
-                throw new Error(err);
-            }
-            let xp = results[0].XP; // Why is this here again?
-
-            message.channel.startTyping();
-
-            Jimp.read(`./backgrounds/temp.png`, (error, res) => {
-                if (error) {
-                    throw new Error(error);
-                }
-                res.resize(632, 600);
-
-                Jimp.read('./backgrounds/outline.png', (err, img2) => {
-                    if (err) {
-                        throw new Error(err);
-                    }
-                    Jimp.read(avatar, (err, img) => {
-                        if (err) {
-                            throw new Error(err);
-                        } else if (results[0].background.length > 0) {
-                            Jimp.read(`./backgrounds/${results[0].background}.png`, (err, img1) => {
-                                if (err) {
-                                    throw new Error(err);
-                                }
-
-                                img1.resize(630, 340);
-                                res.composite(img1, 1, 1);
-                            });
-                        }
-                        Jimp.read(`./emblems/patron.png`, function (e, img3) {
-                            if (e) {
-                                throw new Error(e);
-                            }
-                            Jimp.read(`./emblems/ban.png`, function (error, ham) {
-                                if (error) {
-                                    throw new Error(error);
-                                }
-                                Jimp.read(`./emblems/dev.png`, function (error, dev) {
-                                    if (error) {
-                                        throw new Error(error);
-                                    } else if (results[0].emblem.length > 0) {
-                                        Jimp.read(`./emblems/${results[0].emblem}.png`, (error, em) => {
-                                            if (error) {
-                                                throw new Error(error);
-                                            }
-
-                                            em.resize(100, 100);
-                                            res.composite(em, 500, 450);
-                                        });
-                                    }
-
-                                    img.resize(180, 180);
-                                    img2.resize(210, 210)
-                                    .quality(100);
-                                    img3.resize(100, 100);
-                                    ham.resize(100, 100);
-                                    dev.resize(100, 100);
-                                    ham.flip(true, false);
-                                    res.composite(img2, 25, 24);
-                                    res.composite(img, 42, 39);
-
-                                    if (results[0].patron === 1) {
-                                        res.composite(img3, 500, 350);
-                                    }
-                                    if (config.mods.id.includes(id)) {
-                                        res.composite(ham, 400, 450);
-                                    }
-                                    if (id === '232614905533038593') {
-                                        res.composite(dev, 400, 345);
-                                    }
-
-                                    Jimp.loadFont('./fonts/hi.fnt').then((font) => {
-                                        res.print(font, 50, 520, `XP: ${xp} / ${results[0].Next}`);
-                                        res.print(font, 50, 470, `Level: ${results[0].Level}`);
-                                        res.print(font, 50, 420, `Credits: ${results[0].Credits}`);
-                                        res.print(font, 50, 370, `Cookies: ${results[0].Cookie}`);
-                                        res.print(font, 25, 240, `${username}#${discriminator}`);
-
-                                        res.getBuffer(Jimp.MIME_PNG, (err, pl) => {
-                                            if (err) {
-                                                throw new Error(err);
-                                            }
-
-                                            let pro = new Discord.Attachment()
-                                            .setAttachment(pl, `${id}.png`);
-
-                                            message.channel.send(`Profile card for **${username}**`, {
-                                                file: pro,
-                                            }).then(message.channel.stopTyping());
-                                        });
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
+  client.checkUser(id, avatar, () => {
+    connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = '${id}'`, (err, res) => {
+      if (err)
+        throw err;
+      message.channel.startTyping();
+      Jimp.read(`./backgrounds/default.png`, (d_err, image) => {
+        if (err)
+          throw err;
+        if (res[0].background) {
+          Jimp.read(`./backgrounds/${res[0].background}.png`, (b_err, background) => {
+            background.resize(1920, 1080);
+            image.composite(background, 1, 1);
+            bigStuff(image, avatar, res, username, discriminator, Discord, message, id);
+          });
+        } else {
+          bigStuff(image, avatar, res, username, discriminator, Discord, message, id);
+        }
+      });
     });
+  });
 };
-// I call this the wall that surrounds Mexico
+
+function bigStuff(image, avatar, res, username, discriminator, Discord, message, id) {
+  Jimp.read(`./backgrounds/outline.png`, (o_err, out) => {
+    if (o_err)
+      throw o_err;
+    out.resize(450, 450);
+    out.opacity(0.4);
+    image.composite(out, 25, 25);
+  });
+  Jimp.read(`./backgrounds/thingy.png`, (t_err, thingy) => {
+    if (t_err)
+      throw t_err;
+    thingy.opacity(0.73);
+    image.composite(thingy, 25, 530);
+  });
+  if (res[0].patron === 1) {
+    Jimp.read(`./emblems/patron.png`, (e_err, patron) => {
+      if (e_err)
+        throw e_err;
+      patron.resize(150, 150);
+      image.composite(patron, 800, 680);
+    });
+  }
+
+  if (res[0].emblem) {
+    Jimp.read(`./emblems/${res[0].emblem}.png`, (em_err, emblem) => {
+      if (em_err)
+        throw em_err;
+      emblem.resize(150, 150);
+      image.composite(emblem, 800, 550);
+    });
+  }
+
+  if (config.mods.id.includes(id)) {
+    Jimp.read(`./emblems/ban.png`, (b_err, ban) => {
+      if (b_err)
+        throw b_err;
+      ban.resize(150, 150);
+      image.composite(ban, 800, 820);
+    });
+  }
+
+  if (id === `232614905533038593`) {
+    Jimp.read(`./emblems/dev.png`, (d_err, dev) => {
+      Jimp.loadFont('./fonts/sup.fnt').then((font) => {
+        if (d_err)
+          throw d_err;
+        dev.resize(150, 150);
+        image.composite(dev, 480, 300);
+        image.print(font, 480, 210, `Penny dev`);
+      });
+    });
+  }
+  Jimp.read(avatar, (a_err, ava) => {
+    ava.resize(400, 400);
+    image.composite(ava, 50, 50);
+    Jimp.loadFont('./fonts/sup.fnt').then((font) => {
+      image.print(font, 50, 930, `XP: ${res[0].XP} / ${res[0].Next}`);
+      image.print(font, 50, 803, `Level: ${res[0].Level}`);
+      image.print(font, 50, 690, `Credits: ${res[0].Credits}`);
+      image.print(font, 50, 570, `Cookies: ${res[0].Cookie}`);
+
+      image.getBuffer(Jimp.MIME_PNG, (err, pl) => {
+        if (err)
+          throw err;
+        let pro = new Discord.Attachment()
+          .setAttachment(pl, `${username}.png`);
+
+        message.channel.send(`Profile card for **${username}**`, {
+          file: pro,
+        }).then(message.channel.stopTyping());
+      });
+    });
+  });
+}

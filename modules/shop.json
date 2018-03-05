@@ -550,5 +550,65 @@
             "price": "12000",
             "name": "kacchan_deku",
             "type": "background"
+        },
+        "shoto02": {
+            "image": "http://pennybot.tk/assets/shoto02.png",
+            "price": "9000",
+            "name": "shoto02",
+            "type": "background"
+        },
+        "kirishima": {
+            "image": "http://pennybot.tk/assets/kirishima.png",
+            "price": "5000",
+            "name": "kirishima",
+            "type": "background"
+        },
+        "tsuyu": {
+            "image": "http://pennybot.tk/assets/tsuyu.png",
+            "price": "8000",
+            "name": "tsuyu",
+            "type": "background"
+        },
+        "wolf_link": {
+            "image": "http://pennybot.tk/assets/wolf_link.png",
+            "price": "6000",
+            "name": "wolf_link",
+            "type": "background"
+        },
+        "link02": {
+            "image": "http://pennybot.tk/assets/link02.png",
+            "price": "5000",
+            "name": "link02",
+            "type": "background"
+        },
+        "link01": {
+            "image": "http://pennybot.tk/assets/link01.png",
+            "price": "8000",
+            "name": "link01",
+            "type": "background"
+        },
+        "natsuki": {
+            "image": "http://pennybot.tk/assets/natsuki.png",
+            "price": "6000",
+            "name": "natsuki",
+            "type": "background"
+        },
+        "sayori": {
+            "image": "http://pennybot.tk/assets/sayori.png",
+            "price": "6000",
+            "name": "sayori",
+            "type": "background"
+        },
+        "monika": {
+            "image": "http://pennybot.tk/assets/monika.png",
+            "price": "0",
+            "name": "monika",
+            "type": "background"
+        },
+        "yuri": {
+            "image": "http://pennybot.tk/assets/yuri.png",
+            "price": "6000",
+            "name": "yuri",
+            "type": "background"
         }
 }
