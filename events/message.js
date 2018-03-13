@@ -3,7 +3,7 @@ exports.run = (client, message, Discord, connection) => {
 
   const fs = require('fs');
   const msg = message.content.toLowerCase();
-  const adminP = 'test@'; // This is mine ignore it.
+  const adminP = 'p@'; // This is mine ignore it.
 
   // To prevent the robot uprising...
   if (message.author.bot)
