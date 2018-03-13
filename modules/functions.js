@@ -116,20 +116,4 @@ module.exports = (client, connection) => {
       }
     });
   };
-
-  // Search youtube
-  client.youtubeSearch = (searchType, type, maxRes, q) => {
-    const https = require('https');
-    return new Promise((resolve) => {
-      https.get(`https://www.googleapis.com/youtube/v3/${searchType}?part=snippet&maxRes=${maxRes}&q=${q}&type=${type}&key=${client.config.youtube.key}`, (res) => {
-        let body = '';
-        res.on('data', (chunk) => {
-          body += chunk;
-        });
-        res.on('end', () => {
-          resolve(body);
-        });
-      });
-    });
-  };
 };
