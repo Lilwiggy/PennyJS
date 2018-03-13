@@ -1,110 +1,323 @@
-exports.run = function(client, message, args, Discord, connection) {
-  if (args.length === 1) {
-    var embed = new Discord.RichEmbed()
-      .setTitle(`Official server`)
-      .setAuthor(`Commands`)
-      .setColor(`#89ff89`)
-      .setURL(`https://discord.gg/kwcd9dq`)
-      .setFooter(`PennyBot © Lilwiggy 2018`)
-      .addField(`Fun commands`, `${client.prefix}help fun`)
-      .addField(`Mod commands`, `${client.prefix}help mod`)
-      .addField(`Profile commands`, `${client.prefix}help profile`)
-      .addField(`Social commands`, `${client.prefix}help social`)
-      .addField(`Other commands`, `${client.prefix}help other`);
-    message.channel.send({
-      embed,
-    });
-  } else if (args[1] === `fun`) {
-    const embed = new Discord.RichEmbed()
-      .setTitle(`Official server`)
-      .setAuthor(`Commands`)
-      .setColor(`#89ff89`)
-      .setURL(`https://discord.gg/kwcd9dq`)
-      .setFooter(`PennyBot © Lilwiggy 2018`)
-      .addField(`${client.prefix}waifu`, `Wiggy is weird okay.`)
-      .addField(`${client.prefix}nsfw waifu`, `Only works in NSFW marked chats.`)
-      .addField(`${client.prefix}slap`, `Slaps the first user mentioned.`)
-      .addField(`${client.prefix}highfive`, `Highfives the first user mentioned.`)
-      .addField(`${client.prefix}gamble`, 'Wanna gamble your money go ahead but don`t come to me complaining when...')
-      .addField(`${client.prefix}define`, `Searches Urban Dictionary for a word.`)
-      .addField(`${client.prefix}osu`, `Some OSU stats.`)
-      .addField(`${client.prefix}complain`, `Comaplin about Penny. We appreciate the feedback.`)
-      .addField(`${client.prefix}inspire`, `Be inspired by these amazing quotes.`)
-      .addField(`${client.prefix}random avatar`, `I like ~~stalking people~~ finding random avatars. You do too, now.`);
-    message.channel.send({
-      embed,
-    });
-  } else if (args[1] === `mod`) {
-    const embed = new Discord.RichEmbed()
-      .setTitle(`Official server`)
-      .setAuthor(`Commands`)
-      .setColor(`#89ff89`)
-      .setURL(`https://discord.gg/kwcd9dq`)
-      .setFooter(`PennyBot © Lilwiggy 2018`)
-      .addField(`${client.prefix}kick`, `Kicks the first user mentioned.`)
-      .addField(`${client.prefix}ban`, `Bans the first user mentioned.`)
-      .addField(`${client.prefix}delete`, `Deletes X number of messages.`)
-      .addField(`${client.prefix}welcome`, `Toggles welcome messages on or off.`)
-      .addField(`${client.prefix}set welcome channel`, `Selects the channel to welcome new users.`)
-      .addField(`${client.prefix}set leave message`, `Sets custom leave message.`)
-      .addField(`${client.prefix}set welcome message`, `Sets custom welcome message.`)
-      .addField(`${client.prefix}set prefix`, `Sets custom prefix for the server.`)
-      .addField(`${client.prefix}enable levels`, `Enable levels.`)
-      .addField(`${client.prefix}disable levels`, `Disable levels.`);
-    message.channel.send({
-      embed,
-    });
-  } else if (args[1] === `profile`) {
-    const embed = new Discord.RichEmbed()
-      .setTitle(`Official server`)
-      .setAuthor(`Commands`)
-      .setColor(`#89ff89`)
-      .setURL(`https://discord.gg/kwcd9dq`)
-      .setFooter(`PennyBot © Lilwiggy 2018`)
-      .addField(`${client.prefix}profile`, 'Shows the user`s profile.')
-      .addField(`${client.prefix}setbackground`, `Sets custom background.`)
-      .addField(`${client.prefix}setemblem`, `Sets custom emblem.`)
-      .addField(`${client.prefix}backgrounds`, `Links your profile online to view which backgrounds you own.`)
-      .addField(`${client.prefix}credits`, `Shows your credit amount.`);
+exports.run = (client, message, args) => {
+  const embeds = {
+    fun: {
+      title: 'Official server',
+      author: {
+        name: 'Commands',
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
+      },
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
+        name: `${client.prefix}waifu`,
+        value: `Wiggy is weird okay?`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}nsfw waifu`,
+        value: `Only works in NSFW marked chats.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}slap`,
+        value: `Slaps the first user mentioned.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}highfive`,
+        value: `Highfives the first user mentioned.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}gamble`,
+        value: `Wanna gamble your money go ahead but don't come to me complaining when...`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}define`,
+        value: `Searches Urban Dictionary for a word.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}osu`,
+        value: `Some OSU stats.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}complain`,
+        value: `Complain about Penny. We appreciate the feedback.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}inspire`,
+        value: `Be inspired by these amazing quotes.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}random avatar`,
+        value: `I like ~~stalking people~~ finding random avatars. You do too, now.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}emote`,
+        value: `How many times has an emote been used? Find out here.`,
+        inline: false,
+      }],
+    },
+    mod: {
+      title: 'Official server',
+      author: {
+        name: 'Commands',
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
+      },
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
+        name: `${client.prefix}kick`,
+        value: `Kicks the first user mentioned.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}ban`,
+        value: `Bans the first user mentioned.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}delete`,
+        value: `Deletes X number of messages.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}welcome`,
+        value: `Enables/disables welcomes.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}set welcome channel`,
+        value: `Selects the channel to welcome new users in.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}set leave message`,
+        value: `Sets a leaving message for when a user leaves.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}set welcome message`,
+        value: `Sets a welcome message for when a user joins.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}set prefix`,
+        value: `Sets a custom prefix.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}enable levels`,
+        value: `Enables levels.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}disable levels`,
+        value: `Disables levels.`,
+        inline: false,
+      }],
+    },
+    profile: {
+      title: 'Official server',
+      author: {
+        name: 'Commands',
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
+      },
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
+        name: `${client.prefix}profile`,
+        value: `Shows the user's profile.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}setbackground`,
+        value: `Sets the user's backgrounds.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}setemblem`,
+        value: `Sets the user's emblem.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}backgrounds`,
+        value: `Links you to what backgrounds you own.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}credits`,
+        value: `Shows how many credits you own.`,
+        inline: false,
+      }],
+    },
+    social: {
+      title: 'Official server',
+      author: {
+        name: 'Commands',
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
+      },
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
+        name: `${client.prefix}daily`,
+        value: `Get your daily 500 credits here.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}cookie`,
+        value: `Gives the first user mentioned a cookie.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}emblem`,
+        value: `RWBY emblems!`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}serverinfo`,
+        value: `Info about the current server.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}top`,
+        value: `Shows the top 10 users with highest levels.`,
+        inline: false,
+      }],
+    },
+    other: {
+      title: 'Official server',
+      author: {
+        name: 'Commands',
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
+      },
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
+        name: `${client.prefix}invite`,
+        value: `An invite link for Penny.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}help`,
+        value: `Does exactly what you think it does.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}stats`,
+        value: `Shows Penny's stats.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}ht`,
+        value: `Test your luck with a little heads or tails.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}translate`,
+        value: `Translates stuff. Usage: ${client.prefix}translate spanish | Hello, World!`,
+        inline: false,
+      }],
+    },
+    defEmbed: {
+      title: 'Official server',
+      author: {
+        name: 'Commands',
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
+      },
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
+        name: `Fun commands`,
+        value: `${client.prefix}help fun`,
+        inline: false,
+      },
+      {
+        name: 'Mod commands',
+        value: `${client.prefix}help mod`,
+        inline: false,
+      },
+      {
+        name: 'Profile commands',
+        value: `${client.prefix}help profile`,
+        inline: false,
+      },
+      {
+        name: 'Social commands',
+        value: `${client.prefix}help social`,
+        inline: false,
+      },
+      {
+        name: 'Other commands',
+        value: `${client.prefix}help other`,
+        inline: false,
+      }],
+    },
+  };
 
+
+  if (args.length === 1) {
     message.channel.send({
-      embed,
+      embed: embeds.defEmbed,
     });
-  } else if (args[1] === `social`) {
-    const embed = new Discord.RichEmbed()
-      .setTitle(`Official server`)
-      .setAuthor(`Commands`)
-      .setColor(`#89ff89`)
-      .setURL(`https://discord.gg/kwcd9dq`)
-      .setFooter(`PennyBot © Lilwiggy 2018`)
-      .addField(`${client.prefix}daily`, `Gives you your daily 500 credits.`)
-      .addField(`${client.prefix}cookie`, `Gives a cookie to the first user mentioned.`)
-      .addField(`${client.prefix}emblem`, `RWBY emblems!`)
-      .addField(`${client.prefix}serverinfo`, `Displays information about the server.`);
+  } else if (embeds[args[1]]) {
     message.channel.send({
-      embed,
-    });
-  } else if (args[1] === `other`) {
-    const embed = new Discord.RichEmbed()
-      .setTitle(`Official server`)
-      .setAuthor(`Commands`)
-      .setColor(`#89ff89`)
-      .setURL(`https://discord.gg/kwcd9dq`)
-      .setFooter(`PennyBot © Lilwiggy 2018`)
-      .addField(`${client.prefix}invite`, `Sends an invite like for Penny.`)
-      .addField(`${client.prefix}help`, `Does exactly what you think it does.`)
-      .addField(`${client.prefix}stats`, 'Shows the Penny`s stats.')
-      .addField(`${client.prefix}ht`, `Test your luck with a little heads or tails.`)
-      .addField(`${client.prefix}translate`, `Translates stuff. Usage: //translate spanish | Hello World`);
-    message.channel.send({
-      embed,
+      embed: embeds[args[1]],
     });
   }
 };
 
 exports.conf = {
-  name: `help`,
-  description: `Who you gonna call?`,
-  usage: `help`,
+  name: 'help',
+  description: 'Who you gonna call?',
+  usage: 'help',
   aliases: [],
 };
