@@ -610,5 +610,17 @@
             "price": "6000",
             "name": "yuri",
             "type": "background"
+        },
+        "sayaka01": {
+            "image": "http://pennybot.tk/assets/sayaka01.png",
+            "price": "8000",
+            "name": "sayaka01",
+            "type": "background"
+        },
+        "chihiro01": {
+            "image": "http://pennybot.tk/assets/chihiro01.png",
+            "price": "8000",
+            "name": "chihiro01",
+            "type": "background"
         }
 }

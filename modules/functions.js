@@ -83,7 +83,7 @@ module.exports = (client, connection) => {
   client.setEmblem = (id, avatar, emblem, amount, msg) => {
     client.checkUser(id, avatar, () => {
       connection.query(`SELECT COUNT(*) AS hasB FROM \`userE\` WHERE \`userID\` = ${id} AND \`emblem\` = '${emblem}'`, (err1, res1, fields1) => {
-        if (res1[0].hasB == 0) {
+        if (res1[0].hasB === 0) {
           connection.query(`SELECT *  FROM \`User\` WHERE \`User_ID\` = ${id}`, (err, res, fields) => {
             if (err)
               throw err;
@@ -102,5 +102,34 @@ module.exports = (client, connection) => {
       });
     });
   };
-}
-;
+
+  // Emote stats updater
+  client.emoteCheck = (server_id, emote_id) => {
+    connection.query(`SELECT COUNT(*) AS inD FROM \`emote\` WHERE \`server_id\` = ${server_id} AND \`emote_id\` = ${emote_id}`, (err, res) => {
+      if (err)
+        throw err;
+      if (res[0].inD === 0) {
+        connection.query(`INSERT INTO \`emote\` (\`server_id\`, \`emote_id\`) VALUES (${server_id}, ${emote_id})`);
+        connection.query(`UPDATE \`emote\` SET \`used\` = \`used\` + 1 WHERE \`server_id\` = ${server_id} AND \`emote_id\` = ${emote_id}`);
+      } else {
+        connection.query(`UPDATE \`emote\` SET \`used\` = \`used\` + 1 WHERE \`server_id\` = ${server_id} AND \`emote_id\` = ${emote_id}`);
+      }
+    });
+  };
+
+  // Search youtube
+  client.youtubeSearch = (searchType, type, maxRes, q) => {
+    const https = require('https');
+    return new Promise((resolve) => {
+      https.get(`https://www.googleapis.com/youtube/v3/${searchType}?part=snippet&maxRes=${maxRes}&q=${q}&type=${type}&key=${client.config.youtube.key}`, (res) => {
+        let body = '';
+        res.on('data', (chunk) => {
+          body += chunk;
+        });
+        res.on('end', () => {
+          resolve(body);
+        });
+      });
+    });
+  };
+};
