@@ -1,9 +1,9 @@
-exports.run = (client, message, args) => {
+exports.run = (client, message) => {
   const embeds = {
     fun: {
       title: 'Official server',
       author: {
-        name: 'Commands',
+        name: `Page 1/5`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -74,7 +74,7 @@ exports.run = (client, message, args) => {
     mod: {
       title: 'Official server',
       author: {
-        name: 'Commands',
+        name: `Page 2/5`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -140,7 +140,7 @@ exports.run = (client, message, args) => {
     profile: {
       title: 'Official server',
       author: {
-        name: 'Commands',
+        name: `Page 3/5`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -181,7 +181,7 @@ exports.run = (client, message, args) => {
     social: {
       title: 'Official server',
       author: {
-        name: 'Commands',
+        name: `Page 4/5`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -222,7 +222,7 @@ exports.run = (client, message, args) => {
     other: {
       title: 'Official server',
       author: {
-        name: 'Commands',
+        name: `Page 5/5`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -260,59 +260,41 @@ exports.run = (client, message, args) => {
         inline: false,
       }],
     },
-    defEmbed: {
-      title: 'Official server',
-      author: {
-        name: 'Commands',
-        url: null,
-        iconURL: client.user.displayAvatarURL,
-        proxyIconURL: null,
-      },
-      color: 9043849,
-      url: 'https://discord.gg/kwcd9dq',
-      footer: {
-        text: 'PennyBot © Lilwiggy 2018',
-        iconURL: null,
-        proxyIconURL: null,
-      },
-      fields: [{
-        name: `Fun commands`,
-        value: `${client.prefix}help fun`,
-        inline: false,
-      },
-      {
-        name: 'Mod commands',
-        value: `${client.prefix}help mod`,
-        inline: false,
-      },
-      {
-        name: 'Profile commands',
-        value: `${client.prefix}help profile`,
-        inline: false,
-      },
-      {
-        name: 'Social commands',
-        value: `${client.prefix}help social`,
-        inline: false,
-      },
-      {
-        name: 'Other commands',
-        value: `${client.prefix}help other`,
-        inline: false,
-      }],
-    },
   };
 
+  const pages = Object.keys(embeds);
 
-  if (args.length === 1) {
-    message.channel.send({
-      embed: embeds.defEmbed,
+  message.channel.send({
+    embed: embeds.fun,
+  }).then((msg) => {
+    msg.react('⬅').then((e) => {
+      e.message.react('➡');
     });
-  } else if (embeds[args[1]]) {
-    message.channel.send({
-      embed: embeds[args[1]],
+    client.help.set(message.author.id, 0);
+    const filter = (r, user) => user.id === message.author.id;
+    const collector = msg.createReactionCollector(filter, { time: 30000 });
+    collector.on('collect', (r) => {
+      r.remove(message.author.id);
+      if (r.emoji.name === '⬅') {
+        if (client.help.get(message.author.id) === 0) {
+          client.help.set(message.author.id, pages.length - 1);
+          msg.edit({ embed: embeds[pages[client.help.get(message.author.id)]] }).catch(console.error);
+        } else {
+          client.help.set(message.author.id, client.help.get(message.author.id) - 1);
+          msg.edit({ embed: embeds[pages[client.help.get(message.author.id)]] }).catch(console.error);
+        }
+      } else if (r.emoji.name === '➡') {
+        if (client.help.get(message.author.id) === pages.length - 1) {
+          client.help.set(message.author.id, 0);
+          msg.edit({ embed: embeds[pages[client.help.get(message.author.id)]] }).catch(console.error);
+        } else {
+          client.help.set(message.author.id, client.help.get(message.author.id) + 1);
+          msg.edit({ embed: embeds[pages[client.help.get(message.author.id)]] }).catch(console.error);
+        }
+      }
     });
-  }
+    collector.on('end', () => msg.delete().catch(console.error));
+  });
 };
 
 exports.conf = {
