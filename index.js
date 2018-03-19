@@ -16,18 +16,23 @@ const connection = mysql.createConnection({
 
 client.commands = new Map();
 client.aliases = new Map();
+client.queue = new Map();
 client.config = config;
-
 client.mirMap = new Map();
+client.queue = new Map();
+client.help = new Map();
+client.shopAll = new Map();
+client.shopBackgrounds = new Map();
+client.shopEmblems = new Map();
 
 // Hey this is that thing in the other file I need
 require('./modules/functions.js')(client, connection);
+// var pl = require('./server.js');
 
 // This is the thing that does the thing on a client event broh
 fs.readdir('./events/', (err, evtFiles) => {
   if (err)
     throw err;
-
   evtFiles.forEach((file) => {
     const eventName = file.split('.')[0];
     const event = require(`./events/${file}`);
@@ -40,6 +45,7 @@ fs.readdir('./events/', (err, evtFiles) => {
 fs.readdir('./commands/', (err, cmdFiles) => {
   if (err)
     throw err;
+  console.log(`Loaded ${cmdFiles.length} commands.`);
   cmdFiles.forEach((f) => {
     if (!f.endsWith('.js'))
       return;
@@ -47,44 +53,9 @@ fs.readdir('./commands/', (err, cmdFiles) => {
     if (response)
       console.log(response);
   });
-  console.log(`Loaded ${cmdFiles.length} commands.`);
 });
 
-
-// Sets a new game every minute. Makes sure it doesn't do the same thing twice.
-setInterval(function setGame() {
-  var names = ['Salutations!',
-    '//help', `with ${client.guilds.size} servers`,
-    'with Ruby',
-    'with Yang',
-    'with Weiss',
-    'with Blake',
-    'with Zwei',
-    "I'm combat ready!"];
-  var game = names[Math.floor(Math.random() * names.length)];
-  fs.readFile('./ai/last.json', (err, data1) => {
-    if (err)
-      throw err;
-    let data = JSON.parse(data1);
-    if (game === data.game) {
-      setGame();
-    } else {
-      client.user.setPresence({ game: { name: game, type: 0 } });
-
-      var fileName = `./ai/last.json`;
-      var file = require(fileName);
-
-
-      file.game = game;
-
-
-      fs.writeFile(fileName, JSON.stringify(file), (e) => {
-        if (e)
-          client.users.get('232614905533038593').send(`I'm sorry but this happened:\n${err}\n\nSorry...`);
-      });
-    }
-  });
-}, 60000 * 2);
+// pl.run(client);
 
 // I bet you wish you had this ( ͡° ͜ʖ ͡°)
 client.login(config.bot.token);
