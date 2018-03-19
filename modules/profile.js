@@ -80,10 +80,11 @@ function bigStuff(image, avatar, res, username, discriminator, Discord, message,
     ava.resize(400, 400);
     image.composite(ava, 50, 50);
     Jimp.loadFont('./fonts/sup.fnt').then((font) => {
-      image.print(font, 50, 930, `XP: ${res[0].XP} / ${res[0].Next}`);
-      image.print(font, 50, 803, `Level: ${res[0].Level}`);
-      image.print(font, 50, 690, `Credits: ${res[0].Credits}`);
-      image.print(font, 50, 570, `Cookies: ${res[0].Cookie}`);
+      image.print(font, 50, 910, `Commands used: ${res[0].Used}`);
+      image.print(font, 50, 830, `XP: ${res[0].XP} / ${res[0].Next}`);
+      image.print(font, 50, 750, `Level: ${res[0].Level}`);
+      image.print(font, 50, 670, `Credits: ${res[0].Credits}`);
+      image.print(font, 50, 590, `Cookies: ${res[0].Cookie}`);
 
       image.getBuffer(Jimp.MIME_PNG, (err, pl) => {
         if (err)
