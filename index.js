@@ -1,5 +1,6 @@
 // And here we have the main lobb- oh I didn't see you there. Welcome to my code. Don't judge it... please...
 
+// Haha lol 69 like the sex number XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
 // Need these (for drugs)      (not really)
 const Discord = require('discord.js');
