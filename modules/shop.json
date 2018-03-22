@@ -628,5 +628,11 @@
             "price": "8000",
             "name": "chiaki",
             "type": "background"
+        },
+        "ibuki": {
+            "image": "http://pennybot.tk/assets/ibuki.png",
+            "price": "5000",
+            "name": "ibuki",
+            "type": "background"
         }
 }
