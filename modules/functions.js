@@ -16,6 +16,20 @@ module.exports = (client, connection) => {
     }
   };
 
+  // Admin commands
+  client.loadAdminCommand = (commandName) => {
+    try {
+      const props = require(`../commands/admin/${commandName}`);
+      if (props.init)
+        props.init(client);
+
+      client.adminCommands.set(props.conf.name, props);
+      return false;
+    } catch (e) {
+      return `Unable to load command ${commandName}: ${e}`;
+    }
+  };
+
   // Check to see if the user is in the database.
   client.checkUser = (userID, UserAvatar, callback) => {
     connection.query(`SELECT COUNT(*) AS \`count\`, \`UserAvatar\` FROM \`User\` WHERE \`User_ID\`='${userID}'`, (error, results) => {
@@ -36,17 +50,17 @@ module.exports = (client, connection) => {
 
   // But is the guild in the db?
   client.checkServer = (serverID, serverName, serverIcon, callback) => {
-    connection.query(`SELECT COUNT(*) AS \`count\`, \`ServerIcon\`,\`ServerName\` FROM \`Servers\` WHERE \`ServerID\` ='${serverID}'`, (error, results, ffields) => {
+    connection.query(`SELECT COUNT(*) AS \`count\`, \`ServerIcon\`,\`ServerName\` FROM \`Servers\` WHERE \`ServerID\` ='${serverID}'`, (error, results) => {
       if (results[0].count === 0) {
-        connection.query(`INSERT INTO \`Servers\`(\`ServerID\`, \`ServerName\`) VALUES ('${serverID}', ${connection.escape(serverName)})`, (error, results, fields) => {
+        connection.query(`INSERT INTO \`Servers\`(\`ServerID\`, \`ServerName\`) VALUES ('${serverID}', ${connection.escape(serverName)})`, (error, results) => {
           callback();
         });
       } else {
         if (results[0].ServerIcon !== serverIcon)
-          connection.query(`UPDATE \`Servers\` SET \`ServerIcon\` = '${serverIcon}' WHERE \`ServerID\` = '${serverID}'`, (error, results, fields) => {});
+          connection.query(`UPDATE \`Servers\` SET \`ServerIcon\` = '${serverIcon}' WHERE \`ServerID\` = '${serverID}'`);
 
         if (results[0].ServerName !== serverName)
-          connection.query(`UPDATE \`Servers\` SET \`ServerName\` = ${connection.escape(serverName)} WHERE \`ServerID\` = '${serverID}'`, (error, results, fields) => {});
+          connection.query(`UPDATE \`Servers\` SET \`ServerName\` = ${connection.escape(serverName)} WHERE \`ServerID\` = '${serverID}'`);
 
         callback();
       }
@@ -114,6 +128,22 @@ module.exports = (client, connection) => {
       } else {
         connection.query(`UPDATE \`emote\` SET \`used\` = \`used\` + 1 WHERE \`server_id\` = ${server_id} AND \`emote_id\` = ${emote_id}`);
       }
+    });
+  };
+
+  // Search youtube
+  client.youtubeSearch = (searchType, type, maxRes, q) => {
+    const https = require('https');
+    return new Promise((resolve) => {
+      https.get(`https://www.googleapis.com/youtube/v3/${searchType}?part=snippet&maxRes=${maxRes}&q=${q}&type=${type}&key=${client.config.youtube.key}`, (res) => {
+        let body = '';
+        res.on('data', (chunk) => {
+          body += chunk;
+        });
+        res.on('end', () => {
+          resolve(body);
+        });
+      });
     });
   };
 };

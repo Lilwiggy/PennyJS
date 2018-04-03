@@ -6,7 +6,7 @@
             "type": "emblem"
         },
         "adam02":{
-            "image": "http://pennybot.tk/assets/adam01.png",
+            "image": "http://pennybot.tk/assets/adam00.png",
             "price": "500",
             "name": "adam02",
             "type": "background"
@@ -633,6 +633,48 @@
             "image": "http://pennybot.tk/assets/ibuki.png",
             "price": "5000",
             "name": "ibuki",
+            "type": "background"
+        },
+        "class_3e": {
+            "image": "http://pennybot.tk/assets/class_3e.png",
+            "price": "8000",
+            "name": "class_3e",
+            "type": "background"
+        },
+        "kaede": {
+            "image": "http://pennybot.tk/assets/kaede.png",
+            "price": "5000",
+            "name": "kaede",
+            "type": "background"
+        },
+        "korosensei": {
+            "image": "http://pennybot.tk/assets/korosensei.png",
+            "price": "6000",
+            "name": "korosensei",
+            "type": "background"
+        },
+        "korosensei02": {
+            "image": "http://pennybot.tk/assets/korosensei02.png",
+            "price": "6000",
+            "name": "korosensei02",
+            "type": "background"
+        },
+        "nagisa": {
+            "image": "http://pennybot.tk/assets/nagisa.png",
+            "price": "6000",
+            "name": "nagisa",
+            "type": "background"
+        },
+        "karma": {
+            "image": "http://pennybot.tk/assets/karma.png",
+            "price": "6000",
+            "name": "karma",
+            "type": "background"
+        },
+        "nagisa_kaede": {
+            "image": "http://pennybot.tk/assets/nagisa_kaede.png",
+            "price": "10000",
+            "name": "nagisa_kaede",
             "type": "background"
         }
 }
