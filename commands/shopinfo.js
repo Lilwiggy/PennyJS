@@ -88,7 +88,7 @@ exports.run = (client, message, args, Discord) => {
             client.shopEmblems.set(message.author.id, emblems.length - 1);
             msg.edit(newEmbed(client, Discord, data, emblems, message.author.id, 'emblems')).catch(console.error);
           } else {
-            client.shopBackgrounds.set(message.author.id, client.shopEmblems.get(message.author.id) - 1);
+            client.shopEmblems.set(message.author.id, client.shopEmblems.get(message.author.id) - 1);
             msg.edit(newEmbed(client, Discord, data, emblems, message.author.id, 'emblems')).catch(console.error);
           }
         } else if (r.emoji.name === '➡') {
@@ -96,13 +96,21 @@ exports.run = (client, message, args, Discord) => {
             client.shopEmblems.set(message.author.id, 0);
             msg.edit(newEmbed(client, Discord, data, emblems, message.author.id, 'emblems')).catch(console.error);
           } else {
-            client.shopBackgrounds.set(message.author.id, client.shopEmblems.get(message.author.id) + 1);
+            client.shopEmblems.set(message.author.id, client.shopEmblems.get(message.author.id) + 1);
             msg.edit(newEmbed(client, Discord, data, emblems, message.author.id, 'emblems')).catch(console.error);
           }
         }
       });
       collector.on('end', () => msg.delete().catch(console.error));
     }).catch(console.error);
+  } else if (data[args[1]]) {
+    let embed = new Discord.RichEmbed()
+      .setTitle(`Shopinfo for ${args[1]}`)
+      .addField(`Price:`, data[args[1]].price)
+      .addField(`Purchase:`, `${client.prefix}set${data[args[1]].type} ${args[1]}`)
+      .setColor(`#89ff89`)
+      .setImage(data[args[1]].image);
+    message.channel.send(embed);
   } else {
     message.channel.send(`Usage: ${client.prefix}shopinfo [backgrounds/emblems/all]`);
   }
