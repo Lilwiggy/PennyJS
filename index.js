@@ -1,6 +1,5 @@
 // And here we have the main lobb- oh I didn't see you there. Welcome to my code. Don't judge it... please...
 
-// Haha lol 69 like the sex number XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
 // Need these (for drugs)      (not really)
 const Discord = require('discord.js');
@@ -16,6 +15,7 @@ const connection = mysql.createConnection({
 });
 
 client.commands = new Map();
+client.adminCommands = new Map();
 client.aliases = new Map();
 client.queue = new Map();
 client.config = config;
@@ -51,6 +51,20 @@ fs.readdir('./commands/', (err, cmdFiles) => {
     if (!f.endsWith('.js'))
       return;
     const response = client.loadCommand(f);
+    if (response)
+      console.log(response);
+  });
+});
+
+// Admin commands to clean up the message event
+fs.readdir('./commands/admin', (err, cmdFiles) => {
+  if (err)
+    throw err;
+  console.log(`Loaded ${cmdFiles.length} admin commands.`);
+  cmdFiles.forEach((f) => {
+    if (!f.endsWith('.js'))
+      return;
+    const response = client.loadAdminCommand(f);
     if (response)
       console.log(response);
   });
