@@ -1,7 +1,7 @@
 exports.run = (client, message, Discord, connection) => {
   // Now this is the fun bit right here
   const msg = message.content.toLowerCase();
-  const adminP = 'test@'; // This is mine ignore it.
+  const adminP = 'fucking '; // This is mine ignore it.
 
   // To prevent the robot uprising...
   if (message.author.bot)
@@ -51,7 +51,7 @@ exports.run = (client, message, Discord, connection) => {
         const args = message.content.slice(client.prefix.length).split(' ');
 
         // What's yo prefix yo dawg home boy slice dude?
-        if (message.mentions.users.first() === client.user && (args[1] === 'prefix' || args[1] === `what's your prefix` || args[1] === `whats your prefix`))
+        if (message.mentions.users.first() === client.user && (args[1] === 'prefix' || args[1] === 'help'))
           message.channel.send(`My prefix for the server is: ${client.prefix}`);
 
         let em = /<a?:\w+:\d+>/g;
