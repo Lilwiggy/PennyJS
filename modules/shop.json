@@ -6,7 +6,7 @@
             "type": "emblem"
         },
         "adam02":{
-            "image": "http://pennybot.tk/assets/adam00.png",
+            "image": "http://pennybot.tk/assets/adam02.png",
             "price": "500",
             "name": "adam02",
             "type": "background"
@@ -675,6 +675,12 @@
             "image": "http://pennybot.tk/assets/nagisa_kaede.png",
             "price": "10000",
             "name": "nagisa_kaede",
+            "type": "background"
+        },
+        "mei02": {
+            "image": "http://pennybot.tk/assets/mei02.png",
+            "price": "8000",
+            "name": "mei02",
             "type": "background"
         }
 }
