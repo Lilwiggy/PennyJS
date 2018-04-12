@@ -1,13 +1,25 @@
-// These are custom for 3 servers including my own. Please ignore it.
 exports.run = (client, guild, user, Discord, connection) => {
-    if (guild.id === '265199259291222016' || guild.id === '303525154464727041' || guild.id === '309531752014151690') {
-        const embed = new Discord.RichEmbed()
-        .setThumbnail(user.avatarURL)
-        .setColor('#89ff89')
-        .setTitle(`${user.username} was unbanned.`);
-
-        guild.channels.find('name', 'mod-log').send({
-            embed,
-        });
-    }
+  // These are custom for 3 servers including my own. Please ignore it.
+  client.checkServer(guild, guild.name, guild.iconURL, () => {
+    connection.query(`SELECT * FROM \`Servers\` WHERE \`ServerID\` = ${guild.id}`, (err, res) => {
+      if (err)
+        throw err;
+      if (res[0].mod_log === 1) {
+        let channel = guild.channels.get(res[0].mod_channel);
+        guild.fetchAuditLogs()
+          .then((audit) => {
+            let audits = audit.entries.first();
+            if (audits.target.id === user.id) {
+              let embed = new Discord.RichEmbed()
+                .setThumbnail(user.displayAvatarURL)
+                .setColor('#89ff89')
+                .setTitle(`Ban remove.`)
+                .addField(`Ban removed.`, `${audits.target.username} was un-banned by ${audits.executor.username}.`);
+              if (channel)
+                channel.send({ embed });
+            }
+          });
+      }
+    });
+  });
 };
