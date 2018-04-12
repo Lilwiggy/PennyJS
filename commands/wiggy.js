@@ -39,5 +39,5 @@ exports.conf = {
   name: 'wiggy',
   description: 'Wig wam slam and jam',
   usage: 'wiggy',
-  aliases: [],
+  aliases: ['wiggu', 'wiggum', 'wiggo', 'wiggay'],
 };
