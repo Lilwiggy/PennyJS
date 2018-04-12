@@ -1,12 +1,12 @@
 exports.run = (client, message) => {
 // Another unfunny comment
-  let date = new Date(null);
-  date.setMilliseconds(client.uptime);
-  let hours = date.toISOString().substr(11, 2);
-  let minutes = date.toISOString().substr(14, 2);
-  let seconds = date.toISOString().substr(17, 2);
+  let date = new Date();
+  let days = date.getDay() - client.readyAt.getDay();
+  let hours = date.getHours() - client.readyAt.getHours();
+  let minutes = date.getMinutes() - client.readyAt.getMinutes();
+  let seconds = date.getSeconds() - client.readyAt.getSeconds();
 
-  message.channel.send(`My uptime: ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
+  message.channel.send(`My uptime: ${days} days ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
 };
 
 
