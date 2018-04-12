@@ -1,7 +1,7 @@
 exports.run = (client, message, Discord, connection) => {
   // Now this is the fun bit right here
   const msg = message.content.toLowerCase();
-  const adminP = 'p@'; // This is mine ignore it.
+  const adminP = 'test@'; // This is mine ignore it.
 
   // To prevent the robot uprising...
   if (message.author.bot)
@@ -53,11 +53,6 @@ exports.run = (client, message, Discord, connection) => {
         // What's yo prefix yo dawg home boy slice dude?
         if (message.mentions.users.first() === client.user && (args[1] === 'prefix' || args[1] === `what's your prefix` || args[1] === `whats your prefix`))
           message.channel.send(`My prefix for the server is: ${client.prefix}`);
-
-        if (message.mentions.users.first() && message.mentions.users.first().id === '232614905533038593') {
-          if (message.mentions.members.first().presence.status === 'offline')
-            message.channel.send({ file: 'https://i.imgur.com/XL9mZVF.png' });
-        }
 
         let em = /<a?:\w+:\d+>/g;
         if (em.test(message.content)) {
