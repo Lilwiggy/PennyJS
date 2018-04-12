@@ -1,10 +1,10 @@
 exports.run = (client, message, args, Discord, connection) => {
   // for setting things
 
+  if (message.member.hasPermission('ADMINISTRATOR')) {
   // Welcome message
-  if (args[1] === 'welcome') {
-    if (args[2] === 'message') {
-      if (message.member.hasPermission('ADMINISTRATOR')) {
+    if (args[1] === 'welcome') {
+      if (args[2] === 'message') {
         if (args.length === 3) {
           message.channel.send(`Usage: ${client.prefix}set welcome message [your message]`);
         } else {
@@ -19,13 +19,9 @@ exports.run = (client, message, args, Discord, connection) => {
             }
           });
         }
-      } else {
-        message.channel.send('This command is restricted to server admins.');
-      }
-    } else if (args[2] === 'channel') {
-      if (message.member.hasPermission('ADMINISTRATOR')) {
+      } else if (args[2] === 'channel') {
         if (args.length === 3) {
-          message.channel.send('Usage: //set welcome channel #channel');
+          message.channel.send(`Usage: ${client.prefix}set welcome channel #channel`);
         } else
         if (!message.mentions.channels.first()) {
           message.channel.send('Please mention a valid chat.');
@@ -35,14 +31,10 @@ exports.run = (client, message, args, Discord, connection) => {
             message.channel.send(`Successfully made ${args[3]} the welcome channel.`);
           });
         }
-      } else {
-        message.channel.send('This command is restricted to server admins.');
       }
-    }
-  } else if (args[1] === 'leave' && args[2] === 'message') {
-    if (message.member.hasPermission('ADMINISTRATOR')) {
+    } else if (args[1] === 'leave' && args[2] === 'message') {
       if (args.length === 3) {
-        message.channel.send(`You did it wrong. Usage: ${client.prefix}set leave message [your message]`);
+        message.channel.send(`Usage: ${client.prefix}set leave message [your message]`);
       } else {
         client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
           if (message.content.includes('@everyone') || message.content.includes('@here')) {
@@ -54,11 +46,7 @@ exports.run = (client, message, args, Discord, connection) => {
           }
         });
       }
-    } else {
-      message.channel.send('This command is restricted to server admins.');
-    }
-  } else if (args[1] === 'prefix') {
-    if (message.member.hasPermission('ADMINISTRATOR')) {
+    } else if (args[1] === 'prefix') {
       if (args.length === 2) {
         message.channel.send(`Usage: ${client.prefix}set prefix newprefix`);
       } else if (args[2].length > 5) {
@@ -67,9 +55,16 @@ exports.run = (client, message, args, Discord, connection) => {
         connection.query(`UPDATE \`Servers\` SET \`Prefix\` = ${connection.escape(args[2])} WHERE \`ServerID\` = ${message.guild.id}`);
         message.channel.send(`Successfully made ${args[2]} the prefix.`);
       }
-    } else {
-      message.channel.send('This command is restricted to server admins.');
+    } else if (args[1] === 'mod' && args[2] === 'channel') {
+      if (message.mentions.channels.first()) {
+        connection.query(`UPDATE \`Servers\` SET \`mod_channel\` = ${connection.escape(message.mentions.channels.first().id)} WHERE \`ServerID\` = ${message.guild.id}`);
+        message.channel.send(`I have set ${message.mentions.channels.first()} as the mod channel.`);
+      } else {
+        message.channel.send(`Usage: ${client.prefix}set mod channel #channel`);
+      }
     }
+  } else {
+    message.channel.send(`This command is restricted to server admins.`);
   }
 };
 

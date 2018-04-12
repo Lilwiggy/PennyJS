@@ -3,7 +3,7 @@ exports.run = (client, message) => {
     fun: {
       title: 'Official server',
       author: {
-        name: `Page 1/5`,
+        name: `Penny commands`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -44,8 +44,25 @@ exports.run = (client, message) => {
         name: `${client.prefix}define`,
         value: `Searches Urban Dictionary for a word.`,
         inline: false,
+      }],
+    },
+    page2: {
+
+      title: 'Official server',
+      author: {
+        name: `Penny commands`,
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
       },
-      {
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
         name: `${client.prefix}osu`,
         value: `Some OSU stats.`,
         inline: false,
@@ -71,10 +88,11 @@ exports.run = (client, message) => {
         inline: false,
       }],
     },
+
     mod: {
       title: 'Official server',
       author: {
-        name: `Page 2/5`,
+        name: `Penny commands`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -110,8 +128,24 @@ exports.run = (client, message) => {
         name: `${client.prefix}set welcome channel`,
         value: `Selects the channel to welcome new users in.`,
         inline: false,
+      }],
+    },
+    anotherPage: {
+      title: 'Official server',
+      author: {
+        name: `Penny commands`,
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
       },
-      {
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
         name: `${client.prefix}set leave message`,
         value: `Sets a leaving message for when a user leaves.`,
         inline: false,
@@ -140,7 +174,7 @@ exports.run = (client, message) => {
     profile: {
       title: 'Official server',
       author: {
-        name: `Page 3/5`,
+        name: `Penny commands`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -181,7 +215,7 @@ exports.run = (client, message) => {
     social: {
       title: 'Official server',
       author: {
-        name: `Page 4/5`,
+        name: `Penny commands`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -222,7 +256,7 @@ exports.run = (client, message) => {
     other: {
       title: 'Official server',
       author: {
-        name: `Page 5/5`,
+        name: `Penny commands`,
         url: null,
         iconURL: client.user.displayAvatarURL,
         proxyIconURL: null,
@@ -258,6 +292,11 @@ exports.run = (client, message) => {
         name: `${client.prefix}translate`,
         value: `Translates stuff. Usage: ${client.prefix}translate spanish | Hello, World!`,
         inline: false,
+      },
+      {
+        name: `${client.prefix}parrot`,
+        value: `Parrots <:parrot:430114874069090304>.`,
+        inline: false,
       }],
     },
   };
@@ -272,7 +311,7 @@ exports.run = (client, message) => {
     });
     client.help.set(message.author.id, 0);
     const filter = (r, user) => user.id === message.author.id;
-    const collector = msg.createReactionCollector(filter, { time: 30000 });
+    const collector = msg.createReactionCollector(filter, { time: 60000 });
     collector.on('collect', (r) => {
       r.remove(message.author.id);
       if (r.emoji.name === '⬅') {
