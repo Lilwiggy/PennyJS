@@ -1,101 +1,79 @@
 // So uh, this is the guts of the profile command, it's very, uh, messy, best to ignore it.
-const Jimp = require('jimp');
-const config = require('./config.json');
-exports.pro = (client, id, username, avatar, message, connection, Discord, discriminator) => {
+exports.pro = (client, id, username, avatar, message, connection, Discord) => {
+  message.channel.startTyping();
   client.checkUser(id, avatar, () => {
     connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = '${id}'`, (err, res) => {
       if (err)
         throw err;
-      message.channel.startTyping();
-      Jimp.read(`./backgrounds/default.png`, (d_err, image) => {
-        if (err)
-          throw err;
-        if (res[0].background) {
-          Jimp.read(`./backgrounds/${res[0].background}.png`, (b_err, background) => {
-            background.resize(1920, 1080);
-            image.composite(background, 1, 1);
-            bigStuff(image, avatar, res, username, discriminator, Discord, message, id);
-          });
-        } else {
-          bigStuff(image, avatar, res, username, discriminator, Discord, message, id);
-        }
-      });
+      const config = require('./config.json');
+      const fs = require('fs');
+      const Canvas = require('canvas');
+      const neko = require('nekocurl');
+
+      let Image = Canvas.Image;
+      let canvas = new Canvas(1920, 1080);
+      let ctx = canvas.getContext('2d');
+
+      let img = new Image();
+      let Font = Canvas.Font;
+
+      let font = new Font('InriaSans', './fonts/inria-sans.regular.ttf');
+      if (res[0].background)
+        img.src = fs.readFileSync(`./backgrounds/${res[0].background}.png`);
+      else
+        img.src = fs.readFileSync(`./backgrounds/default.png`);
+      ctx.addFont(font);
+      ctx.font = `80px "Inria Sans"`;
+      ctx.fillStyle = '#fff';
+      ctx.drawImage(img, 0, 0, 1920, 1080);
+      img.src = fs.readFileSync('./backgrounds/thingy.png');
+      ctx.globalAlpha = 0.73;
+      ctx.drawImage(img, 25, 530);
+      img.src = fs.readFileSync('./backgrounds/outline.png');
+      ctx.globalAlpha = 0.4;
+      ctx.drawImage(img, 25, 25, 450, 450);
+      ctx.globalAlpha = 1;
+      ctx.fillText(`Cookies: ${res[0].Cookie}`, 50, 620);
+      ctx.fillText(`Credits: ${res[0].Credits}`, 50, 720);
+      ctx.fillText(`Level: ${res[0].Level}`, 50, 820);
+      ctx.fillText(`XP: ${res[0].XP} / ${res[0].Next}`, 50, 920);
+      ctx.fillText(`Commands used: ${res[0].Used}`, 50, 1020);
+      if (id === '232614905533038593') {
+        img.src = fs.readFileSync('./emblems/dev.png');
+        ctx.drawImage(img, 500, 300, 150, 150);
+        ctx.font = `100px "Inria Sans"`;
+        ctx.fillStyle = '#f2a8cb';
+        ctx.fillText(`Penny Dev`, 500, 210);
+      }
+      if (config.mods.id.includes(id)) {
+        img.src = fs.readFileSync('./emblems/ban.png');
+        ctx.drawImage(img, 800, 820, 150, 150);
+      }
+      if (res[0].emblem) {
+        img.src = fs.readFileSync(`./emblems/${res[0].emblem}.png`);
+        ctx.drawImage(img, 800, 550, 150, 150);
+      }
+      if (res[0].patron === 1) {
+        img.src = fs.readFileSync('./emblems/patron.png');
+        ctx.drawImage(img, 800, 680, 150, 150);
+      }
+      // Load the avatar as a buffer all async like and stuff bro
+      async function render() {
+        img.src = await neko.get(avatar, { autoString: false });
+        ctx.drawImage(img, 50, 50, 400, 400);
+
+        canvas.toBuffer((err, buff) => {
+          if (err)
+            throw err;
+          let pro = new Discord.Attachment()
+            .setAttachment(buff, `${username}.png`);
+
+          message.channel.send(`Profile card for **${username}**`, {
+            file: pro,
+          }).then(message.channel.stopTyping());
+        });
+      }
+      render();
     });
   });
 };
-
-function bigStuff(image, avatar, res, username, discriminator, Discord, message, id) {
-  Jimp.read(`./backgrounds/outline.png`, (o_err, out) => {
-    if (o_err)
-      throw o_err;
-    out.resize(450, 450);
-    out.opacity(0.4);
-    image.composite(out, 25, 25);
-  });
-  Jimp.read(`./backgrounds/thingy.png`, (t_err, thingy) => {
-    if (t_err)
-      throw t_err;
-    thingy.opacity(0.73);
-    image.composite(thingy, 25, 530);
-  });
-  if (res[0].patron === 1) {
-    Jimp.read(`./emblems/patron.png`, (e_err, patron) => {
-      if (e_err)
-        throw e_err;
-      patron.resize(150, 150);
-      image.composite(patron, 800, 680);
-    });
-  }
-
-  if (res[0].emblem) {
-    Jimp.read(`./emblems/${res[0].emblem}.png`, (em_err, emblem) => {
-      if (em_err)
-        throw em_err;
-      emblem.resize(150, 150);
-      image.composite(emblem, 800, 550);
-    });
-  }
-
-  if (config.mods.id.includes(id)) {
-    Jimp.read(`./emblems/ban.png`, (b_err, ban) => {
-      if (b_err)
-        throw b_err;
-      ban.resize(150, 150);
-      image.composite(ban, 800, 820);
-    });
-  }
-
-  if (id === `232614905533038593`) {
-    Jimp.read(`./emblems/dev.png`, (d_err, dev) => {
-      Jimp.loadFont('./fonts/sup.fnt').then((font) => {
-        if (d_err)
-          throw d_err;
-        dev.resize(150, 150);
-        image.composite(dev, 480, 300);
-        image.print(font, 480, 210, `Penny dev`);
-      });
-    });
-  }
-  Jimp.read(avatar, (a_err, ava) => {
-    ava.resize(400, 400);
-    image.composite(ava, 50, 50);
-    Jimp.loadFont('./fonts/sup.fnt').then((font) => {
-      image.print(font, 50, 910, `Commands used: ${res[0].Used}`);
-      image.print(font, 50, 830, `XP: ${res[0].XP} / ${res[0].Next}`);
-      image.print(font, 50, 750, `Level: ${res[0].Level}`);
-      image.print(font, 50, 670, `Credits: ${res[0].Credits}`);
-      image.print(font, 50, 590, `Cookies: ${res[0].Cookie}`);
-
-      image.getBuffer(Jimp.MIME_PNG, (err, pl) => {
-        if (err)
-          throw err;
-        let pro = new Discord.Attachment()
-          .setAttachment(pl, `${username}.png`);
-
-        message.channel.send(`Profile card for **${username}**`, {
-          file: pro,
-        }).then(message.channel.stopTyping());
-      });
-    });
-  });
-}
