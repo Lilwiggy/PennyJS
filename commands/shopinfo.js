@@ -19,7 +19,7 @@ exports.run = (client, message, args, Discord) => {
         e.message.react('➡');
       });
       const filter = (r, user) => user.id === message.author.id;
-      const collector = msg.createReactionCollector(filter, { time: 60000 * 2 });
+      const collector = msg.createReactionCollector(filter, { time: 60000 * 5 });
       collector.on('collect', (r) => {
         if (r.emoji.name === '⬅') {
           r.remove(message.author.id);
@@ -50,7 +50,7 @@ exports.run = (client, message, args, Discord) => {
         e.message.react('➡');
       });
       const filter = (r, user) => user.id === message.author.id;
-      const collector = msg.createReactionCollector(filter, { time: 60000 * 2 });
+      const collector = msg.createReactionCollector(filter, { time: 60000 * 5 });
       collector.on('collect', (r) => {
         r.remove(message.author.id);
         if (r.emoji.name === '⬅') {
@@ -80,7 +80,7 @@ exports.run = (client, message, args, Discord) => {
         e.message.react('➡');
       });
       const filter = (r, user) => user.id === message.author.id;
-      const collector = msg.createReactionCollector(filter, { time: 60000 * 2 });
+      const collector = msg.createReactionCollector(filter, { time: 60000 * 5 });
       collector.on('collect', (r) => {
         r.remove(message.author.id);
         if (r.emoji.name === '⬅') {
