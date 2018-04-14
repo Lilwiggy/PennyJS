@@ -10,7 +10,7 @@ exports.run = (client, message, args, Discord, connection) => {
         console.log('Did it!');
       });
     } else if (args[1] === 'mod' && args[2] === 'logs') {
-      connection.query(`UPDATE \`Servers\` SET \`mod_log\` = 1 WHERE \`ServerID\` = ${message.guild.id}`);
+      connection.query(`UPDATE \`Servers\` SET \`mod_log\` = 0 WHERE \`ServerID\` = ${message.guild.id}`);
       message.channel.send(`Turned off mod logs.`);
     }
   } else {
