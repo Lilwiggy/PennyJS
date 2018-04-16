@@ -12,6 +12,9 @@ exports.run = (client, message, args, Discord, connection) => {
     } else if (args[1] === 'mod' && args[2] === 'logs') {
       connection.query(`UPDATE \`Servers\` SET \`mod_log\` = 0 WHERE \`ServerID\` = ${message.guild.id}`);
       message.channel.send(`Turned off mod logs.`);
+    } else if (args[1] === 'edits') {
+      connection.query(`UPDATE \`Servers\` SET \`edits\` = 0 WHERE \`ServerID\` = ${message.guild.id}`);
+      message.channel.send(`Disabled role edits.`);
     }
   } else {
     message.channel.send('This command is restricted to server admins.');

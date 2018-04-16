@@ -3,7 +3,7 @@ exports.run = (client, message, args, Discord, connection) => {
   client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
     if (message.member.hasPermission('ADMINISTRATOR')) {
       if (args.length < 2) {
-        message.channel.send(`Usage: ${client.prefix}enable [levels/mod logs]`);
+        message.channel.send(`Usage: ${client.prefix}enable [levels/mod logs/edits]`);
       } else if (args[1] === 'levels') {
         connection.query(`UPDATE \`Servers\` SET \`levels\` = 1 WHERE \`ServerID\` = ${message.guild.id}`);
         message.channel.send('Successfully enabled levels.');
@@ -23,6 +23,9 @@ exports.run = (client, message, args, Discord, connection) => {
               message.channel.send(`You did not set a mod log channel. You can set one by doing ${client.prefix}set mod channel #channel`);
           });
         });
+      } else if (args[1] === 'edits') {
+        connection.query(`UPDATE \`Servers\` SET \`edits\` = 1 WHERE \`ServerID\` = ${message.guild.id}`);
+        message.channel.send(`Enabled role edits.`);
       }
     } else {
       message.channel.send('This command is restricted to server admins.');

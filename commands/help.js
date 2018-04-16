@@ -299,6 +299,47 @@ exports.run = (client, message) => {
         inline: false,
       }],
     },
+    boi: {
+      title: 'Official server',
+      author: {
+        name: `Penny commands`,
+        url: null,
+        iconURL: client.user.displayAvatarURL,
+        proxyIconURL: null,
+      },
+      color: 9043849,
+      url: 'https://discord.gg/kwcd9dq',
+      footer: {
+        text: 'PennyBot © Lilwiggy 2018',
+        iconURL: null,
+        proxyIconURL: null,
+      },
+      fields: [{
+        name: `${client.prefix}hug`,
+        value: `Hug the first user mentioned.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}topic`,
+        value: `A nice topic starter.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}weeb`,
+        value: `Enables/disabled weeb gifs for hug command.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}blacklist`,
+        value: `Blacklists roles from edit command.`,
+        inline: false,
+      },
+      {
+        name: `${client.prefix}edit`,
+        value: `Edits a role color that you have.`,
+        inline: false,
+      }],
+    },
   };
 
   const pages = Object.keys(embeds);
