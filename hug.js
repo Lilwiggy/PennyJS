@@ -1,5 +1,6 @@
 exports.run = (client, message, args, Discord, connection) => {
   // Needs more hugs
+    // Ignore this please is joke
   let hugsAnime = ['https://media.tenor.com/images/efdd8f53689b1bb3437054d608156e95/tenor.gif',
     'http://vignette2.wikia.nocookie.net/degrassi/images/d/df/ATTACK_HUG.gif',
     'https://media.giphy.com/media/od5H3PmEG5EVq/giphy.gif',
