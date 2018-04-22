@@ -39,6 +39,26 @@ function setcolor() {
     }
 }
 
+//It's good enough for now
+if (message.guild.id === '309531752014151690') {
+    if (message.member.roles.get('318256979497975810')) {
+        if(message.member.roles.find('name', message.member.id))
+        {
+            var userrole = message.member.roles.find('name', message.member.id)
+            async function checkhoist()
+            {
+                if(userrole.hexColor != message.member.displayHexColor)
+                {
+                    await userrole.setPosition(userrole.position + 1)
+                    await checkhoist()
+                }
+            }
+            checkhoist()
+        }
+    }
+}
+
+
 exports.conf = {
     name: 'color',
     description: 'Color',
