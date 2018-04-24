@@ -12,6 +12,7 @@ exports.run = (client, message, args) => {
     roleee.edit({
       color: args[1],
     });
+    message.channel.send(`Enjoy your hex!`);
   } else {
     setcolor(message, args);
   }
@@ -36,7 +37,7 @@ function setcolor(message, args) {
         }).then((role) => {
           role.setPosition(message.guild.roles.get('438212196309401611').position + 1);
           message.member.addRole(role);
-          message.channel.send('Enjoy your hex.');
+          message.channel.send('Enjoy your hex!');
         });
       } else {
         message.channel.send('Please use a valid hex.');
