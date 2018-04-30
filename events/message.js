@@ -16,6 +16,8 @@ exports.run = (client, message, Discord, connection) => {
         connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = ${message.author.id}`, (err, res) => {
           if (err)
             throw err;
+            if (prefix[0].levels === 1)
+            xpAdd(connection, message);
           try {
             // This is for seeing if the user is blacklisted or not. Some people man smh.
             if (res[0].Blacklisted === 1) {
@@ -41,8 +43,6 @@ exports.run = (client, message, Discord, connection) => {
           } catch (TypeError) {
             console.log('Hi'); // Somehow this works trust me.
           }
-          if (prefix[0].levels === 1)
-            xpAdd(connection, message);
         });
 
         client.prefix = prefix[0].Prefix; // set that prefix boi
