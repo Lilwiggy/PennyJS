@@ -27,8 +27,8 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'blacklist',
-  description: '',
-  usage: '',
+  description: 'Blacklist a role from the edit command.',
+  usage: 'blacklist [role]',
   aliases: [],
 };
 

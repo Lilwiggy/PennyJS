@@ -1,6 +1,6 @@
 const fs = require(`fs`);
 exports.run = (client, message) => {
-// Witty comment here
+// I know what you're doing here ( ͡° ͜ʖ ͡°)
   if (message.channel.nsfw) {
     // WEW
     fs.readFile('nsfw.txt', 'utf8', (err, data) => {
@@ -18,7 +18,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   name: 'nsfw',
-  description: '',
-  usage: '',
+  description: '( ͡° ͜ʖ ͡°)',
+  usage: 'nsfw',
   aliases: [],
 };

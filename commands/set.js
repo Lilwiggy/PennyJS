@@ -3,7 +3,9 @@ exports.run = (client, message, args, Discord, connection) => {
 
   if (message.member.hasPermission('ADMINISTRATOR')) {
   // Welcome message
-    if (args[1] === 'welcome') {
+    if (args.length === 1) {
+      message.channel.send(`Usage: ${client.prefix}set [welcome/leave/prefix]`);
+    } else if (args[1] === 'welcome') {
       if (args[2] === 'message') {
         if (args.length === 3) {
           message.channel.send(`Usage: ${client.prefix}set welcome message [your message]`);

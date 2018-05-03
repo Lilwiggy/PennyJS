@@ -23,6 +23,7 @@ exports.conf = {
   description: 'Color',
   usage: 'color (hex)',
   aliases: ['colour'], // Some British asshole told me to add this.
+  hidden: true,
 };
 
 // function to check if user is patreon and assign color

@@ -1,4 +1,4 @@
-exports.run = function(client, message, args, Discord, connection) {
+exports.run = (client, message, args, Discord, connection) => {
 // Background thingies! (needs more)
   const data = require('../modules/shop.json');
   if (args.length === 1) {
@@ -6,6 +6,8 @@ exports.run = function(client, message, args, Discord, connection) {
   } else if (data[args[1]] && data[args[1]].type === 'background') {
     if (args[1] === 'patreon') {
       connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = ${message.author.id}`, (err, res, fields) => {
+        if (err)
+          throw err;
         if (res[0].patron === 1)
           client.setBackground(message.author.id, message.author.avatarURL, 'patreon', 0, message);
         else

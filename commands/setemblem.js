@@ -1,4 +1,4 @@
-exports.run = function(client, message, args, Discord, connection) {
+exports.run = (client, message, args) => {
 // Basically badges, BUT BETTER IN EVERY WAY!
 // Oh also these are a bit more expensive than backgrounds. So ha! Save and spen your monies
   const data = require('../modules/shop.json');

@@ -37,7 +37,11 @@ fs.readdir('./events/', (err, evtFiles) => {
   evtFiles.forEach((file) => {
     const eventName = file.split('.')[0];
     const event = require(`./events/${file}`);
-    client.on(eventName, (...args) => event.run(client, ...args, Discord, connection));
+    try {
+      client.on(eventName, (...args) => event.run(client, ...args, Discord, connection));
+    } catch (e) {
+      client.users.get(`232614905533038593`).send(`Error with ${eventName}\nError: ${e}`);
+    }
     delete require.cache[require.resolve(`./events/${file}`)];
   });
 });

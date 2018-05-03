@@ -1,18 +1,18 @@
 exports.run = (client, message) => {
-// Another unfunny comment
-  let date = new Date();
-  let days = date.getDay() - client.readyAt.getDay();
-  let hours = date.getHours() - client.readyAt.getHours();
-  let minutes = date.getMinutes() - client.readyAt.getMinutes();
-  let seconds = date.getSeconds() - client.readyAt.getSeconds();
-
+// How long have I been alive?
+// Shout out to https://github.com/Gravebot/Gravebot/blob/master/src/commands/info/uptime.js for
+// doing the math I didn't wanna do
+  let days = Math.floor(process.uptime() / (60 * 60 * 24));
+  let hours = Math.floor(process.uptime() / (60 * 60));
+  let minutes = Math.floor(process.uptime() % (60 * 60) / 60);
+  let seconds = Math.floor(process.uptime() % 60);
   message.channel.send(`My uptime: ${days} days ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
 };
 
 
 exports.conf = {
   name: 'uptime',
-  description: '',
-  usage: '',
+  description: 'The amount of time node has been running.',
+  usage: 'uptime',
   aliases: [],
 };

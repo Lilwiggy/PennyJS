@@ -61,7 +61,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
   let wiggyID = '232614905533038593';
 
-  let ppl = ['198589482058907649', '341032426799235072', '292526078331977728', '239110748180054017', '143109424045621250'];
+  let ppl = ['198589482058907649', '341032426799235072', '292526078331977728', '239110748180054017', '143109424045621250', '378384603859255317'];
   if (message.mentions.users.first()) {
     if (message.mentions.users.first().id === wiggyID && !ppl.includes(message.author.id)) {
       let hug = lols[Math.floor(Math.random() * lols.length)];

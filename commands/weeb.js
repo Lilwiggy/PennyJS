@@ -19,7 +19,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'weeb',
-  description: 'Maybe',
+  description: 'Disables the anime gifs for the hug command',
   usage: 'weeb',
   aliases: [],
 };

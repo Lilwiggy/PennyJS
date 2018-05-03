@@ -29,6 +29,7 @@ exports.run = (client, message) => {
     'https://cdn.discordapp.com/attachments/346801152467271684/433752687004352533/still_a_meme.png',
     'https://cdn.discordapp.com/attachments/346801152467271684/433751136453787648/also_meme.png',
     'https://cdn.discordapp.com/attachments/346801152467271684/433750101282783243/meme.png',
+    'https://cdn.discordapp.com/attachments/349619800147886081/438066751041699851/lil.mp4',
   ];
   let meme = memes[Math.floor(Math.random() * memes.length)];
 
@@ -40,4 +41,5 @@ exports.conf = {
   description: 'Wig wam slam and jam',
   usage: 'wiggy',
   aliases: ['wiggu', 'wiggum', 'wiggo', 'wiggay'],
+  hidden: true,
 };
