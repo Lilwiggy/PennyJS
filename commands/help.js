@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
   let pages = Math.floor(commands.length / 5);
 
   if (args[1]) {
-    if (client.commands.get(args[1]) || client.commands.get(client.commands.aliases.get(args[1]))) {
+    if (client.commands.get(args[1])) {
       let cmd = client.commands.get(args[1]) || client.commands.get(client.commands.aliases.get(args[1]));
       let aliases = 'none';
       if (cmd.conf.aliases.length > 1)
