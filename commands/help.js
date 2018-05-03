@@ -13,6 +13,8 @@ exports.run = (client, message, args) => {
   if (args[1]) {
     if (client.commands.get(args[1])) {
       let cmd = client.commands.get(args[1]) || client.commands.get(client.commands.aliases.get(args[1]));
+      if (cmd.conf.hidden)
+        return;
       let aliases = 'none';
       if (cmd.conf.aliases.length > 1)
         aliases = cmd.conf.aliases;
