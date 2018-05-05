@@ -33,7 +33,7 @@ require('./modules/functions.js')(client, connection);
 // This is the thing that does the thing on a client event broh
 fs.readdir('./events/', (err, evtFiles) => {
   if (err)
-    throw err;
+    client.users.get(`232614905533038593`).send(`Error: ${err}`);
   evtFiles.forEach((file) => {
     const eventName = file.split('.')[0];
     const event = require(`./events/${file}`);
@@ -49,7 +49,7 @@ fs.readdir('./events/', (err, evtFiles) => {
 // This is the bit that does the things with the commands man
 fs.readdir('./commands/', (err, cmdFiles) => {
   if (err)
-    throw err;
+    client.users.get(`232614905533038593`).send(`Error: ${err}`);
   console.log(`Loaded ${cmdFiles.length} commands.`);
   cmdFiles.forEach((f) => {
     if (!f.endsWith('.js'))
@@ -63,7 +63,7 @@ fs.readdir('./commands/', (err, cmdFiles) => {
 // Admin commands to clean up the message event
 fs.readdir('./commands/admin', (err, cmdFiles) => {
   if (err)
-    throw err;
+    client.users.get(`232614905533038593`).send(`Error: ${err}`);
   console.log(`Loaded ${cmdFiles.length} admin commands.`);
   cmdFiles.forEach((f) => {
     if (!f.endsWith('.js'))
