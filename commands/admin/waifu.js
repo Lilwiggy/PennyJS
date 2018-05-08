@@ -1,22 +1,18 @@
 const fs = require(`fs`);
 exports.run = (client, message, args) => {
 // More waifus pls
+  let images = require(`../../images.json`);
   if (args.length === 1) {
     message.channel.send('Bruh you forgot the link.');
+  } else if (images.waifu.includes(args[1])) {
+    message.channel.send(`This image exists already. Fucking moron.`);
   } else {
-    fs.readFile('waifu.txt', 'utf8', (err, data) => {
+    images.waifu.push(args[1]);
+    fs.writeFile(`./images.json`, JSON.stringify(images, null, 2), (err) => {
       if (err)
-        throw err;
-      if (data.includes(args[1])) {
-        message.channel.send('This image already exists in the file.');
-      } else {
-        fs.appendFile('waifu.txt', ` | ${args[1]}`, 'utf8', (err1) => {
-          if (err1)
-            message.channel.send(`Whoops something went wrong.${err}`);
-          else
-            message.channel.send('Added the link to the Waifu file.');
-        });
-      }
+        message.channel.send(`Something went wrong: ${err}`);
+      else
+        message.channel.send(`Saved waifu file 👌`);
     });
   }
 };

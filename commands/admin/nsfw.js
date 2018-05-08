@@ -1,22 +1,18 @@
 const fs = require(`fs`);
 exports.run = (client, message, args) => {
-// Adds things to the NSFW file
+// Add NSFW images
+  let images = require(`../../images.json`);
   if (args.length === 1) {
     message.channel.send('Bruh you forgot the link.');
+  } else if (images.nsfw.includes(args[1])) {
+    message.channel.send(`This image exists already. Fucking moron.`);
   } else {
-    fs.readFile('nsfw.txt', 'utf8', (err, data) => {
+    images.nsfw.push(args[1]);
+    fs.writeFile(`./images.json`, JSON.stringify(images, null, 2), (err) => {
       if (err)
-        throw err;
-      if (data.includes(args[1])) {
-        message.channel.send('This image already exists in the file.');
-      } else {
-        fs.appendFile('nsfw.txt', ` | ${args[1]}`, 'utf8', (err1) => {
-          if (err1)
-            message.channel.send('Whoops something went wrong.');
-          else
-            message.channel.send('Added the link to the NSFW file.');
-        });
-      }
+        message.channel.send(`Something went wrong: ${err}`);
+      else
+        message.channel.send(`Saved NSFW file 👌`);
     });
   }
 };
