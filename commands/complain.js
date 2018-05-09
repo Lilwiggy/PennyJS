@@ -8,7 +8,7 @@ exports.run = (client, message, args, Discord) => {
   } else {
     var complain = new Discord.RichEmbed()
       .setTitle(`New complaint`)
-      .addField(`From ${message.author.username + message.author.discriminator} on ${message.guild.name}`, `Channel name: ${message.channel.name}\nChannel ID: ${message.channel.id}\nAuthor ID: ${message.author.id}`)
+      .addField(`From ${message.author.username}#${message.author.discriminator} on ${message.guild.name}`, `Channel name: ${message.channel.name}\nChannel ID: ${message.channel.id}\nAuthor ID: ${message.author.id}`)
       .setColor('#89ff89')
       .addField('Complaint:', message.content.substr(client.prefix.length + 9))
       .setThumbnail(message.author.displayAvatarURL);
