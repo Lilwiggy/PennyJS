@@ -6,7 +6,7 @@ exports.run = (client, message, Discord, connection) => {
       if (err)
         throw err;
       if (res[0].mod_log === 1) {
-        let channel = res[0].mod_channel;
+        let channelID = res[0].mod_channel;
         let embed = new Discord.RichEmbed();
         let edits = '';
         embed.setThumbnail(message.author.avatarURL);
@@ -24,7 +24,8 @@ exports.run = (client, message, Discord, connection) => {
             // To make sure it fits in the embed
             let editsSplit = edits.match(/.{1,1024}/g);
             editsSplit.forEach((m) => {
-              embed.addField(`Edits:`, m);
+              if (m !== message.content)
+                embed.addField(`Edits:`, m);
             });
             let messageSplit = message.content.match(/.{1,1024}/g);
             messageSplit.forEach((m) => {
@@ -33,14 +34,19 @@ exports.run = (client, message, Discord, connection) => {
           } else {
             embed.addField('Message:', message.content);
           }
+        } else if (message.attachments.first()) {
+          embed.addField('Image:', message.attachments.first().url);
         } else {
           embed.addField('Message:', 'Message was most likely an embed.');
         }
 
         embed.addField('Message ID:', message.id);
-        message.guild.channels.get(channel).send({
-          embed,
-        });
+        let channel = message.guild.channels.get(channelID);
+        if (channel) {
+          channel.send({
+            embed,
+          });
+        }
       }
     });
   });
