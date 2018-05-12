@@ -7,6 +7,8 @@ exports.run = (client, oM, nM, Discord, connection) => {
     return;
   if (nM.channel.type !== 'text')
     return;
+  if (nM.content === oM.content)
+    return;
 
   // Custom prefix things
   client.checkServer(nM.guild.id, nM.guild.name, nM.guild.iconURL, () => {

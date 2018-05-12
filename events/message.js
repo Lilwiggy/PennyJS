@@ -1,7 +1,7 @@
 exports.run = (client, message, Discord, connection) => {
   // Now this is the fun bit right here
   const msg = message.content.toLowerCase();
-  const adminP = 'p@'; // This is mine ignore it.
+  const adminP = ['p@', 'fucking ']; // This is mine ignore it.
 
   // To prevent the robot uprising...
   if (message.author.bot)
@@ -24,8 +24,6 @@ exports.run = (client, message, Discord, connection) => {
               return;
             } else {
               // This uh, uhm, yeah it does that one thing where it ignores things with some other bits.
-              if (message.content.startsWith(client.prefix))
-                connection.query(`UPDATE \`User\` SET \`Used\` = \`Used\` + 1 WHERE \`User_ID\` = ${message.author.id}`);
               if (message.content.indexOf(client.prefix) !== 0)
                 return;
 
@@ -35,6 +33,7 @@ exports.run = (client, message, Discord, connection) => {
               if (cmd) {
                 try {
                   cmd.run(client, message, args, Discord, connection);
+                  connection.query(`UPDATE \`User\` SET \`Used\` = \`Used\` + 1 WHERE \`User_ID\` = ${message.author.id}`);
                 } catch (e) {
                   client.users.get('232614905533038593').send(`Error:\n${e}\nUsed in:\n${message.content}`);
                 }
@@ -81,15 +80,17 @@ exports.run = (client, message, Discord, connection) => {
           message.channel.send("What's this?");
 
         // Admin commands
-
-        if (msg.startsWith(adminP) && message.author.id === '232614905533038593') {
-          const adminCommand = message.content.toLowerCase().substr(adminP.length).split(' ');
-          const adminCmd = client.adminCommands.get(adminCommand[0]);
-          if (adminCmd) {
-            try {
-              adminCmd.run(client, message, args, Discord, connection);
-            } catch (e) {
-              client.users.get('232614905533038593').send(`Error:\n${e}\nUsed in:\n${message.content}`);
+        for (let i = 0; i < adminP.length; i++) {
+          if (msg.startsWith(adminP[i]) && message.author.id === '232614905533038593') {
+            const adminCommand = message.content.toLowerCase().substr(adminP[i].length).split(' ');
+            const adminCmd = client.adminCommands.get(adminCommand[0]);
+            if (adminCmd) {
+              try {
+                adminCmd.run(client, message, args, Discord, connection);
+                break;
+              } catch (e) {
+                client.users.get('232614905533038593').send(`Error:\n${e}\nUsed in:\n${message.content}`);
+              }
             }
           }
         }
