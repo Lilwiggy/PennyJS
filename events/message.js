@@ -16,7 +16,7 @@ exports.run = (client, message, Discord, connection) => {
         connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = ${message.author.id}`, (err, res) => {
           if (err)
             throw err;
-            if (prefix[0].levels === 1)
+          if (prefix[0].levels === 1)
             xpAdd(connection, message);
           try {
             // This is for seeing if the user is blacklisted or not. Some people man smh.
@@ -38,6 +38,16 @@ exports.run = (client, message, Discord, connection) => {
                 } catch (e) {
                   client.users.get('232614905533038593').send(`Error:\n${e}\nUsed in:\n${message.content}`);
                 }
+              } else {
+                connection.query(`SELECT * FROM \`tags\` WHERE \`guild\` = ${message.guild.id} AND \`name\` = ${connection.escape(command[0])}`, (e, tag) => {
+                  if (e)
+                    client.users.get('232614905533038593').send(`Error:\n${e}\nUsed in:\n${message.content}`);
+
+                  if (tag.length > 0) {
+                    connection.query(`UPDATE \`tags\` SET \`used\` = \`used\` + 1 WHERE \`name\` = ${connection.escape(command[0])} AND \`guild\` = ${message.guild.id}`);
+                    message.channel.send(clean(tag[0].content));
+                  }
+                });
               }
             }
           } catch (TypeError) {
@@ -105,4 +115,11 @@ function xpAdd(connection, message) {
       }
     });
   });
+}
+
+function clean(text) {
+  if (typeof text === 'string')
+    return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
+  else
+    return text;
 }
