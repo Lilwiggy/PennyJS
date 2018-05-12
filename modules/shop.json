@@ -683,4 +683,11 @@
             "name": "mei02",
             "type": "background"
         }
+        ,
+        "yandere": {
+            "image": "http://pennybot.tk/assets/yandere.png",
+            "price": "6000",
+            "name": "yandere",
+            "type": "background"
+        }
 }

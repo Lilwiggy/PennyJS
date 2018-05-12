@@ -18,14 +18,16 @@ exports.pro = (client, id, username, avatar, message, connection, Discord) => {
       let Font = Canvas.Font;
 
       let font = new Font('InriaSans', './fonts/inria-sans.regular.ttf');
-      if (res[0].background)
+      if (res[0].background && res[0].background !== 'default') {
         img.src = fs.readFileSync(`./backgrounds/${res[0].background}.png`);
-      else
-        img.src = fs.readFileSync(`./backgrounds/default.png`);
+        ctx.drawImage(img, 0, 0, 1920, 1080);
+      } else {
+        ctx.fillStyle = message.guild.members.get(id).displayHexColor;
+        ctx.fillRect(0, 0, 1920, 1080);
+      }
       ctx.addFont(font);
       ctx.font = `80px "Inria Sans"`;
       ctx.fillStyle = '#fff';
-      ctx.drawImage(img, 0, 0, 1920, 1080);
       img.src = fs.readFileSync('./backgrounds/thingy.png');
       ctx.globalAlpha = 0.73;
       ctx.drawImage(img, 25, 530);
@@ -62,9 +64,9 @@ exports.pro = (client, id, username, avatar, message, connection, Discord) => {
         img.src = await neko.get(avatar, { autoString: false });
         ctx.drawImage(img, 50, 50, 400, 400);
 
-        canvas.toBuffer((err, buff) => {
-          if (err)
-            throw err;
+        canvas.toBuffer((e, buff) => {
+          if (e)
+            client.users.get(`232614905533038593`).send(`Error:\n${e}`);
           let pro = new Discord.Attachment()
             .setAttachment(buff, `${username}.png`);
 
