@@ -14,7 +14,7 @@ exports.run = (client, message, args, Discord, connection) => {
             message.channel.send(`You cannot make a tag with this name.`);
           } else if (content.length > 0) {
             connection.query(`INSERT INTO \`tags\` (\`guild\`, \`ID\`, \`owner\`, \`name\`, \`content\`) VALUES (${message.guild.id}, '${Date.now().toString(16)}', ${message.author.id}, ${connection.escape(args[2])}, ${connection.escape(content)})`);
-            message.channel.send(`Tag ${args[2]} created successfully.`);
+            message.channel.send(`Tag ${clean(args[2])} created successfully.`);
           } else {
             message.channel.send(`You need to include content in a tag.`);
           }
@@ -96,3 +96,10 @@ exports.conf = {
   usage: 'tag [create/remove/info]\nExample tag usage: //hello',
   aliases: [],
 };
+
+function clean(text) {
+  if (typeof text === 'string')
+    return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
+  else
+    return text;
+}
