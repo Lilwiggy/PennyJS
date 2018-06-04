@@ -1,5 +1,7 @@
 exports.run = (client, message, args, Discord, connection) => {
   // COOKIEESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  const moment = require(`moment`);
+
   let gifs = [
     'http://i.imgur.com/59BsuwU.gif',
     'https://media.giphy.com/media/nAErqE3k2C3fy/giphy.gif',
@@ -12,15 +14,10 @@ exports.run = (client, message, args, Discord, connection) => {
   let gif = gifs[Math.floor(Math.random() * gifs.length)];
   client.checkUser(message.author.id, message.author.avatarURL, () => {
     if (args.length === 1) {
-      connection.query(`SELECT *,NOW()-INTERVAL 24 HOUR > \`CT\` AS canGetDaily,(TO_SECONDS(\`CT\`)-TO_SECONDS(NOW() - INTERVAL 24 HOUR)) AS restTime, NOW()  FROM \`User\` WHERE \`User_ID\`=${message.author.id}`, (error, results, fields) => {
-        if (results[0].canGetDaily === 0) {
-          let date = new Date(null);
-          date.setSeconds(results[0].restTime);
-          let hours = date.toISOString().substr(11, 2);
-          let minutes = date.toISOString().substr(14, 2);
-          let seconds = date.toISOString().substr(17, 2);
-
-          message.channel.send(`You can give someone a cookie in, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
+      connection.query(`SELECT CT FROM \`User\` WHERE \`User_ID\`=${message.author.id}`, (error, results) => {
+        if (results[0].CT === 0) {
+          let dur = moment.duration(client.job.nextInvocation() - Date.now());
+           message.channel.send(`You can give someone a cookie in, ${dur.hours()} hours, ${dur.minutes()} minutes, and ${dur.seconds()} seconds.`);
         } else {
           message.channel.send('**You can give someone a cookie.**');
         }
@@ -33,21 +30,16 @@ exports.run = (client, message, args, Discord, connection) => {
         message.channel.send("You can't give bots cookies!");
       } else {
         client.checkUser(message.mentions.users.first().id, message.mentions.users.first().avatarURL, () => {
-          connection.query(`SELECT *,NOW()-INTERVAL 24 HOUR > \`CT\` AS canGetDaily,(TO_SECONDS(\`CT\`)-TO_SECONDS(NOW() - INTERVAL 24 HOUR)) AS restTime, NOW()  FROM \`User\` WHERE \`User_ID\`= ${message.author.id}`, (error, results, fields) => {
-            if (results[0].canGetDaily === 1) {
-              connection.query(`UPDATE \`User\` SET \`CT\`=NOW() WHERE \`User_ID\` = ${message.author.id}`);
+          connection.query(`SELECT \`CT\` FROM \`User\` WHERE \`User_ID\`= ${message.author.id}`, (error, results) => {
+            if (results[0].CT === 1) {
+              connection.query(`UPDATE \`User\` SET \`CT\`= 0 WHERE \`User_ID\` = ${message.author.id}`);
               connection.query(`UPDATE \`User\` SET \`Cookie\`=\`Cookie\`+1 WHERE \`User_ID\` = ${message.mentions.users.first().id}`);
               message.channel.send(`${message.author.username} just gave ${message.mentions.users.first().username} a cookie!`, {
                 file: gif,
               });
             } else {
-              let date = new Date(null);
-              date.setSeconds(results[0].restTime);
-              let hours = date.toISOString().substr(11, 2);
-              let minutes = date.toISOString().substr(14, 2);
-              let seconds = date.toISOString().substr(17, 2);
-
-              message.channel.send(`You can give someone a cookie in, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
+              let dur = moment.duration(client.job.nextInvocation() - Date.now());
+              message.channel.send(`You can give someone a cookie in, ${dur.hours()} hours, ${dur.minutes()} minutes, and ${dur.seconds()} seconds.`);
             }
           });
         });
@@ -63,6 +55,6 @@ exports.run = (client, message, args, Discord, connection) => {
 exports.conf = {
   name: 'cookie',
   description: 'Give someone a cookie. Please.',
-  usage: 'cookie',
+  usage: 'cookie @user',
   aliases: [],
 };

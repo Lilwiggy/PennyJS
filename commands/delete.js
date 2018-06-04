@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
     if (args.length === 1) {
       message.channel.send(`Usage: ${client.prefix}delete [amount]`);
     } else {
-      var del;
+      let del;
       if (args.length === 1)
         del = 2;
       else
@@ -17,12 +17,12 @@ exports.run = (client, message, args) => {
         if (args[1] > 100) {
           message.channel.send('Max amount is 100.');
         } else {
-          message.delete().then(
-            message.channel.fetchMessages({
+          message.delete().then((m) => {
+            m.channel.fetchMessages({
               limit: del,
-            }).then((messages) => message.channel.bulkDelete(messages)).catch(console.error)
-          );
-
+            }
+            ).then((messages) => message.channel.bulkDelete(messages)).catch(console.error);
+          });
           message.channel.send(`Deleted ${args[1]} messages. `);
         }
       } else {

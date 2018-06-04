@@ -6,28 +6,26 @@ exports.run = (client, message, args, Discord) => {
   } else if (args.length > 1) {
     if (hex.test(args[1])) {
       message.channel.startTyping();
-    let Image = Canvas.Image;
-    let canvas = new Canvas(100, 100);
-    let ctx = canvas.getContext('2d');
+      let canvas = new Canvas(100, 100);
+      let ctx = canvas.getContext('2d');
 
-    let img = new Image();
-    if (args[1].includes('#'))
-    ctx.fillStyle = args[1];
-    else
-    ctx.fillStyle = `#${args[1]}`;
-    ctx.fillRect(0, 0, 1920, 1080);
-    canvas.toBuffer((e, buff) => {
-      let att = new Discord.Attachment()
+      if (args[1].includes('#'))
+        ctx.fillStyle = args[1];
+      else
+        ctx.fillStyle = `#${args[1]}`;
+      ctx.fillRect(0, 0, 1920, 1080);
+      canvas.toBuffer((e, buff) => {
+        let att = new Discord.Attachment()
           .setAttachment(buff, `${args[1]}.png`);
-          message.channel.send(`Color for **${args[1]}:**`, { file: att }).then((msg) => {
-            msg.channel.stopTyping();
-          });
-    });
+        message.channel.send(`Color for **${args[1]}:**`, { file: att }).then((msg) => {
+          msg.channel.stopTyping();
+        });
+      });
     } else {
       message.channel.send(`Please input a proper hex color.`);
     }
   } else {
-    message.channel.send(`Your color color is **${message.member.displayHexColor}**`);
+    message.channel.send(`Your color is **${message.member.displayHexColor}**`);
   }
 };
 

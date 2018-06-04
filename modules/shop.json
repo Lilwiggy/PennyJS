@@ -682,12 +682,107 @@
             "price": "8000",
             "name": "mei02",
             "type": "background"
-        }
-        ,
+        },
         "yandere": {
             "image": "http://pennybot.tk/assets/yandere.png",
             "price": "6000",
             "name": "yandere",
+            "type": "background"
+        },
+        "salem01": {
+            "image": "http://pennybot.tk/assets/salem01.png",
+            "price": "6000",
+            "name": "salem01",
+            "type": "background"
+        },
+        "himiko": {
+            "image": "http://pennybot.tk/assets/himiko.png",
+            "price": "6000",
+            "name": "himiko",
+            "type": "background"
+        },
+        "rias01": {
+            "image": "http://pennybot.tk/assets/rias01.png",
+            "price": "6000",
+            "name": "rias01",
+            "type": "background"
+        },
+        "rias02": {
+            "image": "http://pennybot.tk/assets/rias02.png",
+            "price": "6000",
+            "name": "rias02",
+            "type": "background"
+        },
+        "rias03": {
+            "image": "http://pennybot.tk/assets/rias03.png",
+            "price": "8000",
+            "name": "rias03",
+            "type": "background"
+        },
+        "highschool_dxd": {
+            "image": "http://pennybot.tk/assets/highschool_dxd.png",
+            "price": "8000",
+            "name": "highschool_dxd",
+            "type": "background"
+        },
+        "highschool_dxd01": {
+            "image": "http://pennybot.tk/assets/highschool_dxd01.png",
+            "price": "7000",
+            "name": "highschool_dxd01",
+            "type": "background"
+        },
+        "konoko": {
+            "image": "http://pennybot.tk/assets/konoko.png",
+            "price": "6000",
+            "name": "konoko",
+            "type": "background"
+        },
+        "zero_two": {
+            "image": "http://pennybot.tk/assets/zero_two.png",
+            "price": "6000",
+            "name": "zero_two",
+            "type": "background"
+        },
+        "celeste01": {
+            "image": "http://pennybot.tk/assets/celeste01.png",
+            "price": "6000",
+            "name": "celeste01",
+            "type": "background"
+        },
+        "mob01": {
+            "image": "http://pennybot.tk/assets/mob01.png",
+            "price": "8000",
+            "name": "mob01",
+            "type": "background"
+        },
+        "mob02": {
+            "image": "http://pennybot.tk/assets/mob02.png",
+            "price": "6000",
+            "name": "mob02",
+            "type": "background"
+        },
+        "reigen": {
+            "image": "http://pennybot.tk/assets/reigen.png",
+            "price": "8000",
+            "name": "reigen",
+            "type": "background"
+        },
+        "saitama01": {
+            "image": "http://pennybot.tk/assets/saitama01.png",
+            "price": "6000",
+            "name": "saitama01",
+            "type": "background"
+        },
+        "saitama02": {
+            "image": "http://pennybot.tk/assets/saitama02.png",
+            "price": "8000",
+            "name": "saitama02",
+            "type": "background"
+        },
+        "saitama03": {
+            "image": "http://pennybot.tk/assets/saitama03.png",
+            "price": "8000",
+            "name": "saitama03",
             "type": "background"
         }
 }

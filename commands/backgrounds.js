@@ -3,7 +3,7 @@ exports.run = (client, message, args, discord, connection) => {
   let i = 0;
   client.checkUser(message.author.id, message.author.displayAvatarURL, () => {
     connection.query(`SELECT * FROM \`userB\` WHERE User_ID = '${message.author.id}'`, (e, res) => {
-      if (res) {
+      if (res.length > 0) {
         res.forEach((d) => {
           if (d.name !== 'default')
             bg.push(d.name);
@@ -48,7 +48,6 @@ exports.conf = {
   description: 'View your backgrounds',
   usage: 'background',
   aliases: [],
-  hidden: true,
 };
 
 function embed(bg) {

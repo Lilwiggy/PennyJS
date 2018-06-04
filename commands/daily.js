@@ -1,18 +1,30 @@
 exports.run = (client, message, args, Discord, connection) => {
   // Nightly. 😤
-  client.checkUser(message.author.id, message.author.avatarURL, () => {
-    connection.query(`SELECT *,NOW()-INTERVAL 24 HOUR > \`DailyTime\` AS canGetDaily,(TO_SECONDS(\`DailyTime\`)-TO_SECONDS(NOW() - INTERVAL 24 HOUR)) AS restTime, NOW()  FROM \`User\` WHERE \`User_ID\`='${message.author.id}'`, (error, results, fields) => {
-      if (results[0].canGetDaily === 1) {
-        connection.query(`UPDATE \`User\` SET \`DailyTime\`=NOW(),\`Credits\`=\`Credits\`+500 WHERE \`User_ID\` = '${message.author.id}'`);
-        message.channel.send("💸 Here's your 500 credits 💸");
+  const moment = require(`moment`);
+  client.checkUser(message.author.id, message.author.displayAvatarURL, () => {
+    connection.query(`SELECT \`DailyTime\` FROM \`User\` WHERE \`User_ID\`='${message.author.id}'`, (error, results) => {
+      if (results[0].DailyTime === 1) {
+        if (message.mentions.users.first()) {
+          if (message.mentions.users.first().id === message.author.id) {
+            message.channel.send(`You can't give yourself daily credits!\nJust do ${client.prefix}daily instead.`);
+          } else if (message.mentions.users.first().bot) {
+            message.channel.send(`Bots have no use for money.`);
+          } else {
+            client.checkUser(message.mentions.users.first().id, message.mentions.users.first().displayAvatarURL, () => {
+              let amount = Math.floor(Math.random() * (2000 - 500)) + 500;
+              connection.query(`UPDATE \`User\` SET \`Credits\`=\`Credits\` + ${amount} WHERE \`User_ID\` = '${message.mentions.users.first().id}'`);
+              connection.query(`UPDATE \`User\` SET \`DailyTime\` = 0 WHERE \`User_ID\` = '${message.author.id}'`);
+              message.channel.send(`💸 ${message.author.username} just gave ${message.mentions.users.first().username} ${amount} daily credits! 💸`);
+            });
+          }
+        } else {
+          let amount = Math.floor(Math.random() * (1000 - 500)) + 500;
+          connection.query(`UPDATE \`User\` SET \`DailyTime\` = 0,\`Credits\`=\`Credits\` + ${amount} WHERE \`User_ID\` = '${message.author.id}'`);
+          message.channel.send(`💸 Here's your ${amount} credits 💸`);
+        }
       } else {
-        let date = new Date(null);
-        date.setSeconds(results[0].restTime);
-        let hours = date.toISOString().substr(11, 2);
-        let minutes = date.toISOString().substr(14, 2);
-        let seconds = date.toISOString().substr(17, 2);
-
-        message.channel.send(`Your daily will reset in, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
+        let dur = moment.duration(client.job.nextInvocation() - Date.now());
+        message.channel.send(`Your daily will reset in, ${dur.hours()} hours, ${dur.minutes()} minutes, and ${dur.seconds()} seconds.`);
       }
     });
   });
@@ -20,7 +32,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'daily',
-  description: 'Get your daily 500 credits.',
+  description: 'Get your daily credits.',
   usage: 'daily',
   aliases: ['dailies'],
 };
