@@ -10,9 +10,15 @@ exports.run = (client, message, args) => {
     }).then((text) => {
       var paul = text.text;
       var hi = paul.split('|');
-      message.channel.send(hi[1]);
+      message.channel.send(hi[1]).catch(() => {
+        message.channel.send(`Something went wrong! Sorry about that.`).catch(() => {
+          message.channel.send(`Could not translate that.`);
+        });
     });
-  }
+  }).catch(() => {
+    message.channel.send(`Something went wrong. Sorry about that!`);
+  })
+}
 };
 
 exports.conf = {
