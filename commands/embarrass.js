@@ -5,7 +5,7 @@ exports.run = async (client, message) => {
     if (!hook)
      hook = await message.channel.createWebhook(message.author.username, message.author.displayAvatarURL);
 
-    if (checkHook(hook, message.author))
+    if (!checkHook(hook, message.author))
     hook = await hook.edit(message.author.username, message.author.displayAvatarURL); 
 
       const stuff = require(`../modules/embarrass.json`);
