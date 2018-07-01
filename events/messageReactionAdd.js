@@ -49,34 +49,30 @@ exports.run = (client, reaction, user, dis, conn) => {
         console.log(err);
 
       conn.query(`SELECT \`starboard\` FROM \`Servers\` WHERE \`ServerID\` = ${guild.id}`, (e, res) => {
-        if (c[0].count === 0) {
-          if (e)
-            console.log(e);
+        if (e)
+          console.log(e);
 
-          doStuff(msg, c, res, guild, user, embed, reaction, conn).catch(() => { console.log(`Oopsie woopsies I did a fucky uppie （ノд｀＠）`); });
-        }
+        doStuff(msg, c, res, guild, user, embed, reaction, conn).catch(() => { console.log(`Oopsie woopsies I did a fucky uppie （ノд｀＠）`); });
       });
     });
   });
 };
 
 async function doStuff(msg, c, res, guild, user, embed, reaction, conn) {
-  if (msg.author.bot) {
-    if (msg.content.startsWith('⭐')) {
-      if (c[0].count === 1) {
-        if (msg.id === c[0].starID) {
-          let m = await guild.channels.get(res[0].starboard)
-            .fetchMessage(c[0].starID);
-          let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
-          ms.reactions.some((r) => {
-            if (r.users.has(user.id))
-              return;
-            let stars = m.content.split('stars');
-            m.edit(`⭐ ${ms.reactions.size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
-              embed: embed,
-            });
+  if (c[0].count === 1) {
+    if (msg.content.startsWith('⭐') && msg.author.id === '309531399789215744') {
+      if (msg.id === c[0].starID) {
+        let m = await guild.channels.get(res[0].starboard)
+          .fetchMessage(c[0].starID);
+        let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
+        ms.reactions.some((r) => {
+          if (r.users.has(user.id))
+            return;
+          let stars = m.content.split('stars');
+          m.edit(`⭐ ${ms.reactions.size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
+            embed: embed,
           });
-        }
+        });
       }
     }
   } else if (res[0].starboard) {
@@ -87,12 +83,5 @@ async function doStuff(msg, c, res, guild, user, embed, reaction, conn) {
         conn.query(`INSERT INTO \`starboard\` (msgID, starID) VALUES (${msg.id}, ${m.id})`);
       });
     }
-  } else {
-    guild.channels.get(res[0].starboard)
-      .fetchMessage(c[0].starID).then((m) => {
-        m.edit(`⭐ ${reaction.count} stars in ${msg.channel}`, {
-          embed: embed,
-        });
-      });
   }
 }
