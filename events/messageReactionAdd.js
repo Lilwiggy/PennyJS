@@ -69,7 +69,7 @@ async function doStuff(msg, c, res, guild, user, embed, reaction, conn) {
           if (r.users.has(user.id))
             return;
           let stars = m.content.split('stars');
-          m.edit(`⭐ ${ms.reactions.size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
+          m.edit(`⭐ ${ms.reactions.filter((re) => re.emoji.name === '⭐').size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
             embed: embed,
           });
         });
