@@ -1,17 +1,23 @@
+let catMap = new Map();
 exports.run = (client, message, args, Discord) => {
 // Info about our dugs I mean shop info.
   const data = require('../modules/shop.json');
   let emblems = [];
   let backgrounds = [];
+  let categories = [];
   let shop = Object.keys(data);
+  let cat = message.content.substr(client.prefix.length + args[0].length + 1);
   shop.forEach((x) => {
     if (data[x].type === 'background')
       backgrounds.push(data[x].name);
     else if (data[x].type === 'emblem')
-      emblems.push(data[x].name);
+      emblems.push(data[x].name.toLowerCase());
+
+    if (!categories.includes(data[x].meta.c.toLowerCase()))
+      categories.push(data[x].meta.c.toLowerCase());
   });
   if (args.length === 1) {
-    message.channel.send(`Usage: ${client.prefix}shopinfo [backgrounds/emblems/all]`);
+    message.channel.send(`Usage: ${client.prefix}shopinfo [backgrounds/emblems/all/category]`);
   } else if (args[1] === 'all') {
     client.shopAll.set(message.author.id, 0);
     message.channel.send(newEmbed(client, Discord, data, shop, message.author.id, 'all')).then((msg) => {
@@ -105,40 +111,95 @@ exports.run = (client, message, args, Discord) => {
     }).catch(console.error);
   } else if (data[args[1]]) {
     let embed = new Discord.RichEmbed()
-      .setTitle(`Shopinfo for ${args[1]}`)
+      .setAuthor(`Shopinfo for ${args[1]}`)
+      .setTitle(`Original art by ${data[args[1]].oc.name}`)
+      .setURL(data[args[1]].oc.url)
       .addField(`Price:`, data[args[1]].price)
       .addField(`Purchase:`, `${client.prefix}set${data[args[1]].type} ${args[1]}`)
       .setColor(`#89ff89`)
       .setImage(data[args[1]].image);
     message.channel.send(embed);
+  } else if (categories.includes(cat.toLowerCase())) {
+    catMap.set(message.author.id, 0);
+    let catArray = [];
+    getCat(data, cat, catArray);
+    message.channel.send(newEmbed(client, Discord, data, catArray, message.author.id, 'cat')).then((msg) => {
+      msg.react('⬅').then((r) => {
+        r.message.react(`➡`);
+      });
+      const filter = (r, user) => user.id === message.author.id;
+      const collector = msg.createReactionCollector(filter, { time: 60000 * 2 });
+      collector.on(`collect`, (r) => {
+        r.remove(message.author.id);
+        if (r.emoji.name === '⬅') {
+          if (catMap.get(message.author.id) === 0) {
+            catMap.set(message.author.id, catArray.length - 1);
+            msg.edit(newEmbed(client, Discord, data, catArray, message.author.id, 'cat')).catch(console.error);
+          } else {
+            catMap.set(message.author.id, catMap.get(message.author.id) - 1);
+            msg.edit(newEmbed(client, Discord, data, catArray, message.author.id, 'cat')).catch(console.error);
+          }
+        } else if (r.emoji.name === '➡') {
+          if (catMap.get(message.author.id) === catArray.length - 1) {
+            catMap.set(message.author.id, 0);
+            msg.edit(newEmbed(client, Discord, data, catArray, message.author.id, 'cat')).catch(console.error);
+          } else {
+            catMap.set(message.author.id, catMap.get(message.author.id) + 1);
+            msg.edit(newEmbed(client, Discord, data, catArray, message.author.id, 'cat')).catch(console.error);
+          }
+        }
+      });
+    });
   } else {
-    message.channel.send(`Usage: ${client.prefix}shopinfo [backgrounds/emblems/all]`);
+    message.channel.send(`Usage: ${client.prefix}shopinfo [backgrounds/emblems/all/category]`);
   }
 };
 
 function newEmbed(client, Discord, data, shop, id, type) {
   if (type === 'all') {
     return new Discord.RichEmbed()
-      .setTitle(`Shop info for ${shop[client.shopAll.get(id)]}`)
+      .setAuthor(`Shop info for ${shop[client.shopAll.get(id)]}`)
+      .setTitle(`Original art by ${data[shop[client.shopAll.get(id)]].oc.name}`)
+      .setURL(data[shop[client.shopAll.get(id)]].oc.url)
       .addField(`Price:`, data[shop[client.shopAll.get(id)]].price)
       .addField(`Purchase:`, `${client.prefix}set${data[shop[client.shopAll.get(id)]].type} ${shop[client.shopAll.get(id)]}`)
       .setColor(`#89ff89`)
       .setImage(data[shop[client.shopAll.get(id)]].image);
   } else if (type === 'backgrounds') {
     return new Discord.RichEmbed()
-      .setTitle(`Shop info for ${shop[client.shopBackgrounds.get(id)]}`)
+      .setAuthor(`Shop info for ${shop[client.shopBackgrounds.get(id)]}`)
+      .setTitle(`Original art by ${data[shop[client.shopBackgrounds.get(id)]].oc.name}`)
+      .setURL(data[shop[client.shopBackgrounds.get(id)]].oc.url)
       .addField(`Price:`, data[shop[client.shopBackgrounds.get(id)]].price)
       .addField(`Purchase:`, `${client.prefix}setbackground ${shop[client.shopBackgrounds.get(id)]}`)
       .setColor(`#89ff89`)
       .setImage(data[shop[client.shopBackgrounds.get(id)]].image);
   } else if (type === 'emblems') {
     return new Discord.RichEmbed()
-      .setTitle(`Shop info for ${shop[client.shopEmblems.get(id)]}`)
+      .setAuthor(`Shop info for ${shop[client.shopEmblems.get(id)]}`)
+      .setTitle(`Original art by ${data[shop[client.shopEmblems.get(id)]].oc.name}`)
+      .setURL(data[shop[client.shopEmblems.get(id)]].oc.url)
       .addField(`Price:`, data[shop[client.shopEmblems.get(id)]].price)
       .addField(`Purchase:`, `${client.prefix}setemblem ${shop[client.shopEmblems.get(id)]}`)
       .setColor(`#89ff89`)
       .setImage(data[shop[client.shopEmblems.get(id)]].image);
+  } else if (type === 'cat') {
+    return new Discord.RichEmbed()
+      .setAuthor(`Shop info for ${shop[catMap.get(id)].name}`)
+      .setTitle(`Original art by ${shop[catMap.get(id)].oc.name}`)
+      .setURL(shop[catMap.get(id)].oc.url)
+      .addField(`Price:`, shop[catMap.get(id)].price)
+      .addField(`Purchase:`, `${client.prefix}set${shop[catMap.get(id)].type} ${shop[catMap.get(id)].name}`)
+      .setColor(`#89ff89`)
+      .setImage(shop[catMap.get(id)].image);
   }
+}
+
+function getCat(json, input, arr) {
+  Object.keys(json).forEach((o) => {
+    if (json[o].meta.c.toLowerCase() === input.toLowerCase())
+      arr.push(json[o]);
+  });
 }
 
 exports.conf = {
