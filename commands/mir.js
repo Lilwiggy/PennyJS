@@ -1,6 +1,7 @@
 exports.run = (client, message, args, Discord, connection) => {
   // dolla dolla bills y'all
   client.checkUser(message.author.id, message.author.avatarURL, () => {
+    let p = client.prefix;
     if (client.mirMap.get(message.guild.id) === 1) {
       message.channel.send('There is already a make it rain happening in this server.');
     } else {
@@ -13,24 +14,19 @@ exports.run = (client, message, args, Discord, connection) => {
         } else {
           client.mirMap.set(message.guild.id, 1);
           connection.query(`UPDATE \`User\` SET \`Credits\` = \`Credits\` - ${connection.escape(cr)} WHERE \`User_ID\` = ${message.author.id}`);
-          message.channel.send(`${message.author.username} has just thrown ${cr} credits in the air! The first person to pick them up by saying "${client.prefix}grab" wins them!`);
-          var collector = message.channel.createMessageCollector(
-            (m) => m.content.toLowerCase() === `${client.prefix}grab` && m.author.id !== message.author.id, {
-              time: 30000,
-              max: 1,
-            }
-          );
-          collector.on('collect', (m) => {
-            connection.query(`UPDATE \`User\` SET \`Credits\` = \`Credits\` + ${connection.escape(cr)} WHERE \`User_ID\` = ${m.author.id}`);
-            message.channel.send(`Congrats ${m.author.username} you just won ${cr} credits!`).then(client.mirMap.set(message.guild.id, 0));
-            collector.stop();
-          });
-          collector.on('end', (collected) => {
-            if (collected.size === 0) {
-              message.channel.send('It seems as if no one has picked up the credits. Oh well.').then(client.mirMap.set(message.guild.id, 0));
-              connection.query(`UPDATE \`User\` SET \`Credits\` = \`Credits\` + ${connection.escape(cr)} WHERE \`User_ID\` = ${message.author.id}`);
-              collector.stop();
-            }
+          message.channel.send(`${message.author.username} has just thrown ${cr} credits in the air! The first person to pick them up by saying "${client.prefix}grab" wins them!`).then((msg) => {
+            const filter = (m) => m.author.id !== message.author.id && m.content.toLowerCase() === `${p}grab`;
+            msg.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] })
+              .then((m) => {
+                connection.query(`UPDATE \`User\` SET \`Credits\` = \`Credits\` + ${connection.escape(cr)} WHERE \`User_ID\` = ${m.first().author.id}`);
+                message.channel.send(`Congrats ${m.first().author.username} you just won ${cr} credits!`).then(client.mirMap.set(message.guild.id, 0));
+              })
+              .catch((collected) => {
+                if (collected.size === 0) {
+                  message.channel.send('It seems as if no one has picked up the credits. Oh well.').then((m) => client.mirMap.set(m.guild.id, 0));
+                  connection.query(`UPDATE \`User\` SET \`Credits\` = \`Credits\` + ${connection.escape(cr)} WHERE \`User_ID\` = ${message.author.id}`);
+                }
+              });
           });
         }
       });
