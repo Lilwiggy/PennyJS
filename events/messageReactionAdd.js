@@ -60,24 +60,30 @@ exports.run = (client, reaction, user, dis, conn) => {
 
 async function doStuff(msg, c, res, guild, user, embed, reaction, conn) {
   if (c[0].count === 1) {
-    if (msg.content.startsWith('⭐') && msg.author.id === '309531399789215744') {
+    if (msg.content.startsWith('⭐')) {
       if (msg.id === c[0].starID) {
         let m = await guild.channels.get(res[0].starboard)
           .fetchMessage(c[0].starID);
         let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
-        ms.reactions.some((r) => {
-          if (r.users.has(user.id))
-            return;
-          let stars = m.content.split('stars');
-          m.edit(`⭐ ${ms.reactions.filter((re) => re.emoji.name === '⭐').size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
-            embed: embed,
-          });
+        if (ms.reactions.some((r) => r.users.has(user.id)))
+          return;
+        let stars = m.content.split('stars');
+        m.edit(`⭐ ${ms.reactions.filter((re) => re.emoji.name === '⭐').size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
+          embed: embed,
         });
       }
+    } else {
+      let m = await guild.channels.get(res[0].starboard)
+        .fetchMessage(c[0].starID);
+      let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
+      let stars = m.content.split('stars');
+      m.edit(`⭐ ${ms.reactions.filter((re) => re.emoji.name === '⭐').size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
+        embed: embed,
+      });
     }
   } else if (res[0].starboard) {
-    if (reaction.count >= 3) {
-      guild.channels.get(res[0].starboard).send(`⭐ ${reaction.count} stars in ${msg.channel}`, {
+    if (msg.reactions.some((r) => r.users.filter((u) => u.id !== msg.author.id).size) >= 1) {
+      guild.channels.get(res[0].starboard).send(`⭐ ${msg.reactions.filter((re) => re.emoji.name === '⭐').size} stars in ${msg.channel}`, {
         embed: embed,
       }).then((m) => {
         conn.query(`INSERT INTO \`starboard\` (msgID, starID) VALUES (${msg.id}, ${m.id})`);
