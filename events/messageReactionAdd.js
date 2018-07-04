@@ -82,12 +82,16 @@ async function doStuff(msg, c, res, guild, user, embed, reaction, conn) {
       });
     }
   } else if (res[0].starboard) {
-    if (msg.reactions.some((r) => r.users.filter((u) => u.id !== msg.author.id).size) >= 3) {
-      guild.channels.get(res[0].starboard).send(`⭐ ${msg.reactions.filter((re) => re.emoji.name === '⭐').size} stars in ${msg.channel}`, {
-        embed: embed,
-      }).then((m) => {
-        conn.query(`INSERT INTO \`starboard\` (msgID, starID) VALUES (${msg.id}, ${m.id})`);
-      });
-    }
+    msg.reactions.forEach((re) => {
+      if (re.emoji.name !== '⭐')
+        return;
+      if (re.users.filter((u) => u.id !== msg.author.id).size >= 3) {
+        guild.channels.get(res[0].starboard).send(`⭐ ${re.users.filter((u) => u.id !== msg.author.id).size} stars in ${msg.channel}`, {
+          embed: embed,
+        }).then((m) => {
+          conn.query(`INSERT INTO \`starboard\` (msgID, starID) VALUES (${msg.id}, ${m.id})`);
+        });
+      }
+    });
   }
 }
