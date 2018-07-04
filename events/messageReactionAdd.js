@@ -82,7 +82,7 @@ async function doStuff(msg, c, res, guild, user, embed, reaction, conn) {
       });
     }
   } else if (res[0].starboard) {
-    if (msg.reactions.some((r) => r.users.filter((u) => u.id !== msg.author.id).size) >= 1) {
+    if (msg.reactions.some((r) => r.users.filter((u) => u.id !== msg.author.id).size) >= 3) {
       guild.channels.get(res[0].starboard).send(`⭐ ${msg.reactions.filter((re) => re.emoji.name === '⭐').size} stars in ${msg.channel}`, {
         embed: embed,
       }).then((m) => {
