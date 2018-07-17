@@ -16,8 +16,7 @@ exports.run = (client, message, Discord, connection) => {
         connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = ${message.author.id}`, (err, res) => {
           if (err)
             throw err;
-          if (prefix[0].levels === 1)
-            xpAdd(connection, message);
+            xpAdd(connection, message, prefix[0].levels);
           try {
             // This is for seeing if the user is blacklisted or not. Some people man smh.
             if (res[0].Blacklisted === 1) {
@@ -34,6 +33,7 @@ exports.run = (client, message, Discord, connection) => {
                 try {
                   cmd.run(client, message, args, Discord, connection);
                   connection.query(`UPDATE \`User\` SET \`Used\` = \`Used\` + 1 WHERE \`User_ID\` = ${message.author.id}`);
+                  console.log(`Ran command: ${command[0]} by user ${message.author.username}\nUser ID: ${message.author.id}`);
                 } catch (e) {
                   client.users.get('232614905533038593').send(`Error:\n${e}\nUsed in:\n${message.content}`);
                 }
@@ -41,8 +41,8 @@ exports.run = (client, message, Discord, connection) => {
                 connection.query(`SELECT * FROM \`tags\` WHERE \`guild\` = ${message.guild.id} AND \`name\` = ${connection.escape(command[0])}`, (e, tag) => {
                   if (e)
                     client.users.get('232614905533038593').send(`Error:\n${e}\nUsed in:\n${message.content}`);
-
                   if (tag.length > 0) {
+                    console.log(`Ran tag: ${command[0]} by user ${message.author.username}\nUser ID: ${message.author.id}`);
                     connection.query(`UPDATE \`tags\` SET \`used\` = \`used\` + 1 WHERE \`name\` = ${connection.escape(command[0])} AND \`guild\` = ${message.guild.id}`);
                     message.channel.send(clean(tag[0].content));
                   }
@@ -99,7 +99,7 @@ exports.run = (client, message, Discord, connection) => {
   });
 };
 
-function xpAdd(connection, message) {
+function xpAdd(connection, message, enabled) {
   connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = '${message.author.id}'`, (err, res) => {
     if (err)
       throw err;
@@ -110,7 +110,8 @@ function xpAdd(connection, message) {
         var xp = [Math.floor(Math.random() * 50)]; // 50 xp max at random. Just to make leveling up hard as balls
         connection.query(`UPDATE \`User\` SET \`xp_cool\`=NOW(), \`XP\`=\`XP\` + '${xp}' WHERE \`User_ID\` = '${message.author.id}'`);
         if (res[0].XP > res[0].Next) {
-          message.channel.send(`Congrats, ${message.author.username}! You just leveled up to level ${res[0].Level + 1}!`);
+          if (enabled === 1)
+            message.channel.send(`Congrats, ${message.author.username}! You just leveled up to level ${res[0].Level + 1}!`);
           connection.query(`UPDATE \`User\` SET \`Level\` = \`Level\` + 1, \`Next\` = \`Next\` + 500, \`xp\` = 0 WHERE \`User_ID\` = '${message.author.id}'`);
         }
       }
