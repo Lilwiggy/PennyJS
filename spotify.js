@@ -27,6 +27,8 @@ client.on('ready', () => {
 client.on(`messageCreate`, (message) => {
   if (message.author.bot)
     return;
+  if (message.channel.type !== 0)
+    return;
     client.checkServer(message.member.guild.id, message.member.guild.name, message.member.guild.iconURL, () => {
         connection.query(`SELECT * FROM \`Servers\` WHERE \`ServerID\` = '${message.member.guild.id}'`, (error, prefixD) => {
             let prefix = prefixD[0].Prefix;

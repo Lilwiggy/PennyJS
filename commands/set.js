@@ -64,6 +64,15 @@ exports.run = (client, message, args, Discord, connection) => {
       } else {
         message.channel.send(`Usage: ${client.prefix}set mod channel #channel`);
       }
+    } else if (args[1] === 'starboard') {
+      if (message.mentions.channels.first()) {
+        client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL, () => {
+          connection.query(`UPDATE \`Servers\` SET \`starboard\` = ${message.mentions.channels.first().id} WHERE \`ServerID\` = ${message.guild.id}`);
+          message.channel.send(`Successfully set ${message.mentions.channels.first()} the starboard chat log.`);
+        });
+      } else {
+        message.channel.send(`Usage: ${client.prefix}set starboard #channel`);
+      }
     }
   } else {
     message.channel.send(`This command is restricted to server admins.`);

@@ -2,7 +2,7 @@ exports.run = (client, message, args) => {
 // GIVE ME WAIFUS
   const fs = require(`fs`);
   let images = require(`../images.json`);
-  const urlReg = /(https?:\/\/.*\.(?:png|jpg|gif))/i;
+  const urlReg = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
   let filter = (r, u) => (r.emoji.name === '✅' || r.emoji.name === '🗑') && u.id === '232614905533038593';
   if (args.length === 1) {
     message.channel.send(`Usage: ${client.prefix}suggest [waifu/nsfw] [link]`);
