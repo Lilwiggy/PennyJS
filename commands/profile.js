@@ -21,7 +21,7 @@ exports.run = (client, message, args, Discord, connection) => {
           message.channel.send("Haha. Silly you. Bots don't have profiles!");
         } else {
           // Good naming system, idiot.
-          pro.pro(client, user.id, user.username, user.displayAvatarURL, message, connection, Discord);
+          pro.pro(client, user.id, user.displayName, user.displayAvatarURL, message, connection, Discord);
         }
     } else {
       connection.query(`SELECT *,NOW()-INTERVAL 1 MINUTE > \`cool\` AS cooldown,(TO_SECONDS(\`cool\`)-TO_SECONDS(NOW() - INTERVAL 1 MINUTE)) AS restTime, NOW()  FROM \`usercool\` WHERE \`User_ID\`='${userID}' AND \`command\` = '${command}'`, (err1, res1, fields1) => {
@@ -32,7 +32,7 @@ exports.run = (client, message, args, Discord, connection) => {
               // Still preventing the robot uprising here^^
               message.channel.send("Haha. Silly you. Bots don't have profiles!");
             } else {
-              pro.pro(client, user.id, user.username, user.displayAvatarURL, message, connection, Discord);
+              pro.pro(client, user.id, user.displayName, user.displayAvatarURL, message, connection, Discord);
             }
         } else {
           connection.query(`UPDATE \`usercool\` SET \`cool\` =NOW() WHERE \`command\` = '${command}' AND \`User_ID\` = '${userID}'`);
@@ -41,7 +41,7 @@ exports.run = (client, message, args, Discord, connection) => {
               // Still preventing the robot uprising here^^
               message.channel.send("Haha. Silly you. Bots don't have profiles!");
             } else {
-              pro.pro(client, user.id, user.username, user.displayAvatarURL, message, connection, Discord);
+              pro.pro(client, user.id, user.displayName, user.displayAvatarURL, message, connection, Discord);
           }
         }
       });
