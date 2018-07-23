@@ -15,7 +15,7 @@ exports.run = (client, message, args, Discord, connection) => {
       throw err;
     if (res[0].count === 0) {
       connection.query(`INSERT INTO \`usercool\`(\`User_ID\`, \`command\`, \`cool\`) VALUES (${userID}, 'profile' , NOW())`);
-      let user = message.mentions.users.first() || message.member
+      let user = message.mentions.users.first() || message.author
         if (user.bot) {
           // No robot uprising today!
           message.channel.send("Haha. Silly you. Bots don't have profiles!");
@@ -36,7 +36,7 @@ exports.run = (client, message, args, Discord, connection) => {
             }
         } else {
           connection.query(`UPDATE \`usercool\` SET \`cool\` =NOW() WHERE \`command\` = '${command}' AND \`User_ID\` = '${userID}'`);
-           let user = message.mentions.users.first() || message.member
+           let user = message.mentions.users.first() || message.author
             if (user.bot) {
               // Still preventing the robot uprising here^^
               message.channel.send("Haha. Silly you. Bots don't have profiles!");
