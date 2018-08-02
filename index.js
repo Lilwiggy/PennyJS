@@ -17,7 +17,6 @@ const connection = mysql.createConnection({
 client.commands = new Map();
 client.adminCommands = new Map();
 client.aliases = new Map();
-client.queue = new Map();
 client.config = config;
 client.mirMap = new Map();
 client.queue = new Map();
@@ -25,9 +24,19 @@ client.help = new Map();
 client.shopAll = new Map();
 client.shopBackgrounds = new Map();
 client.shopEmblems = new Map();
+client.starQueue = [];
+
+setInterval(() => {
+  if (client.starQueue.length < 1)
+    return;
+  client.starQueue[0]();
+  client.starQueue.splice(0, 1);
+}, 2000);
 
 // Hey this is that thing in the other file I need
 require('./modules/functions.js')(client, connection);
+let Raven = require('raven');
+Raven.config(client.config.bot.err).install();
 // var pl = require('./server.js');
 
 // This is the thing that does the thing on a client event broh
