@@ -1,4 +1,9 @@
 {
   "nsfw": [],
-  "waifu": []
+  "waifu": [],
+  "hugs": {
+    "anime": [],
+    "noAnime": [],
+    "lolno": []
+  }
 }
