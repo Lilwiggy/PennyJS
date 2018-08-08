@@ -11,10 +11,10 @@ exports.run = (client, message, Discord, connection) => {
           let embed = new Discord.RichEmbed();
           let edits = '';
           let logs = await message.guild.fetchAuditLogs();
-          if (logs.entries.first().action !== 'MESSAGE_DELETE')
-            embed.setTitle(`Message sent by ${message.author.username} deleted in ${message.channel.name}.`);
-          else
+          if (logs.entries.first().action === 'MESSAGE_DELETE' && logs.entries.first().target.id === message.author.id)
             embed.setTitle(`Message sent by ${message.author.username} deleted in ${message.channel.name} by ${logs.entries.first().executor.username}.`);
+          else
+            embed.setTitle(`Message sent by ${message.author.username} deleted in ${message.channel.name}.`);
           embed.setThumbnail(message.author.avatarURL);
           embed.setColor('#ff7575');
           if (message.content.length > 0) {
