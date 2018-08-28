@@ -14,15 +14,12 @@ exports.run = (client, message) => {
     cmdFiles.forEach((f) => {
       if (!f.endsWith('.js'))
         return;
-      Object.keys(require.cache).forEach((key) => {
-        delete require.cache[key];
-      });
+      delete require.cache[require.resolve(`../../commands/${f}`)];
       const response = client.loadCommand(f);
       if (response)
         console.log(response);
     });
   });
-
   // Admin commands to clean up the message event
   fs.readdir('./commands/admin', (err, cmdFiles) => {
     if (err)
@@ -31,9 +28,7 @@ exports.run = (client, message) => {
     cmdFiles.forEach((f) => {
       if (!f.endsWith('.js'))
         return;
-      Object.keys(require.cache).forEach((key) => {
-        delete require.cache[key];
-      });
+      delete require.cache[require.resolve(`../../commands/admin/${f}`)];
       const response = client.loadAdminCommand(f);
       if (response)
         console.log(response);
