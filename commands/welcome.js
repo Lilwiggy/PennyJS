@@ -24,7 +24,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'welcome',
-  description: 'Enables/disables welcome messages',
-  usage: 'welcome',
+  description: 'Enables/disables welcome messages.',
+  usage: 'welcome [on/off]',
   aliases: [],
 };

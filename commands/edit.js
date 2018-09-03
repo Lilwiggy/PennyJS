@@ -56,7 +56,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'edit',
-  description: 'Edit color',
-  usage: 'edit [hex]',
+  description: 'Edit a role\'s color.',
+  usage: 'edit role | [hex]',
   aliases: [],
 };

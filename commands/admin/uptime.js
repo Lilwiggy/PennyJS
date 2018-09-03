@@ -6,7 +6,10 @@ exports.run = (client, message) => {
   let hours = Math.floor(process.uptime() / (60 * 60));
   let minutes = Math.floor(process.uptime() % (60 * 60) / 60);
   let seconds = Math.floor(process.uptime() % 60);
-  message.channel.send(`My uptime: ${days} days ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
+  if (message)
+    message.channel.send(`My uptime: ${days} days ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
+  else
+    return `My uptime: ${days} days ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`;
 };
 
 

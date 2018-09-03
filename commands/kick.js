@@ -1,6 +1,6 @@
 exports.run = (client, message, args) => {
   // This command is used when a user needs a good ol' kick in the butt.
-  if (message.member.hasPermission('BAN_MEMBERS') || message.member.hasPermission('KICK_MEMBERS')) {
+  if (message.member.hasPermission('KICK_MEMBERS')) {
     if (args.length === 1) {
       message.channel.send(`Usage: ${client.prefix}kick @user`);
     } else if (message.mentions.users.first()) {
@@ -24,7 +24,7 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   name: 'kick',
-  description: 'Kick a user in the bum',
-  usage: 'kick',
+  description: 'Kicks a user.',
+  usage: 'kick [@user]',
   aliases: [],
 };

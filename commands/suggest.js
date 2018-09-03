@@ -156,7 +156,7 @@ or, <https://i.imgur.com/uyiWv1h.jpg>`);
 
 exports.conf = {
   name: 'suggest',
-  description: 'pls I need more waifus',
+  description: 'Suggest an image for the waifu or nsfw command.',
   usage: 'suggest [waifu/nsfw] [link]',
   aliases: [],
 };

@@ -12,7 +12,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   name: 'topic',
-  description: 'Topics',
+  description: 'A topic starter.',
   usage: 'topic',
   aliases: [],
 };

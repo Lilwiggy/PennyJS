@@ -45,7 +45,7 @@ exports.run = (client, message, args, discord, connection) => {
 
 exports.conf = {
   name: 'backgrounds',
-  description: 'View your backgrounds',
+  description: 'View the background you have purchased.',
   usage: 'background',
   aliases: [],
 };

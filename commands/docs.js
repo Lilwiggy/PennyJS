@@ -17,7 +17,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   name: 'docs',
-  description: 'docs',
+  description: 'Penny\'s documents',
   usage: 'docs',
   aliases: [`github`],
 };

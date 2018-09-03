@@ -40,7 +40,7 @@ exports.run = (client, message, args, Discord) => {
 };
 exports.conf = {
   name: 'osu',
-  description: 'Find OSU things?',
-  usage: 'osu',
+  description: 'Shows OSU! player stats for a user.',
+  usage: 'osu [OSU! username]',
   aliases: [],
 };

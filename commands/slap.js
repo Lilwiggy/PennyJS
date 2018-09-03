@@ -25,7 +25,7 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   name: 'slap',
-  description: 'WATCH OUT FAM',
-  usage: 'slap',
+  description: 'Slap someone.',
+  usage: 'slap [@user]',
   aliases: [],
 };

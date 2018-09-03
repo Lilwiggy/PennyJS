@@ -1,9 +1,9 @@
-var hts = ['heads', 'tails'];
-var ht = hts[Math.floor(Math.random() * hts.length)];
 exports.run = (client, message, args, Discord, connection) => {
   // Tails or the heads of your enemies?
+  let hts = ['heads', 'tails'];
+  let ht = hts[Math.floor(Math.random() * hts.length)];
   if (args.length === 1) {
-    message.channel.send('Usage: //ht heads or tails');
+    message.channel.send(`Usage: ${client.prefix}ht heads or tails`);
   } else {
     client.checkUser(message.author.id, message.author.avatarURL, () => {
       connection.query(`SELECT Credits FROM User WHERE User_ID='${message.author.id}'`, (error, results) => {
@@ -34,7 +34,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'ht',
-  description: `Def ${ht}`,
-  usage: 'ht',
+  description: `Basic heads or tails. You win 1 credit if you win.`,
+  usage: 'ht [option]',
   aliases: [],
 };

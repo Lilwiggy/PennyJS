@@ -30,7 +30,7 @@ exports.run = (client, message, args, Discord) => {
 
 exports.conf = {
   name: 'avatar',
-  description: 'Avatar command yip yip!',
-  usage: 'avatar',
+  description: 'Look at your\'s or someone else\'s avatar.',
+  usage: 'avatar {optional: [@user/username]}',
   aliases: [],
 };

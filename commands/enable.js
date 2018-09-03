@@ -35,6 +35,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'enable',
-  description: 'Enables the thingies n such',
+  description: 'Enables mod logs or levels or role edits.',
+  usage: 'enable [levels/mod logs/edits]',
   aliases: [],
 };

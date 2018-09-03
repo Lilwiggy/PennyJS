@@ -51,7 +51,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'profile',
-  description: 'The profiles n stuff',
-  usage: 'profile',
+  description: 'Shows your profile on Penny. Or someone else\'s profile.',
+  usage: 'profile {optional: [@user/username]}',
   aliases: [],
 };

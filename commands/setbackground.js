@@ -25,7 +25,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'setbackground',
-  description: 'Set this to be kids with the hip',
-  usage: 'setbackground',
+  description: 'Purchase or equip a background on Penny for your profile.',
+  usage: 'setbackground [background]',
   aliases: [],
 };

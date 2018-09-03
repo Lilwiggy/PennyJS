@@ -37,7 +37,7 @@ function shuffle(a) {
 
 exports.conf = {
   name: 'waifu',
-  description: 'All best girls',
+  description: 'Posts a random waifu.',
   usage: 'waifu',
   aliases: [],
 };

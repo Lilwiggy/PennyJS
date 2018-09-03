@@ -81,7 +81,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'set',
-  description: 'Sets the stuff',
-  usage: 'set [stuff]',
+  description: 'Sets welcome message or welcome channel or leave message or prefix or the starboard chat.',
+  usage: 'set [welcome message/welcome channel/leave message/prefix/#chat (for starboard)]',
   aliases: [],
 };

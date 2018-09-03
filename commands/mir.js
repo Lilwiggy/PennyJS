@@ -36,7 +36,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'mir',
-  description: 'Make it rain my dudes',
+  description: 'Makes it rain a random amount of credits. The first person to type grab wins them.',
   usage: 'mir',
   aliases: [],
 };

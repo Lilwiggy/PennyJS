@@ -11,7 +11,7 @@ exports.run = (client, message, args, Discord, connection) => {
             message.channel.send(`Bots have no use for money.`);
           } else {
             client.checkUser(message.mentions.users.first().id, message.mentions.users.first().displayAvatarURL, () => {
-              let amount = Math.floor(Math.random() * (2000 - 500)) + 500;
+              let amount = Math.floor(Math.random() * (2000 - 1000)) + 500;
               connection.query(`UPDATE \`User\` SET \`Credits\`=\`Credits\` + ${amount} WHERE \`User_ID\` = '${message.mentions.users.first().id}'`);
               connection.query(`UPDATE \`User\` SET \`DailyTime\` = 0 WHERE \`User_ID\` = '${message.author.id}'`);
               message.channel.send(`💸 ${message.author.username} just gave ${message.mentions.users.first().username} ${amount} daily credits! 💸`);
@@ -32,7 +32,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'daily',
-  description: 'Get your daily credits.',
-  usage: 'daily',
+  description: 'Get your daily credits. Or give them to someone else.',
+  usage: 'daily {optional: [@user]}',
   aliases: ['dailies'],
 };

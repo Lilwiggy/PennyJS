@@ -15,10 +15,6 @@ exports.run = (client, message, args) => {
       let cmd = client.commands.get(args[1]) || client.commands.get(client.commands.aliases.get(args[1]));
       if (cmd.conf.hidden)
         return;
-      let aliases = 'none';
-      if (cmd.conf.aliases.length > 1)
-        aliases = cmd.conf.aliases;
-
       message.channel.send({ embed: {
         title: `Help for ${args[1]}`,
         color: 9043849,
@@ -38,7 +34,7 @@ exports.run = (client, message, args) => {
           },
           {
             name: `Aliases for ${args[1]}`,
-            value: aliases,
+            value: cmd.conf.aliases.length > 0 ? cmd.conf.aliases.toString() : 'none',
           },
         ],
 
@@ -117,6 +113,5 @@ function embed(client, allC, pos) {
       value: client.commands.get(e).conf.description,
     });
   });
-
   return embed;
 }

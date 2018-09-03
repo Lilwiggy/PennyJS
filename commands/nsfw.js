@@ -40,7 +40,7 @@ function shuffle(a) {
 }
 exports.conf = {
   name: 'nsfw',
-  description: '( ͡° ͜ʖ ͡°)',
+  description: 'Posts a random NSFW image. Only works in NSFW labeled chats.',
   usage: 'nsfw',
   aliases: [],
 };

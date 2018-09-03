@@ -23,6 +23,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'disable',
-  description: 'Disables things n shiz',
+  description: 'Disables levels or mod logs.',
+  usage: 'disable [levels/mod logs]',
   aliases: [],
 };

@@ -86,8 +86,8 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'gamble',
-  description: 'Gamble your life away',
-  usage: 'gamble',
+  description: 'Gamble your credits. You win back what you bet.',
+  usage: 'gamble {optional: [amount to gamble]}',
   aliases: [],
 }
 ;

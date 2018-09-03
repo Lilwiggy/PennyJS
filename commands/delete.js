@@ -36,7 +36,7 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   name: 'delete',
-  description: 'Delet pls',
-  usage: 'delete',
+  description: 'Delets X number of messages',
+  usage: 'delete [amount]',
   aliases: [],
 };

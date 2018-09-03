@@ -38,7 +38,7 @@ exports.run = (client, message, args, Discord) => {
 
 exports.conf = {
   name: 'define',
-  description: 'Defines things.',
-  usage: 'define',
+  description: 'Gets a definition for a word from urban dictionary.',
+  usage: 'define [thing to define]',
   aliases: [],
 };

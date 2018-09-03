@@ -17,7 +17,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'inspire',
-  description: 'Inspire others too',
+  description: 'Posts an "inspirational" image.',
   usage: 'inspire',
   aliases: [],
 };

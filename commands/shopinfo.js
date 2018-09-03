@@ -204,7 +204,7 @@ function getCat(json, input, arr) {
 
 exports.conf = {
   name: 'shopinfo',
-  description: 'Drug info. I mean shop info.',
-  usage: 'shop info',
+  description: 'Shop info for backgrounds or emblems or a certain category.',
+  usage: 'shop info [all/backgrounds/emblems/category/item]',
   aliases: [],
 };

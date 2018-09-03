@@ -16,7 +16,7 @@ exports.run = (client, message, args) => {
 };
 exports.conf = {
   name: 'highfive',
-  description: 'High 12',
-  usage: 'highfive',
+  description: 'Give someone a highfive.',
+  usage: 'highfive [@user]',
   aliases: [],
 };

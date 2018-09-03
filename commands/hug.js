@@ -44,7 +44,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'hug',
-  description: 'Hug me pls',
-  usage: 'hug',
+  description: 'Give someone a hug!',
+  usage: 'hug [@user]',
   aliases: ['fuck'],
 };

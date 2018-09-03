@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   name: 'setemblem',
-  description: 'Gotta get them emblem bois',
-  usage: 'setemblem',
+  description: 'Set your emblem for your profile on Penny.',
+  usage: 'setemblem [emblem]',
   aliases: [],
 };

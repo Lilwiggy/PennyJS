@@ -20,7 +20,7 @@ exports.run = (client, message, args, Discord) => {
 };
 exports.conf = {
   name: 'complain',
-  description: 'W-why would you hate me? :(',
-  usage: 'complain',
+  description: 'Complain about Penny.\n"I see all of these message so have fun :)" - Lilwiggy',
+  usage: 'complain [complaint]',
   aliases: [],
 };

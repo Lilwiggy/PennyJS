@@ -23,7 +23,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'credits',
-  description: 'How much coin?',
-  usage: 'credits',
+  description: 'View your credits or someone else\'s credits.',
+  usage: 'credits {optional: [@user]}',
   aliases: [],
 };

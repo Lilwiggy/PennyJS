@@ -18,7 +18,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   name: 'parrot',
-  description: 'Best command',
+  description: 'Posts a random parrot!',
   usage: 'parrot',
   aliases: [],
 };

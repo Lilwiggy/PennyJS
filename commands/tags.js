@@ -1,7 +1,8 @@
 exports.run = (client, message, args, Discord, connection) => {
 // Witty comment here
   let tags = [];
-  connection.query(`SELECT * FROM \`tags\` WHERE \`owner\` = ${message.author.id} AND \`guild\` = ${message.guild.id}`, (e, res) => {
+  let user = message.mentions.users.first() || message.author;
+  connection.query(`SELECT * FROM \`tags\` WHERE \`owner\` = ${user.id} AND \`guild\` = ${message.guild.id}`, (e, res) => {
     if (res.length > 0) {
       res.forEach((d) => {
         tags.push(d.name);
@@ -9,17 +10,12 @@ exports.run = (client, message, args, Discord, connection) => {
     }
     if (tags.length > 0) {
       message.channel.send({ embed: {
-        title: `Tags for ${message.author.username}`,
+        title: `Tags for ${user.username} (total tags: ${tags.length})`,
         color: 9043849,
-        fields: [
-          {
-            name: `Tags total: ${tags.length}`,
-            value: tags.join(`\n`),
-          },
-        ],
+        description: tags.join(`, `),
       } });
     } else {
-      message.channel.send(`You don't have any tags!`);
+      message.channel.send(`${user.username} does not own any tags.`);
     }
   });
 };
@@ -27,7 +23,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'tags',
-  description: 'View the tags you own',
-  usage: 'tags',
+  description: 'View your own tags or someone else\'s tags.',
+  usage: 'tags {optional: [@user]}',
   aliases: [],
 };

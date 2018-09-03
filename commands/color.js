@@ -31,7 +31,7 @@ exports.run = (client, message, args, Discord) => {
 
 exports.conf = {
   name: 'color',
-  description: 'Color',
-  usage: 'color [color]/[@user]',
+  description: 'View a person\'s role color or an image of the color you provide.',
+  usage: 'color [hexcode]/[@user]',
   aliases: ['colour'], // Some British asshole told me to add this.
 };

@@ -1,10 +1,7 @@
 exports.run = (client, message, args, Discord, connection) => {
   connection.query(`SELECT \`Prefix\` FROM \`Servers\` WHERE \`ServerID\` = '${message.guild.id}'`, (error, res) => {
     let pr = res[0].Prefix;
-    let days = Math.floor(process.uptime() / (60 * 60 * 24));
-    let hours = Math.floor(process.uptime() / (60 * 60));
-    let minutes = Math.floor(process.uptime() % (60 * 60) / 60);
-    let seconds = Math.floor(process.uptime() % 60);
+    let up = client.adminCommands.get(`uptime`).run();
     const embed = new Discord.RichEmbed()
       .setTitle("Penny's Website")
       .setAuthor('PennyBot', client.user.avatarURL)
@@ -12,7 +9,7 @@ exports.run = (client, message, args, Discord, connection) => {
       .setFooter('PennyBot © Lilwiggy 2018')
       .setURL('https://pennybot.tk')
       .addField(`Stats`,
-        `**Uptime:** ${days} days ${hours} hours, ${minutes} minutes, and ${seconds} seconds.
+        `**Uptime:** ${up}
         \n**Ping:** ${Math.floor(client.ping)} ms
         \n**Total Servers:** ${client.guilds.size}
         \n**Server Prefix:** ${pr}
@@ -27,7 +24,7 @@ exports.run = (client, message, args, Discord, connection) => {
 
 exports.conf = {
   name: 'stats',
-  description: 'Cool stats n shiz',
+  description: 'Penny\'s various stats.',
   usage: 'stats',
   aliases: [],
 };

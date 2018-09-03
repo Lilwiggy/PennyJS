@@ -1,6 +1,6 @@
 exports.run = (client, message, args) => {
   // This command is for when users are being naughty and need a good ol' ban hammer TO THE FACE!
-  if (message.member.hasPermission('BAN_MEMBERS') || message.member.hasPermission('KICK_MEMBERS')) {
+  if (message.member.hasPermission('BAN_MEMBERS')) {
     if (args.length === 1) {
       message.channel.send(`Usage: ${client.prefix}ban @user`);
     } else if (message.mentions.users.first()) {
@@ -24,7 +24,7 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   name: 'ban',
-  description: 'Ban the user IN THE FACE!',
-  usage: 'ban',
+  description: 'Ban a user.',
+  usage: 'ban @user',
   aliases: ['deport'],
 };
