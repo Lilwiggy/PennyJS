@@ -90,6 +90,25 @@ exports.run = (client, message, args, Discord, connection) => {
     } else {
       message.channel.send(`Usage: ${client.prefix}tag info [tag]`);
     }
+  } else if (args[1] === 'edit') {
+    if (args[2] && args[3]) {
+      let content = message.content.substr(client.prefix.length + args[0].length + args[1].length + args[2].length + 3);
+      connection.query(`SELECT COUNT(*) AS \`inD\`, \`owner\`, \`content\` FROM \`tags\` WHERE \`guild\` = ${message.guild.id} AND \`name\` = ${connection.escape(args[2])}`, (err, res) => {
+        if (err)
+          client.users.get(`232614905533038593`).send(`Error in tag check:\n${err}`);
+
+        if (res[0].inD === 0) {
+          message.channel.send(`That tag does not exist.`);
+        } else if (message.author.id === res[0].owner) {
+          connection.query(`UPDATE \`tags\` SET \`content\` = ${connection.escape(content)} WHERE \`guild\` = ${message.guild.id} AND \`name\` = ${connection.escape(args[2])}`);
+          message.channel.send(`Updated tag ${clean(args[2])}`);
+        } else {
+          message.channel.send(`You do not own this tag!`);
+        }
+      });
+    } else {
+      message.channel.send(`Usage: ${client.prefix}tag edit [tag] [new tag stuff]`);
+    }
   }
 };
 

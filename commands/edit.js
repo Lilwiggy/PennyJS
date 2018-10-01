@@ -24,7 +24,7 @@ exports.run = (client, message, args, Discord, connection) => {
           if (args[1] && role[1]) {
             if (!edit) {
               message.channel.send('Sorry but you aren\'t allowed to edit this role.');
-            } else {
+            } else if (message.member.roles.find((r) => r.name.toLowerCase() === role[0].toLowerCase().trim())) {
               message.member.roles.filter((memberRole) => {
                 if (memberRole.name.toLowerCase() === role[0].toLowerCase().trim()) {
                   let hexThing = /^#[0-9A-F]{6}$/i;
@@ -41,6 +41,8 @@ exports.run = (client, message, args, Discord, connection) => {
                   }
                 }
               });
+            } else {
+              message.channel.send(`You can only edit roles you have!`);
             }
           } else {
             message.channel.send(`Usage: ${client.prefix}edit role name | hex`);
