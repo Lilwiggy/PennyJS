@@ -1,37 +1,16 @@
 //MSN Weather module
 const weather = require('weather-js');
 
-//Cooldown data set
-const weatheredRecently = new Set();
-
 exports.run = (client, message, args, Discord) => {
-
-    //Checks data set, will wait 20 seconds before removing ID
-    //Just to prevent API spam
-	if (weatheredRecently.has(message.author.id)) {
-		return message.channel.send("please wait 20 seconds before using that command again");
-	} else {
-	
-	    weatheredRecently.add(message.author.id);
-        
-        setTimeout(() => {
-	        weatheredRecently.delete(message.author.id);
-	    }, 20000);
-    }
     
     weather.find({search: args.join(' '), degreeType: 'F'}, function(err, result) {
         /*Grabs data from the MSN weather API in fahrenheit,
          other conversions need to be done seperately because 
          I don't want to do 2 API requests*/
 
-        if(err){
-            const embed = new Discord.RichEmbed()
-            .setColor(0xF46242)
-            .setTitle("This search turned up blank")
-            .setFooter(err)
-            message.channel.send({embed});
-        } else {
-
+        if(err)
+          console.log(err);
+        
             let info = result[0];
             let windSpeed = info.current.windspeed;
             let windSpeedRaw = windSpeed.replace("mph", "");
@@ -62,8 +41,6 @@ exports.run = (client, message, args, Discord) => {
                     ]
                 }
             });
-
-    }
             
 });
 
