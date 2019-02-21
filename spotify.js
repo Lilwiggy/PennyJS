@@ -80,12 +80,16 @@ client.on(`messageCreate`, (message) => {
         let albums = [];
         let artists = [];
         users.forEach((u) => {
+            let uname = u.user.username;
+            if (u.id === "120308435639074816") 
+                uname = "RaidAndGay";
+
             if (listening.includes(u))
-                listeners.push(u.user.username);
+                listeners.push(uname);
             else if (album.includes(u))
-                albums.push(u.user.username);
+                albums.push(uname);
             else if (artist.includes(u))
-                artists.push(u.user.username);
+                artists.push(uname);
         });
 
         if (listening.length > 0) {
