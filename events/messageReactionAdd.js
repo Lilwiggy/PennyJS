@@ -8,15 +8,16 @@ exports.run = (client, reaction, user, dis, conn) => {
       url: msg.author.displayAvatarURL,
     },
     color: 9043849,
+    fields: [
+      {
+        name: 'Jump to this message',
+        value: `[Jump!](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})`
+      }
+    ],
   };
   const urlReg = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
-  if (reaction.emoji.name !== '⭐')
+  if (reaction.emoji.name !== '⭐' || msg.channel.nsfw || user.bot)
     return;
-  if (msg.channel.nsfw)
-    return;
-  if (user.bot)
-    return;
-
 
   client.checkServer(guild.id, guild.name, guild.iconURL, () => {
     if (msg.author.id === client.user.id && msg.embeds.length > 0) {
@@ -36,7 +37,6 @@ exports.run = (client, reaction, user, dis, conn) => {
       }
     } else {
       if (urlReg.test(msg.content)) {
-        embed.description = msg.content;
         embed.image = {
           url: msg.content.match(urlReg)[0],
         };
@@ -52,7 +52,7 @@ exports.run = (client, reaction, user, dis, conn) => {
     try {
       client.starQueue.push(doStuff(msg, guild, user, embed, conn));
     } catch (error) {
-      console.log(`Oops`);
+      console.log('Oops');
       console.log(error);
     }
   });
@@ -60,40 +60,51 @@ exports.run = (client, reaction, user, dis, conn) => {
 
 function doStuff(msg, guild, user, embed, conn) {
   return async() => {
-    console.log(`Running the function`);
-    let stuff = await getData(conn, guild, msg);
+    console.log('Running the function');
+    let stuff = await getData(conn, msg);
     let c = stuff.ch;
     let res = stuff.results;
     if (c[0].count === 1) {
+              // Message in starboard chat
+              let m = await guild.channels.get(res[0].starboard)
+              .fetchMessage(c[0].starID);
+            // Original message
+            let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
+
+            if (user.id === ms.author.id) {
+              ms.reactions.forEach((re) => {
+                re.remove(user.id);
+              });
+              m.reactions.forEach((re) => {
+                re.remove(user.id);
+              });
+              return;
+            }
       if (msg.content.startsWith('⭐') && msg.id === c[0].starID) {
-        let m = await guild.channels.get(res[0].starboard)
-          .fetchMessage(c[0].starID);
-        let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
+        // Ignores if someone has already reacted to it
         if (ms.reactions.some((r) => r.users.has(user.id)))
           return;
-        let stars = m.content.split('stars');
-        m.edit(`⭐ ${ms.reactions.filter((re) => re.emoji.name === '⭐').size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
-          embed: embed,
-        });
-      } else {
-        let m = await guild.channels.get(res[0].starboard)
-          .fetchMessage(c[0].starID);
-        let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
-        let stars = m.content.split('stars');
-        m.edit(`⭐ ${ms.reactions.filter((re) => re.emoji.name === '⭐').size + parseInt(stars[0].slice(1))} stars in ${m.mentions.channels.first()}`, {
-          embed: embed,
-        });
+
+        embed.title = ms.author.username;
+        embed.thumbnail = {
+          url: ms.author.displayAvatarURL,
+        };
       }
+      let g = (m.reactions.filter((r) => r.emoji.name === '⭐').size > 0) ? m.reactions.find((r) => r.emoji.name === '⭐').users.size : 0;
+      m.edit(`⭐ ${ms.reactions.find((r) => r.emoji.name === '⭐').users.size + g} stars in ${m.mentions.channels.first()}`, {
+        embed: embed,
+      });
     } else if (res[0].starboard) {
       msg.reactions.forEach((re) => {
         if (re.emoji.name !== '⭐')
           return;
+          // Sets the star requirement
         if (re.users.filter((u) => u.id !== msg.author.id).size >= 3) {
-          console.log(`Posting to starboard.`);
+          console.log('Posting to starboard.');
           guild.channels.get(res[0].starboard).send(`⭐ ${re.users.filter((u) => u.id !== msg.author.id).size} stars in ${msg.channel}`, {
             embed: embed,
           }).then((m) => {
-            console.log(`Adding to database`);
+            console.log('Adding to database');
             conn.query(`INSERT INTO \`starboard\` (msgID, starID) VALUES (${msg.id}, ${m.id})`);
           });
         }
@@ -102,13 +113,13 @@ function doStuff(msg, guild, user, embed, conn) {
   };
 }
 
-function getData(conn, guild, msg) {
+function getData(conn, msg) {
   return new Promise((resolve) => {
     let data = {};
     conn.query(`SELECT COUNT(*) AS \`count\`, \`msgID\`, \`starID\` FROM \`starboard\` WHERE \`msgID\` = ${msg.id} OR \`starID\` = ${msg.id}`, (err, ch) => {
       if (err)
         console.log(err);
-      conn.query(`SELECT \`starboard\` FROM \`Servers\` WHERE \`ServerID\` = ${guild.id}`, (e, results) => {
+      conn.query(`SELECT \`starboard\` FROM \`Servers\` WHERE \`ServerID\` = ${msg.guild.id}`, (e, results) => {
         if (e)
           console.log(e);
         data.ch = ch;

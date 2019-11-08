@@ -16,6 +16,12 @@ exports.run = (client, reaction, user, dis, conn) => {
         url: msg.author.displayAvatarURL,
       },
       color: 9043849,
+      fields: [
+        {
+          name: 'Jump to this message',
+          value: `[Jump!](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})`
+        }
+      ],
     };
     if (msg.author.id === client.user.id && msg.embeds.length > 0) {
       if (msg.embeds[0].image) {
@@ -34,7 +40,6 @@ exports.run = (client, reaction, user, dis, conn) => {
       }
     } else {
       if (urlReg.test(msg.content)) {
-        embed.description = msg.content;
         embed.image = {
           url: msg.content.match(urlReg)[0],
         };
@@ -59,7 +64,7 @@ exports.run = (client, reaction, user, dis, conn) => {
         try {
           client.starQueue.push(doStuff(client, guild, res, c, user, embed));
         } catch (error) {
-          console.log(`Oops`);
+          console.log('Oops');
           console.log(error);
         }
       });
@@ -69,10 +74,14 @@ exports.run = (client, reaction, user, dis, conn) => {
 
 function doStuff(client, guild, res, c, user, embed) {
   return async() => {
+    // Starboard message
     let m = await guild.channels.get(res[0].starboard).fetchMessage(c[0].starID);
-    let stars = m.content.split('stars');
+    // Original message
+    let ms = await guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
+    if (user.id === ms.author.id)
+      return;
+      
     if (m.author.id === client.user.id) {
-      guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID).then((ms) => {
         ms.reactions.some((r) => {
           if (r.users.has(user.id))
             return;
@@ -81,28 +90,18 @@ function doStuff(client, guild, res, c, user, embed) {
             url: ms.author.displayAvatarURL,
           };
           embed.description = ms.content;
-          if (parseInt(stars[0].slice(1)) < 2) {
-            m.delete()
-              .catch(() => { console.log(`Error deleting 1`); });
-          } else {
-            m.edit(`⭐ ${parseInt(stars[0].slice(1)) - 1} stars in ${m.mentions.channels.first()}`, {
-              embed: embed,
-            })
-              .catch(() => { console.log(`Error editing 2`); });
-          }
         });
-      })
-        .catch(() => {
-          m.delete()
-            .catch(() => { console.log(`Error deleting 2`); });
-        });
+    }
+    let original = ms.reactions.find((r) => r.emoji.name === '⭐').users.size;
+    let starboard = (m.reactions.filter((r) => r.emoji.name === '⭐').size > 0) ? m.reactions.find((r) => r.emoji.name === '⭐').users.size : 0;
+    if (original + starboard < 2) {
+      m.delete()
+        .catch(() => { console.log('Error deleting 1'); });
     } else {
-      guild.channels.get(res[0].starboard).fetchMessage(c[0].starID).then((msSt) => {
-        msSt.edit(`⭐ ${parseInt(stars[0].slice(1)) - 1} stars in ${msSt.mentions.channels.first()}`, {
-          embed: embed,
-        })
-          .catch(() => { console.log(`Error editing 1`); });
-      });
+      m.edit(`⭐ ${original + starboard} stars in ${m.mentions.channels.first()}`, {
+        embed: embed,
+      })
+        .catch(() => { console.log('Error editing 2'); });
     }
   };
 }
