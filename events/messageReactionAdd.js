@@ -8,12 +8,6 @@ exports.run = (client, reaction, user, dis, conn) => {
       url: msg.author.displayAvatarURL,
     },
     color: 9043849,
-    fields: [
-      {
-        name: 'Jump to this message',
-        value: `[Jump!](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})`
-      }
-    ],
   };
   const urlReg = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
   if (reaction.emoji.name !== '⭐' || msg.channel.nsfw || user.bot)
@@ -101,6 +95,12 @@ function doStuff(msg, guild, user, embed, conn) {
           // Sets the star requirement
         if (re.users.filter((u) => u.id !== msg.author.id).size >= 3) {
           console.log('Posting to starboard.');
+          embed[0].fields = [
+            {
+              name: 'Jump to this message',
+              value: `[Jump!](https://discordapp.com/channels/${guild.id}/${msg.channel.id}/${msg.id})`
+            }
+          ];
           guild.channels.get(res[0].starboard).send(`⭐ ${re.users.filter((u) => u.id !== msg.author.id).size} stars in ${msg.channel}`, {
             embed: embed,
           }).then((m) => {

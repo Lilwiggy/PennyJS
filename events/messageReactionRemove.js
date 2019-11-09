@@ -16,12 +16,6 @@ exports.run = (client, reaction, user, dis, conn) => {
         url: msg.author.displayAvatarURL,
       },
       color: 9043849,
-      fields: [
-        {
-          name: 'Jump to this message',
-          value: `[Jump!](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})`
-        }
-      ],
     };
     if (msg.author.id === client.user.id && msg.embeds.length > 0) {
       if (msg.embeds[0].image) {
@@ -89,7 +83,12 @@ function doStuff(client, guild, res, c, user, embed) {
           embed.thumbnail = {
             url: ms.author.displayAvatarURL,
           };
-          embed.description = ms.content;
+          embed.fields = [
+            {
+              name: 'Jump to this message',
+              value: `[Jump!](https://discordapp.com/channels/${guild.id}/${ms.channel.id}/${ms.id})`
+            }
+          ];
         });
     }
     let original = ms.reactions.find((r) => r.emoji.name === '⭐').users.size;
