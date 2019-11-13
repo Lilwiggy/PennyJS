@@ -95,7 +95,7 @@ function doStuff(msg, guild, user, embed, conn) {
           // Sets the star requirement
         if (re.users.filter((u) => u.id !== msg.author.id).size >= 3) {
           console.log('Posting to starboard.');
-          embed[0].fields = [
+          embed.fields = [
             {
               name: 'Jump to this message',
               value: `[Jump!](https://discordapp.com/channels/${guild.id}/${msg.channel.id}/${msg.id})`
