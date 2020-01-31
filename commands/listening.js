@@ -8,11 +8,10 @@ exports.run = (client, message) => {
 		message.channel.send('I cannot find that user.');
 	} else {
 		let pre = member.presence.game;
-		if (!pre.filter((g) => g.type === 2 && g.name === 'Spotify')) {
-			message.channel.send('You aren\'t listening to anything.');
+		if (pre.filter((g) => g.type === 2 && g.name === 'Spotify').length < 1) {
+			message.channel.send(`${member.displayName} is not listening to anything.`);
 		} else {
 			pre = pre.find((g) => g.type === 2 && g.name === 'Spotify');
-			console.log(pre);
 			let album = [];
 			let artist = [];
 			let listening = [];
