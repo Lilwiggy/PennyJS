@@ -1,8 +1,13 @@
 /* eslint-disable linebreak-style */
-exports.run = (client, message) => {
+exports.run = async(client, message) => {
 //  Please note I have edited the base Presece structure in discord.js as to allow
 // for custom emoji support while listening to music. I know it sounds stupid but
 // it wouldn't work before due to how d.js handled activties.
+	let search = require('youtube-search');
+	let opts = {
+		maxResults: 10,
+		key: client.config.youtube.key,
+	};
 	let member = client.fetchGuildMember(message) || message.member;
 	if (!member) {
 		message.channel.send('I cannot find that user.');
@@ -34,13 +39,14 @@ exports.run = (client, message) => {
 					}
 				}
 			});
+			let s = await search(`${pre.details} by ${pre.state}`, opts);
 			let embed = {
 				title: pre.details,
 				thumbnail: {
 					url: `https://i.scdn.co/image/${pre.assets.large_image.substr(8)}`,
 				},
 				color: 2021216,
-				description: `By: ${pre.state}\nAlbum: ${pre.assets.large_text}`,
+				description: `By: ${pre.state}\nAlbum: ${pre.assets.large_text}\n[YouTube](${s.results[0].link})`,
 				fields: [
 				],
 			};
