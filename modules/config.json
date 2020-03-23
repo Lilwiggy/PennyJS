@@ -1,8 +1,9 @@
 {
     "bot":{
         "token": "",
-        "id": "309531399789215744",
-        "invite": "https://discordapp.com/oauth2/authorize?client_id=309531399789215744&scope=bot&permissions=36809798"
+        "id": "",
+        "invite": "",
+        "err": "" 
     }, "sql": {
         "username": "",
         "host": "",
@@ -10,12 +11,15 @@
         "db_name": ""
 
     }, "mods": {
-        "id": ["128553814952378369", "291265326052540416", "232614905533038593", "334325856950288384"]
-
+        "id": []
+        
     }, "osu": {
         "token": ""
     },
+    "youtube": {
+        "key": ""
+    },
     "giphy": {
         "key": ""
-    
-}
+    }
+    }

@@ -1,18 +1,20 @@
-exports.run = (client, message, args, Discord) => {
-  // Astro cocks
-  var hi = Math.floor(Math.random() * 24);
-  var embed = new Discord.RichEmbed()
-    .setTitle("Here's your official Spacehuhn meme:tm:")
-    .setImage(`https://spacehuhn.de/img/gallery/${hi}.jpg`)
-    .setColor('#00b0ff');
+/* eslint-disable linebreak-style */
+exports.run = (client, message) => {
+	// Astro cocks
+	const hi = Math.floor(Math.random() * 42);
+	const embed = {
+		title: 'Here\'s your official Spacehuhn meme:tm:',
+		image: { url: `https://spacehuhn.io/img/gallery/${hi}.jpg` },
+		color: 45311
+	};
 
-  message.channel.send({ embed });
+	message.channel.send({ embed: embed });
 };
 
 exports.conf = {
-  name: 'spacehuhn',
-  description: '<3',
-  usage: 'spacehuhn',
-  aliases: ['chicken', 'stef'],
-  hidden: true,
+	name: 'spacehuhn',
+	description: '<3',
+	usage: 'spacehuhn',
+	aliases: ['chicken', 'stef'],
+	hidden: true,
 };

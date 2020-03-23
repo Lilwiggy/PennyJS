@@ -1,23 +1,24 @@
-exports.run = (client, message, args, Discord, connection) => {
+/* eslint-disable linebreak-style */
+exports.run = (client, message) => {
 // Get inspired dude mayn
-  var http = require('http');
-  var url = `http://inspirobot.me/api?generate=true`;
-  http.get(url, (res) => {
-    var body = '';
+	const http = require('http');
+	const url = 'http://inspirobot.me/api?generate=true';
+	http.get(url, (res) => {
+		let body = '';
 
-    res.on('data', (chunk) => {
-      body += chunk;
-    });
+		res.on('data', (chunk) => {
+			body += chunk;
+		});
 
-    res.on('end', () => {
-      message.channel.send({ file: body });
-    });
-  });
+		res.on('end', () => {
+			message.channel.send({files: [body]});
+		});
+	});
 };
 
 exports.conf = {
-  name: 'inspire',
-  description: 'Posts an "inspirational" image.',
-  usage: 'inspire',
-  aliases: [],
+	name: 'inspire',
+	description: 'Posts an "inspirational" image.',
+	usage: 'inspire',
+	aliases: [],
 };

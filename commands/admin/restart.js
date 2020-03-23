@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const pm2 = require(`pm2`);
 exports.run = (client, message) => {
 // Witty comment here
@@ -11,6 +12,6 @@ exports.run = (client, message) => {
 exports.conf = {
   name: 'restart',
   description: '',
-  usage: '',
-  aliases: [],
+  usage: 'restart',
+  aliases: ['succ', 'fix'],
 };

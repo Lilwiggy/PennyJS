@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 exports.run = (client, message) => {
 // Witty comment here
   const fs = require('fs');
@@ -8,30 +9,36 @@ exports.run = (client, message) => {
 
   // This is the bit that does the things with the commands man
   fs.readdir('./commands/', (err, cmdFiles) => {
-    if (err)
+    if (err) {
       throw err;
+    }
     message.channel.send(`Loaded ${cmdFiles.length} commands.`);
     cmdFiles.forEach((f) => {
-      if (!f.endsWith('.js'))
+      if (!f.endsWith('.js')) {
         return;
+      }
       delete require.cache[require.resolve(`../../commands/${f}`)];
       const response = client.loadCommand(f);
-      if (response)
+      if (response) {
         console.log(response);
+      }
     });
   });
   // Admin commands to clean up the message event
   fs.readdir('./commands/admin', (err, cmdFiles) => {
-    if (err)
+    if (err) {
       throw err;
+    }
     message.channel.send(`Loaded ${cmdFiles.length} admin commands.`);
     cmdFiles.forEach((f) => {
-      if (!f.endsWith('.js'))
+      if (!f.endsWith('.js')) {
         return;
+      }
       delete require.cache[require.resolve(`../../commands/admin/${f}`)];
       const response = client.loadAdminCommand(f);
-      if (response)
+      if (response) {
         console.log(response);
+      }
     });
   });
 };

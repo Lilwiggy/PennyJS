@@ -1,6 +1,8 @@
 /* eslint-disable linebreak-style */
 exports.run = (client, message, args, Discord, con) => {
-	const Canvas = require('canvas');
+
+	message.channel.send(`Penny has been having issues lately and the current one is not being able to install node canvas. As such the profile and color commands are down. My apologies and updates will come ASAP over @ https://discord.gg/kwcd9dq`)
+	/*const Canvas = require('canvas');
 	const hex = /^#?[0-9A-F]{6}$/i;
 	if (message.mentions.members.first()) {
 		message.channel.send(`${message.mentions.users.first().username}'s color is **${message.mentions.members.first().displayHexColor}**`);
@@ -52,7 +54,7 @@ exports.run = (client, message, args, Discord, con) => {
 		}
 	} else {
 		message.channel.send(`Your color is **${message.member.displayHexColor}**`);
-	}
+	}*/
 };
 
 exports.conf = {

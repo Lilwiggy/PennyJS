@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 exports.run = (client, message, args, Discord, connection) => {
 // Witty comment here
   if (message.mentions.users.first()) {

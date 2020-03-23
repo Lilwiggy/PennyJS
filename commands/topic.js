@@ -1,18 +1,16 @@
+/* eslint-disable linebreak-style */
 exports.run = (client, message) => {
-  var fs = require('fs');
-  fs.readFile('starters.txt', 'utf-8', (err, data) => {
-    if (err)
-      throw err;
-    var topics = data.split(' | ');
-    var topic = topics[Math.floor(Math.random() * topics.length)];
-    message.channel.send(topic);
-  });
+	const fetch = require('node-fetch');
+
+	fetch('https://www.conversationstarters.com/random.php').then((r) => r.text()).then((r) => {
+		message.channel.send(r.split('>')[1]);
+	});
 };
 
 
 exports.conf = {
-  name: 'topic',
-  description: 'A topic starter.',
-  usage: 'topic',
-  aliases: [],
+	name: 'topic',
+	description: 'A topic starter.',
+	usage: 'topic',
+	aliases: [],
 };

@@ -1,8 +1,5 @@
 /* eslint-disable linebreak-style */
 exports.run = async(client, message) => {
-//  Please note I have edited the base Presece structure in discord.js as to allow
-// for custom emoji support while listening to music. I know it sounds stupid but
-// it wouldn't work before due to how d.js handled activties.
 	let search = require('youtube-search');
 	let opts = {
 		maxResults: 10,
@@ -12,27 +9,27 @@ exports.run = async(client, message) => {
 	if (!member) {
 		message.channel.send('I cannot find that user.');
 	} else {
-		let pre = member.presence.game;
-		if (pre.filter((g) => g.type === 2 && g.name === 'Spotify').length < 1) {
+		let pre = member.presence.activities;
+		if (pre.filter((g) => g.type === 'LISTENING' && g.name === 'Spotify').length < 1) {
 			message.channel.send(`${member.displayName} is not listening to anything.`);
 		} else {
-			pre = pre.find((g) => g.type === 2 && g.name === 'Spotify');
+			pre = pre.find((g) => g.type === 'LISTENING' && g.name === 'Spotify');
 			let album = [];
 			let artist = [];
 			let listening = [];
-			let users = message.guild.members.filter((m) => {
+			let users = message.guild.members.cache.filter((m) => {
 				if (m.bot)
 					return;
 				if (m.id === member.id)
 					return;
-				let mPresence = m.presence.game.find((g) => g.type === 2 && g.name === 'Spotify');
+				let mPresence = m.presence.activities.find((g) => g.type === 'LISTENING' && g.name === 'Spotify');
 				if (mPresence) {
 					if (mPresence.details === pre.details) {
 						listening.push(m);
 						return mPresence.details === pre.details;
-					} else if (mPresence.assets.large_text === pre.assets.large_text) {
+					} else if (mPresence.assets.largeText === pre.assets.largeText) {
 						album.push(m);
-						return mPresence.assets.large_text === pre.assets.large_text;
+						return mPresence.assets.largeText === pre.assets.largeText;
 					} else if (mPresence.state === pre.state) {
 						artist.push(m);
 						return mPresence.state === pre.state;
@@ -43,10 +40,10 @@ exports.run = async(client, message) => {
 			let embed = {
 				title: pre.details,
 				thumbnail: {
-					url: `https://i.scdn.co/image/${pre.assets.large_image.substr(8)}`,
+					url: pre.assets.largeImageURL({ size:2048 }),
 				},
 				color: 2021216,
-				description: `By: ${pre.state}\nAlbum: ${pre.assets.large_text}\n[YouTube](${s.results[0].link})`,
+				description: `By: ${pre.state}\nAlbum: ${pre.assets.largeText}\n[YouTube](${s.results[0].link})`,
 				fields: [
 				],
 			};

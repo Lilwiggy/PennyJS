@@ -179,10 +179,21 @@ module.exports = (client, connection, Raven) => {
 
 		if (!args[1])
 			return false;
-		let m = msg.guild.members.get(args[1]) ||
-		msg.guild.members.find((m) => m.displayName.toLowerCase() === args[1].toLowerCase()) ||
-		msg.guild.members.find((m) => m.username.toLowerCase() === args[1].toLowerCase());
+		let m = msg.mentions.members.first() || msg.guild.members.cache.get(args[1]) ||
+		msg.guild.members.cache.find((m) => m.displayName.toLowerCase() === args[1].toLowerCase()) ||
+		msg.guild.members.cache.find((m) => m.user.username.toLowerCase() === args[1].toLowerCase());
 		return m;
 
+	};
+
+	client.checkImage = (image) => {
+		const fetch = require('node-fetch');
+
+		console.log(image);
+		fetch(image).catch(() => {
+			return false;
+		});
+
+		return image;
 	};
 };
