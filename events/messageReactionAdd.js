@@ -5,7 +5,7 @@ exports.run = (client, reaction, user, dis, conn) => {
 	let embed = {
 		title: msg.author.username,
 		thumbnail: {
-			url: msg.author.displayAvatarURL({ size: 2048 }),
+			url: msg.author.displayAvatarURL({ size: 2048, dynamic: true }),
 		},
 		color: 9043849,
 	};
@@ -13,7 +13,7 @@ exports.run = (client, reaction, user, dis, conn) => {
 	if (reaction.emoji.name !== '⭐' || msg.channel.nsfw || user.bot)
 		return;
 
-	client.checkServer(guild.id, guild.name, guild.iconURL(), () => {
+	client.checkServer(guild.id, guild.name, guild.iconURL({ size: 2048, dynamic: true }), () => {
 		if (msg.author.id === client.user.id && msg.embeds.length > 0) {
 			if (msg.embeds[0].image) {
 				embed.image = {
@@ -81,7 +81,7 @@ function doStuff(msg, guild, user, embed, conn) {
 
 				embed.title = ms.author.username;
 				embed.thumbnail = {
-					url: ms.author.displayAvatarURL({ size: 2048 }),
+					url: ms.author.displayAvatarURL({ ssize: 2048, dynamic: true }),
 				};
 			}
 			let g = (m.reactions.cache.filter((r) => r.emoji.name === '⭐').size > 0) ? m.reactions.cache.find((r) => r.emoji.name === '⭐').users.size : 0;

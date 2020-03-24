@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
 	if (args.length === 1) {
 		message.channel.send(`Usage: ${client.prefix}setemblem [emblem]`);
 	} else if (data[args[1]] && data[args[1]].type === 'emblem') {
-		client.setEmblem(message.author.id, message.author.avatarURL, data[args[1]].name, data[args[1]].price, message);
+		client.setEmblem(message.author.id, message.author.displayAvatarURL({ size: 2048, dynamic: true }), data[args[1]].name, data[args[1]].price, message);
 	} else {
 		message.channel.send(`Please use a valid emblem. You can view the options by doing ${client.prefix}shopinfo emblems`);
 	}

@@ -2,7 +2,7 @@
 exports.run = (client, message) => {
 	// So this is server stats. It's very boring please find another command to read.
 	const embed = {
-		thumbnail: { url: message.guild.iconURL() },
+		thumbnail: { url: message.guild.iconURL({ size: 2048, dynamic: true }) },
 		title: message.guild.name,
 		color: 9043849,
 		footer: { text: 'PennyBot © Lilwiggy 2018' },

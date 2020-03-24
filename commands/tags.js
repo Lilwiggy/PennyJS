@@ -49,7 +49,7 @@ exports.run = (client, message, args, Discord, connection) => {
 						}
 					}
 				});
-				collector.on('end', () => msg.clearReactions().catch(console.error));
+				collector.on('end', () => msg.reactions.removeAll().catch(console.error));
 			});
 		});
 	} else {
@@ -84,7 +84,7 @@ function embed(client, allC, pos) {
 		author: {
 			name: `Page ${pos + 1}/${pages}`,
 			url: null,
-			icon_url: client.user.displayAvatarURL,
+			icon_url: client.user.displayAvatarURL({ size: 2048, dynamic: true }),
 			proxyicon_url: null,
 		},
 		color: 9043849,

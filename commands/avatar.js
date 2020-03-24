@@ -9,7 +9,7 @@ exports.run = (client, message) => {
 	if (user) {
 		if (user.id !== message.author.id)
 			embed.title = `${user.username}'s avatar`;
-		embed.image = { url: user.displayAvatarURL({ size: 2048 }) };
+		embed.image = { url: user.displayAvatarURL({ size: 2048, dynamic: true }) };
 		message.channel.send({ embed: embed });
 	} else {
 		message.channel.send('I could not find that user.');

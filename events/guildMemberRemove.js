@@ -1,7 +1,7 @@
 exports.run = (client, member, Discord, connection) => {
 	// Should I stay or should I g- oh they left already...
 	let guild = member.guild;
-	client.checkServer(guild.id, guild.name, guild.iconURL(), () => {
+	client.checkServer(guild.id, guild.name, guild.iconURL({ size: 2048, dynamic: true }), () => {
 		connection.query(`SELECT * FROM \`Servers\` WHERE \`ServerID\` = '${guild.id}'`, (error, results) => {
 			if (error)
 				throw error;
@@ -22,7 +22,7 @@ exports.run = (client, member, Discord, connection) => {
 						if (audits.target.id === member.id) {
 							if (audits.action === 'MEMBER_KICK') {
 								let embed = {
-									thumbnail: { url: member.user.displayAvatarURL() },
+									thumbnail: { url: member.user.displayAvatarURL({ size: 2048, dynamic: true }) },
 									color: 16343907,
 									title: 'New kick.',
 									fields: [

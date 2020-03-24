@@ -11,9 +11,9 @@ exports.run = (client, oM, nM, Discord, connection) => {
 		return;
 
 	// Custom prefix things
-	client.checkServer(nM.guild.id, nM.guild.name, nM.guild.iconURL(), () => {
+	client.checkServer(nM.guild.id, nM.guild.name, nM.guild.iconURL({ size: 2048, dynamic: true }), () => {
 		connection.query(`SELECT * FROM \`Servers\` WHERE \`ServerID\` = '${nM.guild.id}'`, (error, prefix) => {
-			client.checkUser(nM.author.id, nM.author.displayAvatarURL(), () => {
+			client.checkUser(nM.author.id, nM.author.displayAvatarURL({ size: 2048, dynamic: true }), () => {
 				connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = ${nM.author.id}`, (err, res) => {
 					if (err)
 						throw err;

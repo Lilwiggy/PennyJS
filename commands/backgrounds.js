@@ -3,7 +3,6 @@
 exports.run = (client, message, args, discord, connection) => {
 	const bg = [];
 	let i = 0;
-	client.checkUser(message.author.id, message.author.displayAvatarURL, () => {
 		connection.query(`SELECT * FROM \`userB\` WHERE User_ID = '${message.author.id}'`, (e, res) => {
 			if (res.length > 0) {
 				res.forEach((d) => {
@@ -43,7 +42,6 @@ exports.run = (client, message, args, discord, connection) => {
 				message.channel.send('You do not own any backgrounds.');
 			}
 		});
-	});
 };
 
 exports.conf = {

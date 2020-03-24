@@ -10,10 +10,10 @@ exports.run = (client, message, Discord, connection) => {
 		return;
 
 	// Custom prefix things
-	client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL(), () => {
+	client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL({ size: 2048, dynamic: true }), () => {
 		connection.query(`SELECT \`Prefix\`, \`levels\` FROM \`Servers\` WHERE \`ServerID\` = '${message.guild.id}'`, (error, prefix) => {
 			client.prefix = prefix[0].Prefix; // set that prefix boi
-			client.checkUser(message.author.id, message.author.displayAvatarURL(), () => {
+			client.checkUser(message.author.id, message.author.displayAvatarURL({ size: 2048, dynamic: true }), () => {
 				connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = ${message.author.id}`, (err, res) => {
 					if (err)
 						throw err;

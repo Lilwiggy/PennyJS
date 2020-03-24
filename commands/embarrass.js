@@ -5,14 +5,14 @@ exports.run = (client, message) => {
 		message.channel.send('I don\'t have permissions to make a webhook. Please change this in your guild settings.');
 		return;
 	}
-	message.channel.createWebhook(message.author.username, { avatar: message.author.displayAvatarURL({ size: 2048 }) }).then((hook) => {
+	message.channel.createWebhook(message.author.username, { avatar: message.author.displayAvatarURL({ size: 2048, dynamic: true }) }).then((hook) => {
 		const stuff = require('../modules/embarrass.json');
 		const yes = stuff.things[Math.floor(Math.random() * stuff.things.length)];
 		hook.send(yes).then(() => hook.delete());
 	}).catch(() => {
 		message.channel.fetchWebhooks().then((hooks) => {
 			hooks.first().delete();
-			message.channel.createWebhook(message.author.username, message.author.displayAvatarURL).then((hook) => {
+			message.channel.createWebhook(message.author.username, message.author.displayAvatarURL({ size: 2048, dynamic: true })).then((hook) => {
 				const stuff = require('../modules/embarrass.json');
 				const yes = stuff.things[Math.floor(Math.random() * stuff.things.length)];
 				hook.send(yes).then(() => hook.delete());

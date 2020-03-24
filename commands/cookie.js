@@ -29,7 +29,6 @@ exports.run = (client, message, args, Discord, connection) => {
 		if (message.mentions.users.first().bot) {
 			message.channel.send('You can\'t give bots cookies!');
 		} else {
-			client.checkUser(message.mentions.users.first().id, message.mentions.users.first().avatarURL, () => {
 				connection.query(`SELECT \`CT\` FROM \`User\` WHERE \`User_ID\`= ${message.author.id}`, (error, results) => {
 					if (results[0].CT === 1) {
 						connection.query(`UPDATE \`User\` SET \`CT\`= 0 WHERE \`User_ID\` = ${message.author.id}`);
@@ -42,7 +41,6 @@ exports.run = (client, message, args, Discord, connection) => {
 						message.channel.send(`You can give someone a cookie in, ${dur.hours()} hours, ${dur.minutes()} minutes, and ${dur.seconds()} seconds.`);
 					}
 				});
-			});
 		}
 	} else {
 		message.channel.send('Please mention a valid user.');

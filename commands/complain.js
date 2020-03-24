@@ -19,7 +19,7 @@ exports.run = (client, message, args) => {
 					value: message.content.substr(client.prefix.length + 9)
 				}
 			],
-			thumbnail: { url: message.author.displayAvatarURL({ size: 2048 }) },
+			thumbnail: { url: message.author.displayAvatarURL({ size: 2048, dynamic: true }) },
 			color: 9043849,
 		};
 		client.channels.cache.get('396008624289349634').send({
