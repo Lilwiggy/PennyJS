@@ -21,23 +21,23 @@ exports.run = (client, member, Discord, connection) => {
 
 	// THE DOPE FREAKING PENNY SERVER LINK IS RIGHT THE HIZZLE HERE MY MAN/WOMAN! https://discord.gg/kwcd9dq
 	if (guild.id === '309531752014151690') {
-		let role = guild.roles.find('name', 'Normies');
+		let role = guild.roles.cache.find((r) => r.name === 'Normies');
 		member.addRole(role);
 	} else
 
 	// Sky's server
 	if (guild.id === '303525154464727041') {
-		let role = guild.roles.find('name', 'Users');
+		let role = guild.roles.cache.find((r) => r.name === 'Users');
 		member.addRole(role);
 	}
 	// PivotsXXD server
 	if (guild.id === '346800980102348810') {
-		let role = guild.roles.find('name', 'Pivoteer');
+		let role = guild.roles.cache.find((r) => r.name === 'Pivoteer');
 		member.addRole(role);
 	}
 	// Diamond dogs
 	if (guild.id === '399282953538109460') {
-		let role = guild.roles.get('407643543113433088');
+		let role = guild.roles.cache.get('407643543113433088');
 		member.addRole(role);
 	}
 };

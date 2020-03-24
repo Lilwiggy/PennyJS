@@ -31,7 +31,7 @@ exports.run = (client, message, args, Discord, connection) => {
 			}
 			if (guild[0].edits === 1) {
 				// do shit
-				message.guild.roles.filter((guildRole) => {
+				message.guild.roles.cache.filter((guildRole) => {
 					if (guildRole.name.toLowerCase() === role[0].toLowerCase().trim()) {
 						r_id = guildRole.id;
 					}
@@ -49,8 +49,8 @@ exports.run = (client, message, args, Discord, connection) => {
 					if (args[1] && role[1]) {
 						if (!edit) {
 							message.channel.send('Sorry but you aren\'t allowed to edit this role.');
-						} else if (message.member.roles.find((r) => r.name.toLowerCase() === role[0].toLowerCase().trim())) {
-							message.member.roles.filter((memberRole) => {
+						} else if (message.member.roles.cache.find((r) => r.name.toLowerCase() === role[0].toLowerCase().trim())) {
+							message.member.roles.cache.filter((memberRole) => {
 								if (memberRole.name.toLowerCase() === role[0].toLowerCase().trim()) {
 									const hexThing = /^#[0-9A-F]{6}$/i;
 									if (hexThing.test(role[1])) {

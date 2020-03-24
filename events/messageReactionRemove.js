@@ -69,11 +69,11 @@ exports.run = (client, reaction, user, dis, conn) => {
 
 function doStuff(client, guild, res, c, user, embed) {
 	return async() => {
-		let m = await guild.channels.get(res[0].starboard).fetchMessage(c[0].starID);
+		let m = await guild.channels.get(res[0].starboard).messages.fetch(c[0].starID);
 		let stars = m.content.split('stars');
 		if (m.author.id === client.user.id) {
-			guild.channels.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID).then((ms) => {
-				ms.reactions.some((r) => {
+			guild.channels.get(m.mentions.channels.first().id)/messages.fetch(c[0].msgID).then((ms) => {
+				ms.reactions.cache.some((r) => {
 					if (r.users.has(user.id))
 						return;
 					embed.title = ms.author.username;
@@ -97,7 +97,7 @@ function doStuff(client, guild, res, c, user, embed) {
 						.catch(() => { console.log('Error deleting 2'); });
 				});
 		} else {
-			guild.channels.get(res[0].starboard).fetchMessage(c[0].starID).then((msSt) => {
+			guild.channels.get(res[0].starboard).messages.fetch(c[0].starID).then((msSt) => {
 				msSt.edit(`⭐ ${parseInt(stars[0].slice(1)) - 1} stars in ${msSt.mentions.channels.first()}`, {
 					embed: embed,
 				})

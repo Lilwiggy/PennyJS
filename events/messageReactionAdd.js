@@ -61,22 +61,22 @@ function doStuff(msg, guild, user, embed, conn) {
 		if (c[0].count === 1) {
 			// Message in starboard chat
 			let m = await guild.channels.cache.get(res[0].starboard)
-				.fetchMessage(c[0].starID);
+				.messages.fetch(c[0].starID);
 			// Original message
-			let ms = await guild.channels.cache.get(m.mentions.channels.first().id).fetchMessage(c[0].msgID);
+			let ms = await guild.channels.cache.get(m.mentions.channels.first().id).messages.fetch(c[0].msgID);
 
 			if (user.id === ms.author.id) {
-				ms.reactions.forEach((re) => {
+				ms.reactions.cache.forEach((re) => {
 					re.remove(user.id);
 				});
-				m.reactions.forEach((re) => {
+				m.reactions.cache.forEach((re) => {
 					re.remove(user.id);
 				});
 				return;
 			}
 			if (msg.content.startsWith('⭐') && msg.id === c[0].starID) {
 				// Ignores if someone has already reacted to it
-				if (ms.reactions.some((r) => r.users.has(user.id)))
+				if (ms.reactions.cache.some((r) => r.users.has(user.id)))
 					return;
 
 				embed.title = ms.author.username;
@@ -84,16 +84,16 @@ function doStuff(msg, guild, user, embed, conn) {
 					url: ms.author.displayAvatarURL({ size: 2048 }),
 				};
 			}
-			let g = (m.reactions.filter((r) => r.emoji.name === '⭐').size > 0) ? m.reactions.find((r) => r.emoji.name === '⭐').users.size : 0;
-			m.edit(`⭐ ${ms.reactions.find((r) => r.emoji.name === '⭐').users.size + g} stars in ${m.mentions.channels.first()}`, {
+			let g = (m.reactions.cache.filter((r) => r.emoji.name === '⭐').size > 0) ? m.reactions.cache.find((r) => r.emoji.name === '⭐').users.size : 0;
+			m.edit(`⭐ ${ms.reactions.cache.find((r) => r.emoji.name === '⭐').users.size + g} stars in ${m.mentions.channels.first()}`, {
 				embed: embed,
 			});
 		} else if (res[0].starboard) {
-			msg.reactions.forEach((re) => {
+			msg.reactions.cache.forEach((re) => {
 				if (re.emoji.name !== '⭐')
 					return;
 				// Sets the star requirement
-				if (re.users.filter((u) => u.id !== msg.author.id).size >= 3) {
+				if (re.users.cache.filter((u) => u.id !== msg.author.id).size >= 3) {
 					console.log('Posting to starboard.');
 					embed.fields = [
 						{
@@ -101,7 +101,7 @@ function doStuff(msg, guild, user, embed, conn) {
 							value: `[Jump!](https://discordapp.com/channels/${guild.id}/${msg.channel.id}/${msg.id})`
 						}
 					];
-					guild.channels.cache.get(res[0].starboard).send(`⭐ ${re.users.filter((u) => u.id !== msg.author.id).size} stars in ${msg.channel}`, {
+					guild.channels.cache.get(res[0].starboard).send(`⭐ ${re.users.cache.filter((u) => u.id !== msg.author.id).size} stars in ${msg.channel}`, {
 						embed: embed,
 					}).then((m) => {
 						console.log('Adding to database');
