@@ -76,7 +76,7 @@ function doStuff(msg, guild, user, embed, conn) {
 			}
 			if (msg.content.startsWith('⭐') && msg.id === c[0].starID) {
 				// Ignores if someone has already reacted to it
-				if (ms.reactions.cache.some((r) => r.users.has(user.id)))
+				if (ms.reactions.cache.some((r) => r.users.cache.has(user.id)))
 					return;
 
 				embed.title = ms.author.username;
@@ -84,8 +84,15 @@ function doStuff(msg, guild, user, embed, conn) {
 					url: ms.author.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }),
 				};
 			}
-			let g = (m.reactions.cache.filter((r) => r.emoji.name === '⭐').size > 0) ? m.reactions.cache.find((r) => r.emoji.name === '⭐').users.size : 0;
-			m.edit(`⭐ ${ms.reactions.cache.find((r) => r.emoji.name === '⭐').users.size + g} stars in ${m.mentions.channels.first()}`, {
+			// Logs as 0
+			let g = (m.reactions.cache.filter((r) => r.emoji.name === '⭐').size > 0) ? m.reactions.cache.find((r) => r.emoji.name === '⭐').users.cache.size : 0;
+			embed.fields = [
+				{
+					name: 'Jump to this message',
+					value: `[Jump!](https://discordapp.com/channels/${guild.id}/${ms.channel.id}/${ms.id})`
+				}
+			];
+			m.edit(`⭐ ${ms.reactions.cache.find((r) => r.emoji.name === '⭐').users.cache.size + g} stars in ${m.mentions.channels.first()}`, {
 				embed: embed,
 			});
 		} else if (res[0].starboard) {
@@ -93,7 +100,7 @@ function doStuff(msg, guild, user, embed, conn) {
 				if (re.emoji.name !== '⭐')
 					return;
 				// Sets the star requirement
-				if (re.users.cache.filter((u) => u.id !== msg.author.id).size >= 3) {
+				if (re.users.cache.filter((u) => u.id !== msg.author.id).size >= 1) {
 					console.log('Posting to starboard.');
 					embed.fields = [
 						{

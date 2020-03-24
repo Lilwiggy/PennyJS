@@ -16,6 +16,12 @@ exports.run = (client, reaction, user, dis, conn) => {
 				url: msg.author.displayAvatarURL({ size: 2048 }),
 			},
 			color: 9043849,
+			fields: [
+				{
+					name: 'Jump to this message',
+					value: `[Jump!](https://discordapp.com/channels/${guild.id}/${msg.channel.id}/${msg.id})`
+				}
+			],
 		};
 		if (msg.author.id === client.user.id && msg.embeds.length > 0) {
 			if (msg.embeds[0].image) {
@@ -69,12 +75,12 @@ exports.run = (client, reaction, user, dis, conn) => {
 
 function doStuff(client, guild, res, c, user, embed) {
 	return async() => {
-		let m = await guild.channels.get(res[0].starboard).messages.fetch(c[0].starID);
+		let m = await guild.channels.cache.get(res[0].starboard).messages.fetch(c[0].starID);
 		let stars = m.content.split('stars');
 		if (m.author.id === client.user.id) {
-			guild.channels.get(m.mentions.channels.first().id)/messages.fetch(c[0].msgID).then((ms) => {
+			guild.channels.cache.get(m.mentions.channels.first().id).messages.fetch(c[0].msgID).then((ms) => {
 				ms.reactions.cache.some((r) => {
-					if (r.users.has(user.id))
+					if (r.users.cache.has(user.id))
 						return;
 					embed.title = ms.author.username;
 					embed.thumbnail = {
