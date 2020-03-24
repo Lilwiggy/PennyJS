@@ -6,7 +6,7 @@ exports.run = (client, message) => {
 	const usr = hi[`${Math.floor(Math.random() * client.users.cache.size)}`];
 	const embed = {};
 	embed.title = `Random avatar from ${usr.username}`;
-	embed.image = { url: usr.displayAvatarURL({ size: 2048, dynamic: true }) };
+	embed.image = { url: usr.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }) };
 
 
 	embed.color = 9043849;

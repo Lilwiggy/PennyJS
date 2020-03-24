@@ -1,7 +1,7 @@
 exports.run = (client, member, Discord, connection) => {
 	// Oh hai Mark!
 	let guild = member.guild;
-	client.checkServer(guild.id, guild.name, guild.iconURL({ size: 2048, dynamic: true }), () => {
+	client.checkServer(guild.id, guild.name, guild.iconURL({ format: 'png', size: 2048, dynamic: true }), () => {
 		connection.query(`SELECT * FROM \`Servers\` WHERE \`ServerID\` = '${guild.id}'`, (error, results) => {
 			if (error)
 				throw error;

@@ -53,7 +53,7 @@ async function render(img, neko, ctx, canvas, message, Discord, arr, client) {
 		const user = getUser(client, arr[i].User_ID);
 		let username = 'Unknown';
 		if (user.id) {
-			img.src = await neko.get(user.displayAvatarURL({ size: 2048, dynamic: true }), {autoString: false});
+			img.src = await neko.get(user.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }), {autoString: false});
 			username = user.username;
 		} else {
 			img.src = await neko.get('https://cdn.discordapp.com/embed/avatars/0.png', {autoString: false});

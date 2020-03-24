@@ -5,7 +5,7 @@ exports.run = (client, message, args, Discord) => {
 		title: 'Penny\'s Website',
 		author: {
 			name: 'PennyBot',
-			icon_url: client.user.avatarURL({ size: 2048, dynamic: true }),
+			icon_url: client.user.avatarURL({ format: 'png', size: 2048, dynamic: true }),
 		},
 		color: 9043849,
 		footer: {

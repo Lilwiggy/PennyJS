@@ -1,7 +1,7 @@
 exports.run = (client, message, Discord, connection) => {
 	if (message.author.bot || message.channel.type !== 'text')
 		return;
-	client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL({ size: 2048, dynamic: true }), () => {
+	client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL({ format: 'png', size: 2048, dynamic: true }), () => {
 		connection.query(`SELECT * FROM \`Servers\` WHERE \`ServerID\` = ${message.guild.id}`, (err, res) => {
 			if (err)
 				throw err;
@@ -17,7 +17,7 @@ exports.run = (client, message, Discord, connection) => {
 						embed.title = `Message sent by ${message.author.username} deleted in ${message.channel.name} by ${logs.entries.first().executor.username}.`;
 					else
 						embed.title = `Message sent by ${message.author.username} deleted in ${message.channel.name}.`;
-					embed.thumbnail = { url: message.author.avatarURL({ size: 2048, dynamic: true }) };
+					embed.thumbnail = { url: message.author.avatarURL({ format: 'png', size: 2048, dynamic: true }) };
 					embed.color = 16741749;
 					if (message.content.length > 0) {
 						if (message.edits) {

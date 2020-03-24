@@ -1,6 +1,6 @@
 exports.run = (client, guild, user, Discord, connection) => {
 	// These are custom for 3 servers including my own. Please ignore it.
-	client.checkServer(guild.id, guild.name, guild.iconURL({ size: 2048, dynamic: true }), () => {
+	client.checkServer(guild.id, guild.name, guild.iconURL({ format: 'png', size: 2048, dynamic: true }), () => {
 		connection.query(`SELECT * FROM \`Servers\` WHERE \`ServerID\` = '${guild.id}'`, (error, results) => {
 			if (results[0].mod_log === 1) {
 				setTimeout(() => {
@@ -10,7 +10,7 @@ exports.run = (client, guild, user, Discord, connection) => {
 							let audits = audit.entries.first();
 							if (audits.target.id === user.id) {
 								let embed = {
-									thumbnail: { url: user.displayAvatarURL({ size: 2048, dynamic: true }) },
+									thumbnail: { url: user.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }) },
 									color: 16000036,
 									title: 'New ban.',
 									fields: [

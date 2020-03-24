@@ -75,7 +75,7 @@ exports.run = (client, message, args, Discord, connection) => {
 								title: `Tag info for ${args[2]}`,
 								color: 9043849,
 								thumbnail: {
-									url: user.user.displayAvatarURL({ size: 2048, dynamic: true }),
+									url: user.user.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }),
 								},
 								fields: [
 									{

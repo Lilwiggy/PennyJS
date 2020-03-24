@@ -71,7 +71,7 @@ exports.run = (client, message, args, Discord, connection) => {
                       ctx.fillStyle = role[1];
                       ctx.fillText(message.member.displayName, 75, 45);
                       async function render() {
-                        img.src = await neko.get(message.author.displayAvatarURL({ size: 2048, dynamic: true }), {autoString: false});
+                        img.src = await neko.get(message.author.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }), {autoString: false});
                         ctx.save();
 
                         ctx.beginPath();

@@ -9,7 +9,7 @@ exports.run = (client, reaction, user, dis, conn) => {
 		return;
 
 
-	client.checkServer(guild.id, guild.name, guild.iconURL({ size: 2048, dynamic: true }), () => {
+	client.checkServer(guild.id, guild.name, guild.iconURL({ format: 'png', size: 2048, dynamic: true }), () => {
 		let embed = {
 			title: msg.author.username,
 			thumbnail: {
@@ -78,7 +78,7 @@ function doStuff(client, guild, res, c, user, embed) {
 						return;
 					embed.title = ms.author.username;
 					embed.thumbnail = {
-						url: ms.author.displayAvatarURL({ size: 2048, dynamic: true }),
+						url: ms.author.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }),
 					};
 					embed.description = ms.content;
 					if (parseInt(stars[0].slice(1)) < 2) {

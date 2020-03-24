@@ -5,7 +5,7 @@ exports.run = (client, message, args, Discord, connection) => {
 		if (args.length === 1) {
 			message.channel.send('Usage: //welcome on\nOr: //welcome off');
 		} else {
-			client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL({ size: 2048, dynamic: true }), () => {
+			client.checkServer(message.guild.id, message.guild.name, message.guild.iconURL({ format: 'png', size: 2048, dynamic: true }), () => {
 				if (args[1].toLowerCase() === 'on') {
 					connection.query(`UPDATE \`Servers\` SET \`Welcome\` = 1 WHERE \`ServerID\` = '${message.guild.id}'`);
 					message.channel.send('Successfully turned on welcome messages.');

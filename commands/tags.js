@@ -84,7 +84,7 @@ function embed(client, allC, pos) {
 		author: {
 			name: `Page ${pos + 1}/${pages}`,
 			url: null,
-			icon_url: client.user.displayAvatarURL({ size: 2048, dynamic: true }),
+			icon_url: client.user.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }),
 			proxyicon_url: null,
 		},
 		color: 9043849,
