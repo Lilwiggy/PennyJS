@@ -2,20 +2,16 @@
 /* eslint-disable require-jsdoc */
 exports.run = (client, message, args, Discord, connection) => {
   // Leaderboard
-  message.channel.send(`Penny has been having issues lately and the current one is not being able to install node canvas. As such the profile and color commands are down. My apologies and updates will come ASAP over @ https://discord.gg/kwcd9dq`)
-/*	connection.query('SELECT * FROM `User` ORDER BY `Level` DESC LIMIT 10', (err, res) => {
+	connection.query('SELECT * FROM `User` ORDER BY `Level` DESC LIMIT 10', (err, res) => {
 		if (err) {
 			throw err;
 		}
-		const Canvas = require('canvas');
+		const { createCanvas, Image, registerFont } = require('canvas');
 		const neko = require('nekocurl');
-		const Image = Canvas.Image;
-		const canvas = new Canvas(516, 580);
+		registerFont('./fonts/inria-sans.regular.ttf', { family: 'Inria Sans' });
+		const canvas = createCanvas(516, 580);
 		const ctx = canvas.getContext('2d');
 		const img = new Image();
-		const Font = Canvas.Font;
-		const font = new Font('InriaSans', './fonts/inria-sans.regular.ttf');
-		ctx.addFont(font);
 		ctx.fillStyle = '#18191c';
 		ctx.fillRect(0, 0, 516, 582);
 		let x = 8;
@@ -34,7 +30,7 @@ exports.run = (client, message, args, Discord, connection) => {
 		ctx.globalAlpha = 1;
 
 		render(img, neko, ctx, canvas, message, Discord, res, client).catch(console.error);
-  }); */
+  }); 
   
 };
 
@@ -84,11 +80,10 @@ async function render(img, neko, ctx, canvas, message, Discord, arr, client) {
 
 
 	canvas.toBuffer((e, buff) => {
-		const pro = new Discord.Attachment()
-			.setAttachment(buff, 'hi.png');
+		const pro = new Discord.MessageAttachment(buff, 'hi.png');
 
 		message.channel.send({
-			file: pro,
+			files: [pro],
 		});
 	});
 }

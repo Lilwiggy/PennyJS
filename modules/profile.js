@@ -1,23 +1,21 @@
 // So uh, this is the guts of the profile command, it's very, uh, messy, best to ignore it.
 exports.pro = (client, id, username, avatar, message, connection, Discord) => {
   message.channel.startTyping();
-  client.checkUser(id, avatar, () => {
     connection.query(`SELECT * FROM \`User\` WHERE \`User_ID\` = '${id}'`, (err, res) => {
       if (err)
         throw err;
       const config = require('./config.json');
       const fs = require('fs');
-      const Canvas = require('canvas');
+      const { createCanvas, Image, registerFont } = require('canvas');
       const neko = require('nekocurl');
 
-      let Image = Canvas.Image;
-      let canvas = new Canvas(1920, 1080);
+      registerFont('./fonts/inria-sans.regular.ttf', { family: 'Inria Sans' });
+      let canvas = createCanvas(1920, 1080);
       let ctx = canvas.getContext('2d');
 
       let img = new Image();
-      let Font = Canvas.Font;
 
-      let font = new Font('InriaSans', './fonts/inria-sans.regular.ttf');
+
       if (res[0].background && res[0].background !== 'default') {
         img.src = fs.readFileSync(`./backgrounds/${res[0].background}.png`);
         ctx.drawImage(img, 0, 0, 1920, 1080);
@@ -25,7 +23,6 @@ exports.pro = (client, id, username, avatar, message, connection, Discord) => {
         ctx.fillStyle = message.guild.members.get(id).displayHexColor;
         ctx.fillRect(0, 0, 1920, 1080);
       }
-      ctx.addFont(font);
       ctx.font = `80px "Inria Sans"`;
       ctx.fillStyle = '#fff';
       img.src = fs.readFileSync('./backgrounds/thingy.png');
@@ -67,15 +64,13 @@ exports.pro = (client, id, username, avatar, message, connection, Discord) => {
         canvas.toBuffer((e, buff) => {
           if (e)
             client.users.get(`232614905533038593`).send(`Error:\n${e}`);
-          let pro = new Discord.Attachment()
-            .setAttachment(buff, `${username}.png`);
+          let pro = new Discord.MessageAttachment(buff, `${username}.png`);
 
           message.channel.send(`Profile card for **${username}**`, {
-            file: pro,
+            files: [pro],
           }).then(message.channel.stopTyping());
         });
       }
       render();
     });
-  });
 };
